@@ -7,4 +7,9 @@ class Home extends Controller {
         $this->view('admin/t');
     }
 
+    public function test()
+    {
+        echo 'ok';
+    }
+
 }
