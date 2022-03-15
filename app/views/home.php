@@ -1,49 +1,10 @@
-<?php
-    include '..\Repositories\UserRepository.php';
-    include 'define.php';
-    $a = new UserRepository();
-    $users = $a->test();
-?>
-
+    <?php
+       
+    ?>
 
 <?php include 'header.php'; ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Home | E-Woala</title>
 
-    
-    <?php
-   
-        echo '<link href="' . CSS . 'bootstrap.min.css" rel="stylesheet">
-        <link href="' . CSS . 'font-awesome.min.css" rel="stylesheet">
-        <link href="' . CSS . 'prettyPhoto.css" rel="stylesheet">
-        <link href="' . CSS . 'price-range.css" rel="stylesheet">
-        <link href="' . CSS . 'animate.css" rel="stylesheet">
-        <link href="' . CSS . 'main.css" rel="stylesheet">
-        <link href="' . CSS . 'responsive.css" rel="stylesheet">';
-    
-        echo '<link rel="shortcut icon" href="' . IMAGES . 'ico/favicon.ico">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="' . IMAGES . 'ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="' . IMAGES . 'ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="' . IMAGES . 'ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="' . IMAGES . 'ico/apple-touch-icon-57-precomposed.png">';
-
-        echo '<script src="' . JS . 'jquery.js" defer></script>
-        <script src="' . JS . 'bootstrap.min.js" defer></script>
-        <script src="' . JS . 'jquery.scrollUp.min.js" defer></script>
-        <script src="' . JS . 'price-range.js" defer></script>
-        <script src="' . JS . 'jquery.prettyPhoto.js" defer></script>
-        <script src="' . JS . 'main.js" defer></script>';
-
-    ?>
-
-<body>
 	
 	<section id="slider"><!--slider-->
 		<div class="container">
@@ -800,13 +761,8 @@
 			</div>
 		</div>
 	</section>
-	
-	
-  
     
-</body>
  <?php
     include 'footer.php';
  ?>
-</html>
 
