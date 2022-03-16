@@ -1,27 +1,22 @@
-<?php
-include 'define.php';
 
-        echo '<link href="' . CSS . 'bootstrap.min.css" rel="stylesheet">
-        <link href="' . CSS . 'font-awesome.min.css" rel="stylesheet">
-        <link href="' . CSS . 'prettyPhoto.css" rel="stylesheet">
-        <link href="' . CSS . 'price-range.css" rel="stylesheet">
-        <link href="' . CSS . 'animate.css" rel="stylesheet">
-        <link href="' . CSS . 'main.css" rel="stylesheet">
-        <link href="' . CSS . 'responsive.css" rel="stylesheet">';
+<?php 
+    include 'header.php';
+    include '../Repositories/UserRepository.php';
+
+    $user = new UserRepository();
+    $info = null;
+    if(isset($_POST['sb-sign-up'])) {
+        $info = $user->signUp($_POST);
+    }
+    var_dump('ok - ', $info);
+
     
-        echo '<link rel="shortcut icon" href="' . IMAGES . 'ico/favicon.ico">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="' . IMAGES . 'ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="' . IMAGES . 'ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="' . IMAGES . 'ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="' . IMAGES . 'ico/apple-touch-icon-57-precomposed.png">';
+    
+    echo '<link rel="stylesheet" href="' . CSS . 'login.css" />';
+    echo '<script src="' . JS . 'login.js" defer></script>'
+?>
 
-        echo '<script src="' . JS . 'jquery.js" defer></script>
-        <script src="' . JS . 'bootstrap.min.js" defer></script>
-        <script src="' . JS . 'jquery.scrollUp.min.js" defer></script>
-        <script src="' . JS . 'price-range.js" defer></script>
-        <script src="' . JS . 'jquery.prettyPhoto.js" defer></script>
-        <script src="' . JS . 'main.js" defer></script>';
-    ?>
+
 
 <section id="form"><!--form-->
 		<div class="container">
@@ -29,9 +24,19 @@ include 'define.php';
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form action="#">
-							<input type="text" placeholder="Name" />
-							<input type="email" placeholder="Email Address" />
+						<form method="POST">
+							<input type="text" name="txt-num-phone" value="<?php
+                                if(isset($info['num_phone'])) {
+                                    echo $info['num_phone'];
+                                }
+                            ?>" placeholder="Phone number" />
+							<input type="password" name="password" value="<?php
+                                if(isset($info['password_current'])) {
+                                    echo $info['password_current'];
+                                }
+                            ?>" placeholder="Password" id="my_pw_login" />
+                            <label onclick="hideShowPW(this)" id="pwSignIn" >Show Password</label>
+                                <br>
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in
@@ -46,14 +51,26 @@ include 'define.php';
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="#">
-							<input type="text" placeholder="Name"/>
-							<input type="email" placeholder="Email Address"/>
-							<input type="password" placeholder="Password"/>
-							<button type="submit" class="btn btn-default">Signup</button>
+						<form action="" method="POST" >
+							<input type="text" name="txt-name" placeholder="Name" oninput="check(this)" required/>
+                            <div id="name_error" class="error hidden">Name do not contain spaces</div>
+
+							<input type="text" name="txt-num-phone" placeholder="Phone number" id="myform_phone" oninput="validatePhone(this)" required/>
+                            <div id="phone_error" class="error hidden">Phone number does not contain characters</div>
+
+							<input type="text" name="txt-address" placeholder="Address" required/>
+							
+                            <input type="password" name="password" placeholder="Password" id="my_password" oninput="check(this)" required/>
+                            <label onclick="hideShow(this)" id="pwSignUp">Show Password</label>
+                            <div id="password_error" class="error hidden">Password do not contain spaces</div>
+							
+                            <button type="submit" name="sb-sign-up" class="btn btn-default">Signup</button>
 						</form>
 					</div><!--/sign up form-->
 				</div>
 			</div>
 		</div>
 	</section><!--/form-->
+
+
+<?php include 'footer.php' ?>

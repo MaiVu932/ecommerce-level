@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION)) {
+    session_start();
+}
+
  include 'define.php';
 
  echo '<link href="' . CSS . 'bootstrap.min.css" rel="stylesheet">
@@ -32,8 +36,8 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i> 0985 944 691</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> woala932@gmail.com </a></li>
 							</ul>
 						</div>
 					</div>
