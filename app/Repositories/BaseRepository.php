@@ -9,7 +9,7 @@ class BaseRepository
 	protected $host 			= 'localhost';
 	protected $username 		= 'root';
 	protected $password 		= '';
-	protected $dbname 			= 'zerotype';
+	protected $dbname 			= 'ecommerce_woala';
 
 	public function __construct() {}
 
@@ -46,7 +46,6 @@ class BaseRepository
 
 
 		$sql = "INSERT INTO $table($field_list) VALUES($value_list);";
-		var_dump($sql);
 
 		return $this->_connection->query($sql);
 	}
