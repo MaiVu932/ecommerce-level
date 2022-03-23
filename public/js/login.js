@@ -24,9 +24,9 @@ function check(e)
         document.getElementById('password_error').classList.remove('hidden');
     } else {
         if(e.getAttribute('name') == 'txt-name')
-        document.getElementById('name_error').classList.add('hidden');
-    else
-    document.getElementById('password_error').classList.add('hidden');
+             document.getElementById('name_error').classList.add('hidden');
+        else
+            document.getElementById('password_error').classList.add('hidden');
     }
 }
 

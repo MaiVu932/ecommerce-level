@@ -61,7 +61,7 @@ if(!isset($_SESSION)) {
 				<div class="row">
 					<div class="col-md-4 clearfix">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/logo.png" alt="" /></a>
+							<a href="home.php"><img src="images/home/logo.png" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right clearfix">
 							<div class="btn-group">
@@ -94,7 +94,12 @@ if(!isset($_SESSION)) {
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
+                                <?php if(isset($_SESSION['username'])): ?>
+                                    <li><a href="user_update.php"><i class="fa fa-lock"></i><?php echo $_SESSION['username'] ?></a></li>
+                                <?php else: ?>
+                                    <li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
+                                <?php endif; ?>
+								
 							</ul>
 						</div>
 					</div>
@@ -116,7 +121,7 @@ if(!isset($_SESSION)) {
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html" class="active">Home</a></li>
+								<li><a href="home.php" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>

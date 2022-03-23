@@ -5,12 +5,14 @@
 
     $user = new UserRepository();
     $info = null;
+    $login = null;
     if(isset($_POST['sb-sign-up'])) {
         $info = $user->signUp($_POST);
     }
-    var_dump('ok - ', $info);
 
-    
+    if(isset($_POST['sbm-login'])) {
+        $login = $user->signIn($_POST);
+    }
     
     echo '<link rel="stylesheet" href="' . CSS . 'login.css" />';
     echo '<script src="' . JS . 'login.js" defer></script>'
@@ -29,7 +31,10 @@
                                 if(isset($info['num_phone'])) {
                                     echo $info['num_phone'];
                                 }
-                            ?>" placeholder="Phone number" />
+                            ?>" placeholder="Phone number" oninput="validatePhone(this)" />
+                            <div id="phone_error" class="error hidden">Phone number does not contain characters</div>
+
+
 							<input type="password" name="password" value="<?php
                                 if(isset($info['password_current'])) {
                                     echo $info['password_current'];
@@ -38,10 +43,15 @@
                             <label onclick="hideShowPW(this)" id="pwSignIn" >Show Password</label>
                                 <br>
 							<span>
-								<input type="checkbox" class="checkbox"> 
+							<input type="checkbox" name="cbx-keep" class="checkbox"> 
 								Keep me signed in
 							</span>
-							<button type="submit" class="btn btn-default">Login</button>
+							<button type="submit" class="btn btn-default" name="sbm-login">Login</button>
+                            <?php if($login): ?>
+                                <span style="color: red"><?php echo $login ?></span>
+                            <?php else: ?>
+                                <!-- <span style="color: green;">Login success !!</span> -->
+                            <?php endif; ?>
 						</form>
 					</div><!--/login form-->
 				</div>
