@@ -1,18 +1,35 @@
 function validatePhoneNumber(input_str) 
 {
-    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    var re = /^[\+]?[(]?[01w-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
     return re.test(input_str);
 }
 
 function validatePhone(e) 
 {
-    var phone = e.value;
+    var phone = e.value.trim();
+
     if (!validatePhoneNumber(phone)) {
         document.getElementById('phone_error').classList.remove('hidden');
     } else {
         document.getElementById('phone_error').classList.add('hidden');
     }
+    if (phone.length > 10) {
+        document.getElementById('phone_error_len').classList.add('hidden');
+    } 
+}
+
+function validatePhoneSignUp(e) 
+{
+    var phone = e.value.trim();
+    if (!validatePhoneNumber(phone)) {
+        document.getElementById('phone_error_signup').classList.remove('hidden');
+    } else {
+        document.getElementById('phone_error_signup').classList.add('hidden');
+    }
+    if (phone.length > 10) {
+        document.getElementById('phone_error_signup_len').classList.add('hidden');
+    } 
 }
 
 function check(e)

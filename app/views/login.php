@@ -33,6 +33,8 @@
                                 }
                             ?>" placeholder="Phone number" oninput="validatePhone(this)" />
                             <div id="phone_error" class="error hidden">Phone number does not contain characters</div>
+                            <div id="phone_error_len" class="error hidden">Phone number must not exceed 13 digits</div>
+
 
 
 							<input type="password" name="password" value="<?php
@@ -65,8 +67,10 @@
 							<input type="text" name="txt-name" placeholder="Name" oninput="check(this)" required/>
                             <div id="name_error" class="error hidden">Name do not contain spaces</div>
 
-							<input type="text" name="txt-num-phone" placeholder="Phone number" id="myform_phone" oninput="validatePhone(this)" required/>
-                            <div id="phone_error" class="error hidden">Phone number does not contain characters</div>
+							<input type="text" name="txt-num-phone" placeholder="Phone number" id="myform_phone" oninput="validatePhoneSignUp(this)" required/>
+                            <div id="phone_error_signup" class="error hidden">Phone number does not contain characters</div>
+                            <div id="phone_error_signup_len" class="error hidden">Phone number must not exceed 13 digits</div>
+
 
 							<input type="text" name="txt-address" placeholder="Address" required/>
 							
