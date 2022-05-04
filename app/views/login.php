@@ -15,7 +15,7 @@
     }
     
     echo '<link rel="stylesheet" href="' . CSS . 'login.css" />';
-    echo '<script src="' . JS . 'login.js" defer></script>'
+    echo '<script src="' . JS . 'login.js" defer></script>';
 ?>
 
 
