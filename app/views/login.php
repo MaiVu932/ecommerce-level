@@ -8,12 +8,10 @@
     if(isset($_POST['sb-sign-up'])) {
         $info = $user->signUp($_POST);
     }
-    var_dump('ok - ', $info);
-
     
     
     echo '<link rel="stylesheet" href="' . CSS . 'login.css" />';
-    echo '<script src="' . JS . 'login.js" defer></script>'
+    echo '<script src="' . JS . 'login.js" defer></script>';
 ?>
 
 
