@@ -1,7 +1,7 @@
 <?php 
 include 'header.php';
 
-echo '<link rel="stylesheet" href="' . CSS . 'category_create.css" />';
+echo '<link rel="stylesheet" href="' . CSS . 'categorycreate.css" />';
 
 ?>
 
