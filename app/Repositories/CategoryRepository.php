@@ -14,9 +14,6 @@ class CategoryRepository extends BaseRepository
         $category = $this->get_data("SELECT * FROM categories WHERE name = '$name'");
         return count($category) ? true : false;
     }
-
-    
-
     public function select_category()
     {
         $category = $this->get_data("SELECT * FROM categories ");
@@ -57,31 +54,5 @@ class CategoryRepository extends BaseRepository
                 }
             }
     }
-
-
-    // // public function update_category('Categories', $data, $category)
-    // public function Update_category(array $data)
-    // {
-
-    //         $code=trim($data['tcode']);
-    //         $name=trim($data['tname']);
-    //         $description=trim($data['tmota']);
-
-    //         if($this->isExistCode($data['tcode'] == $_GET['updateCode']))
-    //         {
-    //             $category = [
-    //                 'code'        => $code,
-    //                 'name'        => $name,
-    //                 'description' => $description
-    //             ];
-    //             $category = $this->update('categories', $category, $_GET['updateCode']);
-    //             echo '<script>alert("Update successful category")</script>';
-    //         }
-    //         else
-    //         {
-    //             echo "Update category failed";
-    //         }
-            
-    // }
 
 } 
