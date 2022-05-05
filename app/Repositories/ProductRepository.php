@@ -5,21 +5,21 @@
         {
             $sql = "SELECT * FROM categories";
             $data = $this->get_data($sql);
-            return($data);
+            return $data;
         }
 
         public function getShops()
         {
             $sql = "SELECT * FROM shops WHERE user_id = '1'";
             $data = $this->get_data($sql);
-            return($data);
+            return $data;
         }
 
         public function getProducts()
         {
             $sql = "SELECT * FROM products";
             $data = $this->get_data($sql);
-            return($data);
+            return $data;
         }
 
         public function validateCodeProduct($code)
@@ -52,8 +52,17 @@
         
         }
 
+        public function getCodeCategoryById($categoryId)
+        {
+            $sql = "SELECT * FROM categories WHERE id = '$categoryId'";
+            $data = $this->get_data($sql);
+            return $data;
+        }
+
         public function UpLoadImage($data,$category_id)
         {
+            $categoryCode = $this->getCodeCategoryById($category_id)[0]['code'];
+
             $UploadErr = [];
             if(!isset($_FILES['image'])){
                 $UploadErr['exitImage'] = 'File ảnh không tồn tại !';
@@ -84,7 +93,7 @@
                     'err' => $UploadErr,
                 ];
             }
-            $path = '../../public/images/'. $category_id . '/' . $data . '.' . $extension;
+            $path = '../../public/images/'. $categoryCode . '/' . $data . '.' . $extension;
 
             $is_upload_success = move_uploaded_file($temp_name, $path);
 
@@ -156,7 +165,7 @@
                         'image'              => $image,
                         'description'        => $describe,     
                     ];
-                   
+
                     $insert = $this->insert('products', $product);
                     if($insert){
                         echo "<script>alert('Bạn đã thêm sản phẩm THÀNH CÔNG!!!')</script>";
