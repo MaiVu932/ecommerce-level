@@ -46,7 +46,6 @@ class BaseRepository
 
 
 		$sql = "INSERT INTO $table($field_list) VALUES($value_list);";
-
 		return $this->_connection->query($sql);
 	}
 
