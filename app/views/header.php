@@ -92,11 +92,11 @@ if(!isset($_SESSION)) {
 							<ul class="nav navbar-nav">
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php if(isset($_SESSION['username'])): ?>
                                     <li><a href="user_update.php"><i class="fa fa-lock"></i><?php echo $_SESSION['username'] ?></a></li>
-                                <?php else: ?>
+								    <li><a href="user_logout.php"><i class="fa fa-crosshairs"></i> Logout</a></li>
+                                    <?php else: ?>
                                     <li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
                                 <?php endif; ?>
 								

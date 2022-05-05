@@ -19,27 +19,29 @@ class UserRepository extends BaseRepository
 
     public function getInfoByNumPhone(string $numPhone)
     {
-        return $this->get_data("SELECT * FROM users WHERE num_phone = $numPhone");
+        return $this->get_data("SELECT * FROM users WHERE num_phone = '$numPhone'");
     }
 
     public function signUp(array $data)
     {
-        $isNumPhone = $this->isValidTelephoneNumber($data['txt-num-phone']);
+        // $isNumPhone = $this->isValidTelephoneNumber($data['txt-num-phone']);
+        $isNumPhone = is_numeric($data['txt-num-phone']);
         $isName = strpos($data['txt-name'], ' ');
         $isPw = strpos($data['password'], ' ') && count($data['password']) >= 4;
         
         if(empty($data['txt-num-phone']) || empty($data['password'])) {
-            return 'Please enter infomation !';
+            echo '<script> alert("Please enter infomation !") </script>';
+            return;
         }
-
-        if(count($this->getInfoByNumPhone($data['txt-num-phone']))) {
+        if(count($this->getInfoByNumPhone($data['txt-num-phone'])) > 0) {
             echo '<script>alert("Number phone is exists !")</script>';
             return;
         }
+      
 
         if($isNumPhone && !$isName && !$isPw) {
             $user = [
-                'role_id' => 1,
+                'permission' => 1,
                 'name' => trim($data['txt-name']),
                 'address' => trim($data['txt-address']),
                 'num_phone' => trim($data['txt-num-phone']),
@@ -57,19 +59,25 @@ class UserRepository extends BaseRepository
     public function signIn(array $data)
     {
         if(empty($data['txt-num-phone']) || empty($data['password'])) {
-            return 'Please enter infomation !';
+            echo 'Please enter infomation !';
+            return false;
         }
+
         $phone = $this->getInfoByNumPhone($data['txt-num-phone']);
+
         if(!count($phone)) {
-            return 'Number phone not exist !';
+            echo 'Number phone not exist !';
+            return false;
         }
         if(!password_verify($_POST['password'], $phone[0]['password_hash'])) {
-            return "Password fail !";
+            echo "Password fail !";
+            return false ;
         }
-            $_SESSION['username'] = $phone[0]['name'];
-            $_SESSION['role'] = $phone[0]['role_id'];
-            $_SESSION['id'] = $phone[0]['id'];
-        return null;
+        $_SESSION['username'] = $phone[0]['name'];
+        $_SESSION['role'] = $phone[0]['permission'];
+        $_SESSION['id'] = $phone[0]['id'];
+        // header('location: home.php?login=true');
+        return true;
     }
 
     public function getInfoById(int $id)        
@@ -87,11 +95,6 @@ class UserRepository extends BaseRepository
         if(empty($data['txt-num-phone']) || empty($data['password'])) {
             return 'Please enter infomation !';
         }
-
-        // if(count($this->getInfoByNumPhone($data['txt-num-phone']))) {
-        //     echo '<script>alert("Number phone is exists !")</script>';
-        //     return;
-        // }
         
         if($isNumPhone && !$isName && !$isPw) {
             $user = [
