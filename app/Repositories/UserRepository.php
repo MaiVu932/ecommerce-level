@@ -19,6 +19,7 @@ class UserRepository extends BaseRepository
     {
         $user = $this->get_data("SELECT * FROM users WHERE num_phone = $numPhone");
         return count($user) ? true : false;
+        // 0, null, undefine, false, '' 
     }
 
     public function signUp(array $data)
