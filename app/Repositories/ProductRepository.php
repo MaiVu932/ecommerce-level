@@ -115,7 +115,8 @@
                 $describe = trim($data['product-describe']);
                 $errors = []; 
 
-                if(empty($shopName) || empty($categoriesName) || empty($code) || empty($name) || empty($price) || empty($unit) ){
+                if(empty($shopName) || empty($categoriesName) || empty($code) || empty($name) || empty($price) 
+                    || empty($priceMarket) || empty($unit) || empty($quantity) || empty($describe) ){
                     
                     echo 'loi trong';
                     $errors['emptyData'] = "Các trường có (*) không được bỏ trống!!";
@@ -168,7 +169,7 @@
 
         public function getInfoProduct()
         {
-            $sql = "SELECT p.id 'id', c.id 'id_category', c.name 'name-category', s.id 'id-shop',
+            $sql = "SELECT p.id, c.id 'id-category', c.name 'name-category', s.id 'id-shop',
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                     p.unit, p.image, p.description, p.status, p.reason_refusal
                     FROM `products` p, `categories` c, `shops` s

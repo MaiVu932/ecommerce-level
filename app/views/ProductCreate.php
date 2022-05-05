@@ -10,9 +10,10 @@
 
         $info = $get_data->createProducts($_POST);
     }
-    var_dump('ok - ', $info);
+    // var_dump('ok - ', $info);
 
     echo '<link href="' . CSS . 'createP.css" rel="stylesheet">';
+    echo '<script src="' . JS . 'login.js" defer></script>';
 ?>
 	<div class="content">
 		<div id="about">
@@ -53,7 +54,7 @@
                 <input type="number" class="form-control" name="product-priceMarket" required />
 
                 <label>Mô tả sản phẩm</label>
-                <textarea style="width: 100%; height: 150px" name = "product-describe"></textarea> </br>
+                <textarea style="width: 100%; height: 150px" name = "product-describe" required ></textarea> </br>
 
                 <label>Upload Avatar</label>
                 <input type="file" class="form-control" name="image" required>

@@ -1,0 +1,34 @@
+.content {
+	width: auto;
+	height: auto;
+	margin: 25px;
+    background-color: aliceblue;
+}
+.content table, th, tr{
+
+    border: 1px solid black;
+}
+#post {
+    border-collapse : collapse;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+#post td, #post th {
+    border: 1px solid #ddd;
+    padding: 8px;
+
+}
+
+#post tr:ntn-child(event){
+    background-color: #f2f2f2;
+}
+#post tr:hover{
+    background-color: #ddd;
+}
+#post th{
+    text-align: left;
+    background-color: grey;
+    color: white;
+}
