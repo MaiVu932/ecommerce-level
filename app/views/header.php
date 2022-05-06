@@ -90,8 +90,11 @@ if(!isset($_SESSION)) {
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
-								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
+                                <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3): ?>
+								    <li><a href=""><i class="fa fa-star"></i> Users</a></li>
+								    <li><a href="category_list.php"><i class="fa fa-user"></i> Categories</a></li>
+                                <?php endif; ?>
+
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php if(isset($_SESSION['username'])): ?>
                                     <li><a href="user_update.php"><i class="fa fa-lock"></i><?php echo $_SESSION['username'] ?></a></li>
