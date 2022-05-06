@@ -51,7 +51,11 @@
 <?php include ('header.php');?>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <?php
+<<<<<<< HEAD
     echo '<link rel="stylesheet" href="' . CSS . 'categorycreate.css" />';
+=======
+    echo '<link rel="stylesheet" href="' . CSS . 'category_create.css" />';
+>>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
 ?>
 <?php
     include '../Repositories/CategoryRepository.php';
@@ -61,9 +65,15 @@
 ?>
 
 <div class="cates">
+<<<<<<< HEAD
 
     <b style="font-size: 30px; color:green"> LIST CATEGORY </b><br>
     <a href="categorycreate.php"><input class="subC" type="submit" value="Create"></a>
+=======
+            
+    <b style="font-size: 30px; color:green"> LIST CATEGORY </b><br>
+    <a href="category_create.php"><input class="subC" type="submit" value="Create"></a>
+>>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
     <table class="Vicate">
         <tr class="lows1">
             <th>STT</th>
@@ -86,7 +96,11 @@
             <th><?php echo $select['name'] ?></th>
             <th><?php echo $select['description'] ?></th>
             <th><a href="category_update.php?updateCode=<?php echo $select['code'] ?>"><input class="but" type="submit" value="Update"></a></th>
+<<<<<<< HEAD
             <th><a href="category_delete.php?deleteCode=<?php echo $select['code'] ?>" onclick="return confirm ('Bạn có chắc chắn muốn xóa không??')"><input class="but" type="submit" name="sub_Del" value="Delete"></a></th>
+=======
+            <th><a href="category_delete.php?deleteCode=<?php echo $select['code'] ?>" onclick="return confirm ('Bạn có chắc chắn muốn xóa không??')"><input class="but" type="submit" value="Delete"></a></th>
+>>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
         </tr>
         <?php  } ?>
     </table>
@@ -95,4 +109,8 @@
 
 
 <?php include ('footer.php');?>
+<<<<<<< HEAD
 </html> 
+=======
+</html>
+>>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
