@@ -47,7 +47,7 @@ class UserRepository extends BaseRepository
 
         if($isNumPhone && !$isName && !$isPw) {
             $user = [
-                'permission' => 1,
+                'permission' => 0,
                 'name' => trim($data['txt-name']),
                 'address' => trim($data['txt-address']),
                 'num_phone' => trim($data['txt-num-phone']),
