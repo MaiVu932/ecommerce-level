@@ -12,6 +12,20 @@ input {
     height: 50px;
     margin-top: 10px;
     text-align: 10px;
-    /* text-align: left; */
-
+    padding-left: 10px;
 }
+ h1 {
+     text-align: center;
+ }
+
+ p {
+     margin-top: 25px;
+     margin-bottom: 0px;
+     color: #726f6f;
+ }
+
+ input[type="submit"] {
+     margin: 40px 0 20px 0;
+ }
+
+
