@@ -58,7 +58,12 @@
                             <label onclick="hideShowPW(this)" id="pwSignIn" >Show Password</label>
                                 <br>
 							<span>
-							<button type="submit" class="btn btn-default" name="sbm-login">Login</button>
+							<button 
+                                type="submit" 
+                                id="sb-login"
+                                name="sbm-login">
+                                Login
+                            </button>
                             
 						</form>
 					</div><!--/login form-->
@@ -97,11 +102,22 @@
 
 							<input type="text" name="txt-address" placeholder="Address" required/>
 							
-                            <input type="password" name="password" placeholder="Password" id="my_password" oninput="check(this)" required/>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                placeholder="Password" 
+                                id="my_password" 
+                                oninput="check(this)" required/>
                             <label onclick="hideShow(this)" id="pwSignUp">Show Password</label>
                             <div id="password_error" class="error hidden">Password do not contain spaces</div>
 							
-                            <button type="submit" name="sb-sign-up" class="btn btn-default">Signup</button>
+                            <button 
+                                type="submit" 
+                                id="sb-sign-up"
+                                c
+                                name="sb-sign-up" >
+                                Signup
+                            </button>
 						</form>
 					</div><!--/sign up form-->
 				</div>

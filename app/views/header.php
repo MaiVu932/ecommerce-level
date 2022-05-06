@@ -97,7 +97,7 @@ if(!isset($_SESSION)) {
                                     <li><a href="user_update.php"><i class="fa fa-lock"></i><?php echo $_SESSION['username'] ?></a></li>
 								    <li><a href="user_logout.php"><i class="fa fa-crosshairs"></i> Logout</a></li>
                                     <?php else: ?>
-                                    <li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li>
+                                    <li><a href="user_login.php"><i class="fa fa-lock"></i> Login</a></li>
                                 <?php endif; ?>
 								
 							</ul>
