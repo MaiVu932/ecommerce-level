@@ -136,13 +136,9 @@
                
                 if(count($validateCode)>0){
                     
-                    echo "Loi code";
+                    echo "<script>alert('Mã code không hợp lệ!!!')</script>";
                     return $validateCode;
                 }
-
-                $UpImage = $this->UpLoadImage($code, $categoriesName);
-
-                $image = $code . '.' . $UpImage['extension'];
                 
                 if( $this->isExitCode($data['product-code']))
                 {
@@ -151,6 +147,11 @@
                     return;
 
                 }
+
+                $UpImage = $this->UpLoadImage($code, $categoriesName);
+
+                $image = $code . '.' . $UpImage['extension'];
+                
                 
                     $product = [
                         'shop_id'            => $shopName,
@@ -185,6 +186,13 @@
                     WHERE p.category_id = c.id AND p.shop_id = s.id";
             $data = $this->get_data($sql);
             return($data);
+        }
+
+        public function getInfoProductById($productId)
+        {
+            $sql = "SELECT * FROM products WHERE id = '$productId'";
+            $data = $this->get_data($sql)[0];
+            return $data;
         }
 
     }

@@ -65,8 +65,15 @@
                     <td><?php echo $product['description'] ?></td>
                     <td><?php echo $product['status'] ?></td>
                     <td><?php echo $product['reason_refusal'] ?></td>
-                    <th><a href="userDelete.php?updateId=<?php echo $product['id'] ?>"><input type="button" value = "Sửa"></a></th>
-                    <th><a href="userDelete.php?deleteId="onclick="return confirm ('Bạn có chắc chắn muốn xóa không')"><input type="button" value = "Xóa"></a></th>
+                    <th><a href="ProductUpdate.php?updateId=<?php echo $product['id'] ?>"><input type="button" value = "Sửa"></a></th>
+                    <?php if($product['status'] != 1){ ?>
+                    <th>
+                        <a href="ProductDelete.php?deleteId=<?php echo $product['id'] ?>"
+                        onclick="return confirm ('Bạn có chắc chắn muốn xóa không')">
+                        <input type="button" value = "Xóa">
+                        </a>
+                    </th>
+                    <?php } ?>
 
                 </tr>
                 <?php } ?>
