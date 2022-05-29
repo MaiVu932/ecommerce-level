@@ -131,11 +131,9 @@ if(!isset($_SESSION)) {
                                         <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 0): ?>
                                             <li><a href="shop_create.php">Create shop</a></li>
                                         <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 1): ?>
-                                            <li><a href="shop.html">Products</a></li>
+                                            <li><a href="shop_list.php">Shops</a></li>
                                             <!-- <li><a href="product-details.html">Product Details</a></li>  -->
                                             <!-- <li><a href="checkout.html">Checkout</a></li>  -->
-                                            <li><a href="cart.html">Cart</a></li> 
-                                            <li><a href="login.html">Login</a></li>
                                         <?php else: ?>
                                         <?php endif; ?>
                                          
