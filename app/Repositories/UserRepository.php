@@ -127,7 +127,14 @@ class UserRepository extends BaseRepository
         }
     }
 
+    public function shopsOfUserId()
+    {
+        $query = "SELECT id, name FROM shops WHERE user_id = " + $_SESSION['id'];
+        return $this->get_data($query);
+    }
 
+
+    
 }
 
 ?>

@@ -1,6 +1,10 @@
 <?php include 'header.php';
     if (isset($_POST['btn-shop-create'])) {
-        var_dump($_POST);
+        include '../Repositories/ShopRepository.php';
+        $shop = new ShopRepository();
+        $info = $shop->createShop($_POST);
+        var_dump($info);
+        $shop->validate();
     }
 ?>
 
@@ -36,6 +40,7 @@
 
     <p>Enter description</p>
     <textarea 
+        name="txt-description"
         placeholder="Description shop" 
         rows="6" 
         required >
