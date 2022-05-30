@@ -8,6 +8,10 @@
     if(isset($_POST['sb-sign-up'])) {
         $info = $user->signUp($_POST);
     }
+
+		if (isset($_POST['login'])) {
+			$info = $user->login($_POST);
+		}
     
     
     echo '<link rel="stylesheet" href="' . CSS . 'login.css" />';
@@ -23,7 +27,7 @@
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
 						<form method="POST">
-							<input type="text" name="txt-num-phone" value="<?php
+							<input type="number" name="txt-num-phone" value="<?php
                                 if(isset($info['num_phone'])) {
                                     echo $info['num_phone'];
                                 }
@@ -39,7 +43,7 @@
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in
 							</span>
-							<button type="submit" class="btn btn-default">Login</button>
+							<button name="login" type="submit" class="btn btn-default">Login</button>
 						</form>
 					</div><!--/login form-->
 				</div>

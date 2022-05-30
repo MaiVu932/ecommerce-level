@@ -1,22 +1,23 @@
-<?php 
-if(!isset($_SESSION)) { 
-    session_start(); 
-} 
+<?php
+if (!isset($_SESSION)) {
+	session_start();
+}
 class BaseRepository
 {
-    // ecommerce_woala
+	// ecommerce_woala
 	protected $_connection 		= null;
 	protected $host 			= 'localhost';
 	protected $username 		= 'root';
 	protected $password 		= '';
 	protected $dbname 			= 'ecommerce_woala';
 
-	public function __construct() {}
+	public function __construct()
+	{
+	}
 
 	public function __destruct()
 	{
-		if( $this->_connection )
-		{
+		if ($this->_connection) {
 			$this->_connection->close();
 		}
 	}
@@ -34,8 +35,7 @@ class BaseRepository
 
 		$field_list = '';
 		$value_list = '';
-		foreach ($data as $key => $value)
-		{
+		foreach ($data as $key => $value) {
 			$field_list .= ', ' . $key;
 			$value_list .= ', "' . $this->_connection->real_escape_string($value) . '"';;
 		}
@@ -56,7 +56,7 @@ class BaseRepository
 
 		$field_list = '';
 		foreach ($data as $key => $value) {
-			$field_list .= "$key = " . $this->_connection->real_escape_string($value) . ", ";
+			$field_list .= "$key = '" . $this->_connection->real_escape_string($value) . "', ";
 		}
 		$field_list = trim($field_list, ', ');
 		$sql = "UPDATE $table SET $field_list WHERE $where ;";
@@ -67,7 +67,7 @@ class BaseRepository
 	{
 		$sql = '';
 		$this->connect();
-		if($where !== null) {
+		if ($where !== null) {
 			$sql = "DELETE FROM $table WHERE $where ;";
 		} else {
 			$sql = "DELETE FROM $table;";
@@ -83,17 +83,22 @@ class BaseRepository
 
 		$query = $this->_connection->query($sql);
 
-		if(!$query)
+		if (!$query)
 			die("Cau lenh truy van sai!");
 
 		// $result = $query->fetch_all();
 
-		while( $row = $query->fetch_assoc() )
-		{
+		while ($row = $query->fetch_assoc()) {
 			$result[] = $row;
 		}
 
 		return $result;
+	}
+
+	public function getUser() {
+		if (isset($_SESSION['num_phone']) && isset($_SESSION['password'])) {
+			return $this->get_data("SELECT * FROM users WHERE num_phone = '$_SESSION[num_phone]' AND password_current = '$_SESSION[password]'")[0];
+		}
 	}
 
 	// public function proccess_file_excel($file_tmp_name) {
