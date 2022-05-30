@@ -1,5 +1,7 @@
     <?php
-       
+       include '../Repositories/UserRepository.php';
+       $user = new UserRepository();
+       $user->validate();
     ?>
 
 <?php include 'header.php'; ?>

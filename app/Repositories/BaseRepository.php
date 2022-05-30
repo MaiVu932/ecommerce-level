@@ -46,7 +46,6 @@ class BaseRepository
 
 
 		$sql = "INSERT INTO $table($field_list) VALUES($value_list);";
-
 		return $this->_connection->query($sql);
 	}
 
@@ -56,11 +55,16 @@ class BaseRepository
 
 		$field_list = '';
 		foreach ($data as $key => $value) {
+<<<<<<< HEAD
+=======
+            // $field_list .= ', ' . $key;
+			// $value_list .= ', "' . $this->_connection->real_escape_string($value) . '"';;
+>>>>>>> 1ddd87c5365c72a40962919636ed44c03f6c0f9b
 			$field_list .= "$key = '" . $this->_connection->real_escape_string($value) . "', ";
 		}
 		$field_list = trim($field_list, ', ');
 		$sql = "UPDATE $table SET $field_list WHERE $where ;";
-		return $this->_connection->query($sql);
+        return $this->_connection->query($sql);
 	}
 
 	public function delete($table, $where = null)

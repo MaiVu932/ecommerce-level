@@ -26,7 +26,7 @@
                 <br><b>Name Category</b><br>
                 <input class="tex" type="text" name ="tname" value="<?php echo $select['name'] ?>" required/>
                 <br><b>Description</b><br>
-                <textarea class="mta" name="tmota" value="<?php echo $select['discription']?>" required></textarea><br>
+                <textarea class="mta" name="tmota"><?php echo $select['description']; ?></textarea><br>
                 <input style="font-size: 20px;" class="sub" type="submit" name="sub"  value="Update"/>
             <?php  } ?>
                 
