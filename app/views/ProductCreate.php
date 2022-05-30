@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <?php 
     include('./header.php'); 
 
@@ -14,12 +20,14 @@
 
     echo '<link href="' . CSS . 'createP.css" rel="stylesheet">';
     echo '<script src="' . JS . 'login.js" defer></script>';
+
 ?>
+
 	<div class="content">
 		<div id="about">
             <h1>Thêm mới sản phẩm</h1>
             <form method="POST" enctype="multipart/form-data" id="HDpro">
-            <label>Tên Shop</label>
+            <label>Tên shop</label>
                 <select class="form-select" class="form-control" name="shop-name" required>
                     <option value="">-- Chọn shop --</option>
                     <?php foreach($shops as $shop){ ?>
@@ -35,7 +43,7 @@
                     <?php } ?>
                 </select>
 
-                <label>Mã code sản phẩm</label>
+                <label>Mã sản phẩm</label>
                 <input type="text" class="form-control" name="product-code" required />
 
                 <label>Tên sản phẩm</label>
@@ -56,12 +64,27 @@
                 <label>Mô tả sản phẩm</label>
                 <textarea style="width: 100%; height: 150px" name = "product-describe" required ></textarea> </br>
 
-                <label>Upload Avatar</label>
-                <input type="file" class="form-control" name="image" required>
+                <input 
+                    type="file" 
+                    class="form-control"  
+                    accept="image/*" 
+                    name="image" 
+                    id="file"  
+                    onchange="loadFile(event)" 
+                    style="display: none;">
+                <label for="file" style="cursor: pointer;">Hình ảnh sản phẩm</label>
+                <img style="margin-top: 10px" id="output" width="200" height="200px" />
 
-                <input style="margin-top:25px" type="submit"name="sub-add" value="Thêm sản phẩm">
+                
+                <input style="margin:2rem 30rem 1rem 30rem ; width: 15rem; height: 5rem; background:#FE980F; border-radius:5px;" type="submit"name="sub-add" value="Thêm mới sản phẩm">
             </form>
 		</div>
 	</div>
 
+    <script>
+        var loadFile = function(event) {
+	    var image = document.getElementById('output');
+	    image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 <?php include('./footer.php') ?>

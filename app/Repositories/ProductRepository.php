@@ -63,9 +63,8 @@
         {
             $categoryCode = $this->getCodeCategoryById($category_id)[0]['code'];
 
-            $UploadErr = [];
             if(!isset($_FILES['image'])){
-                $UploadErr['exitImage'] = 'File ảnh không tồn tại !';
+                return 'File ảnh không tồn tại !';
 
             }
 
@@ -76,37 +75,23 @@
             $allowed = ['png', 'jpg', 'jpeg', 'jfif'];
 
             if(!in_array($extension, $allowed)){
-
-                $UploadErr['typeImage'] = 'File phải có định dạng png, jpg, jpeg, ifif ';
+                return 'File phải có định dạng png, jpg, jpeg, ifif ';
             }
 
             if($file_size >= 5000000){
-
-                $UploadErr['sizeImage'] = 'Dung lượng file quá lớn !';
+                return 'Dung lượng file quá lớn !';
             }
             
-            if(count($UploadErr)>0){
-                var_dump($UploadErr);
-                echo "loi Image 1";
-                return [
-                    'extension' => $extension,
-                    'err' => $UploadErr,
-                ];
-            }
+            
             $path = '../../public/images/'. $categoryCode . '/' . $data . '.' . $extension;
 
             $is_upload_success = move_uploaded_file($temp_name, $path);
 
             if(!$is_upload_success){
-
-                $UploadErr['stageImage'] = 'Thêm ảnh thất bại !';
-
+                return 'Thêm ảnh thất bại !';
             }
 
-            return [
-                'extension' => $extension,
-                'err' => $UploadErr,
-            ];
+            return '';
 
         }
 
@@ -149,8 +134,13 @@
                 }
 
                 $UpImage = $this->UpLoadImage($code, $categoriesName);
+                if (strlen($UpImage) > 0) {
+                    echo "<script>alert('" . $UpImage . "')</script>";
+                    return;
+                }
 
-                $image = $code . '.' . $UpImage['extension'];
+                $type = explode('/', $_FILES['image']['type']);
+                $image = $code . '.' . end($type);
                 
                 
                     $product = [
@@ -169,7 +159,11 @@
 
                     $insert = $this->insert('products', $product);
                     if($insert){
-                        echo "<script>alert('Bạn đã thêm sản phẩm THÀNH CÔNG!!!')</script>";
+                        echo 
+                            "<script>
+                                alert('Bạn đã thêm sản phẩm THÀNH CÔNG!!!');
+                                window.location = ('ProductList.php');
+                            </script>";
                     }
                     else{
                         echo "<script>alert('Bạn đã thêm sản phẩm THẤT BẠI!!!')</script>";
@@ -179,7 +173,7 @@
 
         public function getInfoProduct()
         {
-            $sql = "SELECT p.id, c.id 'id-category', c.name 'name-category', s.id 'id-shop',
+            $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                     p.unit, p.image, p.description, p.status, p.reason_refusal
                     FROM `products` p, `categories` c, `shops` s
@@ -190,7 +184,11 @@
 
         public function getInfoProductById($productId)
         {
-            $sql = "SELECT * FROM products WHERE id = '$productId'";
+            $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                    s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                    p.unit, p.image, p.description, p.status, p.reason_refusal
+                    FROM `products` p, `categories` c, `shops` s
+                    WHERE p.category_id = c.id AND p.shop_id = s.id AND p.id = '$productId'";
             $data = $this->get_data($sql)[0];
             return $data;
         }

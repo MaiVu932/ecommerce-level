@@ -51,7 +51,7 @@
                     <th><?php echo $i++ ?></th>
                     <td>
                         <img src= 
-                            "../../public/images/<?php echo $product['id-category']?>/<?php echo $product['image'] ?>"  
+                            "<?php echo IMAGES . $product['code-category'] . '/' . $product['image'] ?>"  
                             alt="ảnh" width="100px" height ="100px" />
                     </td>
                     <td><?php echo $product['name-shop'] ?></td>
@@ -79,7 +79,7 @@
                 <?php } ?>
             </table>
         <div style="margin: 20px 0px 0 20px;">
-                <a href="userList.php"><button>Back to Manager</button></a>
+                <a href=""><button>Back to Manager</button></a>
         </div>
     </div>
 </div>

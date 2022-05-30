@@ -6,11 +6,6 @@
     $shops = $get_data->getShops();
     $categories = $get_data->getCategories();
     $product = $get_data->getInfoProductById($_GET['updateId']);
-    echo "<pre>";
-    print_r($product);
-    print_r($shops);
-    print_r($categories);
-    echo "</pre>";
     
     // if(isset($_POST['sub-add'])) {
 
@@ -19,33 +14,34 @@
     // var_dump('ok - ', $info);
 
     echo '<link href="' . CSS . 'createP.css" rel="stylesheet">';
+    echo '<link href="' . CSS . 'updateP.css" rel="stylesheet">';
     echo '<script src="' . JS . 'login.js" defer></script>';
 ?>
 	<div class="content">
 		<div id="about">
-            <h1>Chỉnh sửa thông tin sản phẩm</h1>
+            <h1>Cập nhật thông tin sản phẩm</h1>
             <form method="POST" enctype="multipart/form-data" id="HDpro">
-            <label>Tên Shop</label>
+            <label>Tên shop</label>
                 <select class="form-select" class="form-control" name="shop-name" disabled>
                     <option value="">-- Chọn shop --</option>
                     <?php foreach($shops as $shop){ ?>
-                    <option <?php if($shop['id'] == $product['shop_id']){ echo "selected = \"selected\""; } ?> 
+                    <option <?php if($shop['id'] == $product['id-shop']){ echo "selected = \"selected\""; } ?> 
                             value="<?php echo $shop['id'] ?>"><?php echo $shop['name'] ?>
                     </option>
                     <?php } ?>
                 </select>
 
-                <label>Tên danh mục</label>
+                <label>Tện danh mục</label>
                 <select class="form-select" class="form-control" name="category-name" disabled>
                     <option value="">-- Chọn danh mục --</option>
                     <?php foreach($categories as $category){ ?>
-                        <option <?php if($category['id'] == $product['category_id']){ echo "selected = \"selected\""; } ?> 
+                        <option <?php if($category['id'] == $product['id-category']){ echo "selected = \"selected\""; } ?> 
                                 value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?>
                         </option>
                     <?php } ?>
                 </select>
 
-                <label>Mã code sản phẩm</label>
+                <label>Mã sản phẩm</label>
                 <input type="text" class="form-control" name="product-code" disabled 
                         value="<?php echo $product['code'] ?>" />
 
@@ -53,7 +49,7 @@
                 <input type="text" class="form-control" name="product-name" required
                     value="<?php echo $product['name'] ?>" />
 
-                <label>Đơn vị tính</label>
+                <label>Đơn vị tính </label>
                 <input type="text" class="form-control" name="product-unit" required 
                     value="<?php echo $product['unit'] ?>"/>
 
@@ -63,18 +59,33 @@
 
                 <label>Giá gốc</label>
                 <input type="number" class="form-control" name="product-price" required 
-                    value="<?php echo $product['unit'] ?>"/>
+                    value="<?php echo $product['price_historical'] ?>"/>
 
                 <label>Giá bán</label>
-                <input type="number" class="form-control" name="product-priceMarket" required />
+                <input type="number" class="form-control" name="product-priceMarket" required 
+                    value="<?php echo $product['price_market'] ?>"/>
 
                 <label>Mô tả sản phẩm</label>
-                <textarea style="width: 100%; height: 150px" name = "product-describe" required ></textarea> </br>
+                <textarea style="width: 100%; height: 150px" name = "product-describe" required >
+                     <?php echo $product['description'] ?>   
+                </textarea> </br>
 
-                <label>Upload Avatar</label>
-                <input type="file" class="form-control" name="image" required>
+                <label>Hình ảnh sản phẩm</label>
+                <div class="personal-image">
+                    <label style="all: unset;">
+                        <input type="file" name="file" id="file">
+                        <figure class="personal-figure">
+                            <img src="<?php echo IMAGES . $product['code-category'] . '/' . $product['image'] ?>"alt="avatar" width="200px" height="200px">
+                            <figcaption class="personal-figcaption">
+                                <img src="//www.gstatic.com/images/icons/material/system/2x/photo_camera_white_24dp.png">
+                            </figcaption>
+                        </figure>
+                    </label>
+                </div>
 
-                <input style="margin-top:25px" type="submit"name="sub-add" value="Thêm sản phẩm">
+                <input style="margin:2rem 30rem 1rem 10rem ; width: 15rem; height: 5rem;" type="submit"name="sub-update" value="Save">
+                <input style=" width: 15rem; height: 5rem;" type="submit"name="sub-exit" value="Exit">
+
             </form>
 		</div>
 	</div>
