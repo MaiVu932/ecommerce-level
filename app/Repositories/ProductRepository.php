@@ -107,14 +107,13 @@
                 $quantity = (double)trim($data['product-quantity']);
                 $unit = trim($data['product-unit']);
                 $describe = trim($data['product-describe']);
-                $errors = []; 
+                
 
                 if(empty($shopName) || empty($categoriesName) || empty($code) || empty($name) || empty($price) 
                     || empty($priceMarket) || empty($unit) || empty($quantity) || empty($describe) ){
                     
-                    echo 'loi trong';
-                    $errors['emptyData'] = "Các trường có (*) không được bỏ trống!!";
-                    return $errors;
+                        echo "<script>alert('Các trường thông tin không được bỏ trống!!!')</script>";
+                        return ;
                 }
                 
                 $validateCode = $this->validateCodeProduct($code);
@@ -164,9 +163,11 @@
                                 alert('Bạn đã thêm sản phẩm THÀNH CÔNG!!!');
                                 window.location = ('ProductList.php');
                             </script>";
+                        return;
                     }
                     else{
                         echo "<script>alert('Bạn đã thêm sản phẩm THẤT BẠI!!!')</script>";
+                        return;
                     }
                 
         }
@@ -184,13 +185,78 @@
 
         public function getInfoProductById($productId)
         {
-            $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
-                    s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+            $sql = "SELECT p.id, c.id 'category-id',c.code 'category-code', c.name 'category-name', s.id 'shop-id',
+                    s.name 'shop-name', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                     p.unit, p.image, p.description, p.status, p.reason_refusal
                     FROM `products` p, `categories` c, `shops` s
                     WHERE p.category_id = c.id AND p.shop_id = s.id AND p.id = '$productId'";
             $data = $this->get_data($sql)[0];
             return $data;
+        }
+
+        public function updateProduct($data, $id)
+        {
+            $shopName = trim($data['shop-name']);
+            $categoryName = trim($data['category-name']);
+            $code = trim($data['product-code']);
+            $name = trim($data['product-name']);
+            $price = (double)trim($data['product-price']);
+            $priceMarket = (double)trim($data['product-priceMarket']);
+            $quantity = (double)trim($data['product-quantity']);
+            $unit = trim($data['product-unit']);
+            $describe = trim($data['product-describe']);
+            $image = $data['image'];
+
+            var_dump($data);
+            return;
+            
+
+            if(empty($name) || empty($price) || empty($priceMarket) || empty($unit) || empty($quantity) || empty($describe) ){
+                    
+                        echo "<script>alert('Các trường có * không được bỏ trống!!!')</script>";
+                        return ;
+            }
+
+            if(empty($image)){
+
+            }
+
+            $UpImage = $this->UpLoadImage($code, $categoriesName);
+                if (strlen($UpImage) > 0) {
+                    echo "<script>alert('" . $UpImage . "')</script>";
+                    return;
+                }
+
+            $type = explode('/', $_FILES['image']['type']);
+            $image = $code . '.' . end($type);
+
+            $product = [
+                'shop_id'            => $shopName,
+                'category_id'        => $categoriesName,
+                'code'               => $code,
+                'name'               => $name,
+                'price_market'       => $priceMarket,
+                'price_historical'   => $price,
+                'quantity'           => $quantity,
+                'unit'               => $unit,
+                'image'              => $image,
+                'description'        => $describe,     
+            ];
+
+            $update = $this->insert('products', $product, 'id = "'. $id . '"');
+                if($update){
+                    echo 
+                        "<script>
+                            alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
+                            window.location = ('ProductList.php');
+                            </script>";
+                    return;
+                }
+                else{
+                    echo "<script>alert('Bạn đã sửa thông tin sản phẩm THẤT BẠI!!!')</script>";
+                    return;
+                }
+
         }
 
     }

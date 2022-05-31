@@ -7,11 +7,11 @@
     $categories = $get_data->getCategories();
     $product = $get_data->getInfoProductById($_GET['updateId']);
     
-    // if(isset($_POST['sub-add'])) {
+    if(isset($_POST['sub-update'])) {
+    var_dump($_POST);
 
-    //     $info = $get_data->createProducts($_POST);
-    // }
-    // var_dump('ok - ', $info);
+        $get_data->updateProduct($_POST, $_GET['updateId']);
+    }
 
     echo '<link href="' . CSS . 'createP.css" rel="stylesheet">';
     echo '<link href="' . CSS . 'updateP.css" rel="stylesheet">';
@@ -22,31 +22,28 @@
             <h1>Cập nhật thông tin sản phẩm</h1>
             <form method="POST" enctype="multipart/form-data" id="HDpro">
             <label>Tên shop</label>
-                <select class="form-select" class="form-control" name="shop-name" disabled>
-                    <option value="">-- Chọn shop --</option>
-                    <?php foreach($shops as $shop){ ?>
-                    <option <?php if($shop['id'] == $product['id-shop']){ echo "selected = \"selected\""; } ?> 
-                            value="<?php echo $shop['id'] ?>"><?php echo $shop['name'] ?>
-                    </option>
-                    <?php } ?>
-                </select>
+                <input type="text" name="shop-name" class="form-control" style ="display:none"
+                    value="<?php echo $product['shop-id'] ?>" />
 
-                <label>Tện danh mục</label>
-                <select class="form-select" class="form-control" name="category-name" disabled>
-                    <option value="">-- Chọn danh mục --</option>
-                    <?php foreach($categories as $category){ ?>
-                        <option <?php if($category['id'] == $product['id-category']){ echo "selected = \"selected\""; } ?> 
-                                value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?>
-                        </option>
-                    <?php } ?>
-                </select>
+                <input type="text" class="form-control" disabled
+                    value="<?php echo $product['shop-name'] ?>" />
 
-                <label>Mã sản phẩm</label>
-                <input type="text" class="form-control" name="product-code" disabled 
+            <label>Tên danh mục</label>
+                <input type="text" name="category-name" class="form-control" style ="display:none"
+                    value="<?php echo $product['category-id'] ?>" />
+
+                <input type="text" class="form-control" disabled
+                    value="<?php echo $product['category-name'] ?>" />
+                
+            <label>Mã sản phẩm</label>
+                <input type="text" name="product-code" class="form-control" style ="display:none"
+                    value="<?php echo $product['category-id'] ?>" />
+
+                <input type="text" class="form-control" disabled 
                         value="<?php echo $product['code'] ?>" />
 
                 <label>Tên sản phẩm</label>
-                <input type="text" class="form-control" name="product-name" required
+                <input type="text" class="form-control" name="product-name" 
                     value="<?php echo $product['name'] ?>" />
 
                 <label>Đơn vị tính </label>
@@ -71,23 +68,30 @@
                 </textarea> </br>
 
                 <label>Hình ảnh sản phẩm</label>
-                <div class="personal-image">
-                    <label style="all: unset;">
-                        <input type="file" name="file" id="file">
-                        <figure class="personal-figure">
-                            <img src="<?php echo IMAGES . $product['code-category'] . '/' . $product['image'] ?>"alt="avatar" width="200px" height="200px">
-                            <figcaption class="personal-figcaption">
-                                <img src="//www.gstatic.com/images/icons/material/system/2x/photo_camera_white_24dp.png">
-                            </figcaption>
-                        </figure>
-                    </label>
-                </div>
+                <img src="<?php echo IMAGES . $product['category-code'] . '/' . $product['image'] ?>"alt="avatar" width="200px" height="200px"> 
+                <input 
+                    type="file" 
+                    class="form-control"  
+                    accept="image/*" 
+                    name="image" 
+                    id="file"  
+                    onchange="loadFile(event)"
+                    style="display: none;">
+                <label for="file" style="cursor: pointer;">Chọn ảnh mới</label>
+                <img style="margin-top: 10px" id="output" width="200" height="200px" />
 
-                <input style="margin:2rem 30rem 1rem 10rem ; width: 15rem; height: 5rem;" type="submit"name="sub-update" value="Save">
+                <input style=" width: 15rem; height: 5rem;" type="submit"name="sub-update" value="Save">
                 <input style=" width: 15rem; height: 5rem;" type="submit"name="sub-exit" value="Exit">
 
             </form>
 		</div>
 	</div>
+
+    <script>
+        var loadFile = function(event) {
+	    var image = document.getElementById('output');
+	    image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 
 <?php include('./footer.php') ?>
