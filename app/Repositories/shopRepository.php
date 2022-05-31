@@ -5,6 +5,51 @@ include 'BaseRepository.php';
 class ShopRepository extends BaseRepository
 {
 
+    public function checkExist($id)
+    {
+        $query = "SELECT id FROM shops WHERE id = $id ";
+        $query .= " AND user_id = " . $_SESSION['id'];
+        
+        return count($this->get_data($query)) ? true : false;
+    }
+
+    public function getInfoShopById($id)
+    {
+        if(!$this->checkExist($id)) {
+            echo '<script>alert("Bạn không có quyền cập nhập !!!")</script>';
+            return;
+        }
+
+        $query = "SELECT * FROM shops WHERE id = $id ";
+        $query .= " AND user_id = " . $_SESSION['id'];
+        
+        return $this->get_data($query)[0];
+    }
+
+    public function updateByIdShop($data, $id)
+    {
+        if(!$this->checkExist($id)) {
+            echo '<script>alert("Bạn không có quyền cập nhập !!!")</script>';
+            return;
+        }
+
+        $shop = [
+            'name' => $data['txt-name'],
+            'num_phone' => $data['txt-num-phone'],
+            'description' => $data['txt-description'],
+            'address' => $data['txt-address']
+        ];
+
+        if(!$this->update('shops', $shop, 'id = ' . $id)) {
+            echo '<script>alert("Cập nhập thất bại !!!")</script>';
+            return;
+        }
+
+        echo '<script>alert("Cập nhập thành công !!!")</script>';
+        return;
+    }
+
+
     public function getShops(
         $page = null,
         $nameS = null,
@@ -105,6 +150,10 @@ class ShopRepository extends BaseRepository
         }
         if(isset($_GET['create']) && $_GET['create'] == 'success') {
             echo '<script>alert("Create new shop success !!!")</script>';
+            return;
+        }
+        if(isset($_GET['update']) && $_GET['update'] == 'false') {
+            echo '<script>alert("Shop bạn muốn cập nhập không tồn tại !!!")</script>';
             return;
         }
     }
