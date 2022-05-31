@@ -57,7 +57,6 @@
                 <th>Số điện thoại chủ shop</th>
                 <th>Ngày tạo shop</th>
                 <th>Sửa</th>
-                <th>Xóa</abbr></th>
             </tr>
             <?php 
             $i = 0;
@@ -74,9 +73,7 @@
                     <td>
                         <a href="./shop_update.php?id=<?php echo $value['id'] ?>">Sửa</a>
                     </td>
-                    <td>
-                        <a href="./shop_delete.php?id=<?php echo $value['id'] ?>">Xóa</a>
-                    </td>
+                   
                 </tr>
             <?php endforeach; ?>
 
@@ -84,6 +81,7 @@
            
     </div>
 </div>
+
 
 
 <?php include 'footer.php'?>
