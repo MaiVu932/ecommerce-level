@@ -38,9 +38,9 @@
                                         echo $info['num_phone'];
                                     }
                                 ?>" 
-                                placeholder="Phone number"
+                                placeholder="Phone number/username/email"
                                 class="sign-in"
-                                oninput="validatePhone(this)" />
+                                 />
 
                             <div
                                 id="sign-in" 

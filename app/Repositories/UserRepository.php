@@ -28,6 +28,11 @@ class UserRepository extends BaseRepository
         return $this->get_data("SELECT * FROM users WHERE num_phone = '$numPhone'");
     }
 
+    public function checkLogin(string $numPhone)
+    {
+        return $this->get_data("SELECT * FROM users WHERE num_phone = '$numPhone' OR name = '$numPhone' OR email = '$numPhone'");
+    }
+
     public function signUp(array $data)
     {
         // $isNumPhone = $this->isValidTelephoneNumber($data['txt-num-phone']);
@@ -36,11 +41,11 @@ class UserRepository extends BaseRepository
         $isPw = strpos($data['password'], ' ') && count($data['password']) >= 4;
         
         if(empty($data['txt-num-phone']) || empty($data['password'])) {
-            echo '<script> alert("Please enter infomation !") </script>';
+            echo '<script> alert("Vui lòng nhập đầy đủ thông tin !") </script>';
             return;
         }
         if(count($this->getInfoByNumPhone($data['txt-num-phone'])) > 0) {
-            echo '<script>alert("Number phone is exists !")</script>';
+            echo '<script>alert("Thông tin đăng ký không hợp lệ !")</script>';
             return;
         }
       
@@ -65,11 +70,11 @@ class UserRepository extends BaseRepository
     public function signIn(array $data)
     {
         if(empty($data['txt-num-phone']) || empty($data['password'])) {
-            echo '<script>alert("Please enter infomation !")</script>';
+            echo '<script>alert("Vui lòng nhập đầy đủ thông tin !")</script>';
             return false;
         }
 
-        $phone = $this->getInfoByNumPhone($data['txt-num-phone']);
+        $phone = $this->checkLogin($data['txt-num-phone']);
 
         if(!count($phone)) {
             echo '<script>alert("Number phone not exist !")</script>';
