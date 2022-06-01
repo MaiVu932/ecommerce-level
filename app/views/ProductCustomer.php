@@ -32,14 +32,9 @@
                     <th>Mã sản phẩm</th>
                     <th>Tên sản phẩm</th>
                     <th>Đơn vị tính</th>
-                    <th>Số lượng</th>
-                    <th>Đơn giá(Giá gốc)</th>
                     <th>Đơn giá(Giá bán)</th>
                     <th>Mô tả chi tiết sản phẩm</th>
-                    <th>Lý do từ chối đăng bán</th>
-                    <th>Trạng thái</th>
-                    <th>Xóa</abbr></th>
-
+                    <th>Xem chi tiết</th>
                 </tr>
 
                 <?php 
@@ -57,25 +52,9 @@
                     <td><?php echo $product['code'] ?></td>
                     <td><?php echo $product['name'] ?></td>
                     <td><?php echo $product['unit'] ?></td>
-                    <td><?php echo $product['quantity'] ?></td>
-                    <td><?php echo $product['price_historical'] ?></td>
                     <td><?php echo $product['price_market'] ?></td>
                     <td><?php echo $product['description'] ?></td>
-                    <td><?php echo $product['reason_refusal'] ?></td>
-                    <td><?php echo $product['status'] ?></a></td>
-                    
-                    <?php if($product['status'] == 3): ?>
-                        <th>
-                            <a onclick="delete_confirm(<?php echo $product['id'] ?>)" >Xóa</a>
-                        </th>
-                    <?php else: ?>
-                        <th>
-                            <a>Xóa</a>
-                        </th>
-                    <?php endif; ?>
-
-
-                </tr>
+                    <td><a>Xem chi tiết</a></td>     
                 <?php } ?>
             </table>
         <div style="margin: 20px 0px 0 20px;">

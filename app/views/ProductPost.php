@@ -1,1 +1,2 @@
-Bạn muốn đăng bán sản phẩm
+<?php include('./header.php') ?>
+<?php include('./footer.php') ?>

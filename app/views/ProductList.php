@@ -20,6 +20,36 @@
       </div>
     <div class="content">
     <h1>Danh sách sản phẩm</h1>
+    <div class="search" style="margin-top: 20px;">
+                <form method="POST">
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>Choose...</option>
+                    <a href="./ProductListAdmin.php"><option value="1">One</option></a>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                    <input 
+                        type="text" 
+                        style="width: 20%; "
+                        placeholder="  Tìm kiếm"
+                        value="<?php echo isset($_POST['txt-search-name']) ? $_POST['txt-search-name'] : ''  ?>"
+                        name="txt-search-name" />
+                    <input 
+                        type="text" 
+                        name="date-search"
+                        id="dateSearch"
+                        value="<?php echo isset($_POST['date-search']) ? $_POST['date-search'] : ''  ?>"
+                        style="width: 20%; outline: none;" 
+                        placeholder="Thời gian tạo shop" >
+
+                    <input
+                        style="margin-top: 5px;"
+                        type="submit" 
+                        name="btn-search"
+                        value="Tìm kiếm" />
+                </form>
+                
+            </div>
             <table id="post">
             <a href="ProductCreate.php?id=<?php echo $_GET['id'] ?>"><button type="button" class="btn btn-primary">Thêm mới sản phẩm</button></a>
                 <tr>

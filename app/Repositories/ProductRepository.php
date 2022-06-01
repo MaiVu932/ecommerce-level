@@ -185,6 +185,17 @@
             return($data);
         }
 
+        public function getInfoProduct()
+        {
+            $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                    s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                    p.unit, p.image, p.description, p.status, p.reason_refusal
+                    FROM `products` p, `categories` c, `shops` s
+                    WHERE p.category_id = c.id AND p.shop_id = s.id" ;
+            $data = $this->get_data($sql);
+            return($data);
+        }
+
         public function getInfoProductById($productId)
         {
             $sql = "SELECT p.id, c.id 'category-id',c.code 'category-code', c.name 'category-name', s.id 'shop-id',
@@ -309,5 +320,23 @@
                 echo '<script>alert("Logout success !")</script>';
             }
         }
+
+        public function updateStatus($id)
+        {
+            $product = [
+                'status' => 1,
+            ];
+            $update = $this->update('products', $product, 'id = '. $id  );
+        }
+        
+        public function updateReason($id)
+        {
+            $product = [
+                'status' => 2,
+                'reason_réual' => 'Sẩn phẩm của bạn không đạt yêu cầu.',
+            ];
+            $update = $this->update('products', $product, 'id = '. $id  );
+        }
+        
     }
 ?>
