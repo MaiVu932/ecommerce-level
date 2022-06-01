@@ -26,6 +26,7 @@ if(!isset($_SESSION)) {
  <script src="' . JS . 'price-range.js" defer></script>
  <script src="' . JS . 'jquery.prettyPhoto.js" defer></script>
  <script src="' . JS . 'main.js" defer></script>';
+ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>';
     ?>
 
 
