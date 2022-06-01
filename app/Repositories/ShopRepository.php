@@ -1,6 +1,6 @@
 <?php
 
-// include 'BaseRepository.php';
+include_once 'BaseRepository.php';
 
 class ShopRepository extends BaseRepository
 {
@@ -81,21 +81,8 @@ class ShopRepository extends BaseRepository
             return $this->get_data($query);
         }
 
-        if($nameS && $dateS) {
-            $query = "SELECT S.id id, S.name nameS, S.num_phone numPhoneS, S.address addressS, S.create_at createS, S.description descriptionS, "; 
-            $query .= " U.name nameU, U.num_phone numPhoneU, U.address addressU ";
-            $query .= " FROM shops S, users U ";
-            $query .= " WHERE S.user_id = U.id AND U.id = " . $_SESSION['id'] ;
-            $query .= " AND S.create_at = '" . $dateS . "'";
-            $query .= " AND (S.name LIKE '%" . $nameS . "%' OR S.num_phone LIKE '%" . $nameS;
-            $query .= "%' OR U.num_phone LIKE '%" . $nameS . "%' OR U.name LIKE '%". $nameS . "%' )";
-
-            return $this->get_data($query);
-        }
-
-
         if($nameS) {
-            $query = "SELECT S.id id, S.name nameS, S.num_phone numPhoneS, S.address addressS, S.create_at createS, S.description descriptionS, "; 
+            $query = "SELECT S.name nameS, S.num_phone numPhoneS, S.address addressS, S.create_at createS, S.description descriptionS, "; 
             $query .= " U.name nameU, U.num_phone numPhoneU, U.address addressU ";
             $query .= " FROM shops S, users U ";
             $query .= " WHERE S.user_id = U.id AND U.id = " . $_SESSION['id'] ;
@@ -106,7 +93,7 @@ class ShopRepository extends BaseRepository
         }
 
         if($dateS) {
-            $query = "SELECT S.id id, S.name nameS, S.num_phone numPhoneS, S.address addressS, S.create_at createS, S.description descriptionS, "; 
+            $query = "SELECT S.name nameS, S.num_phone numPhoneS, S.address addressS, S.create_at createS, S.description descriptionS, "; 
             $query .= " U.name nameU, U.num_phone numPhoneU, U.address addressU ";
             $query .= " FROM shops S, users U ";
             $query .= " WHERE S.user_id = U.id AND U.id = " . $_SESSION['id'] ;
@@ -115,7 +102,18 @@ class ShopRepository extends BaseRepository
             return $this->get_data($query);
         }
 
-       
+        if($nameS && $dateS) {
+            $query = "SELECT S.name nameS, S.num_phone numPhoneS, S.address addressS, S.create_at createS, S.description descriptionS, "; 
+            $query .= " U.name nameU, U.num_phone numPhoneU, U.address addressU ";
+            $query .= " FROM shops S, users U ";
+            $query .= " WHERE S.user_id = U.id AND U.id = " . $_SESSION['id'] ;
+            $query .= " AND S.create_at = '" . $dateS . "'";
+            $query .= " AND (S.name LIKE '%" . $nameS . "%' OR S.num_phone LIKE '%" . $nameS;
+            $query .= "%' OR U.num_phone LIKE '%" . $nameS . "%' OR U.name LIKE '%". $nameS . "%' )";
+
+            return $this->get_data($query);
+        }
+
        
     }
 
@@ -139,20 +137,19 @@ class ShopRepository extends BaseRepository
             return $shop;
         }
 
-        $_SESSION['role'] = 1;
-        echo 'ok';
-        echo '<script>alert("Tạo shop thành công !!"); window.location="./shop_list.php"</script>';
+
+        echo '<script>window.location="./shop_list.php?create=success"</script>';
         return [];
     }
 
     public function validate()
     {
         if(isset($_GET['create']) && $_GET['create'] == 'fail') {
-            echo '<script>alert("Tạo shop thất bai !!!")</script>';
+            echo '<script>alert("Create new shop fail !!!")</script>';
             return;
         }
         if(isset($_GET['create']) && $_GET['create'] == 'success') {
-            echo '<script>alert("Tạo shop thanh công !!!")</script>';
+            echo '<script>alert("Create new shop success !!!")</script>';
             return;
         }
         if(isset($_GET['update']) && $_GET['update'] == 'false') {
