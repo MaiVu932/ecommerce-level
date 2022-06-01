@@ -6,7 +6,7 @@ include '../Repositories/SaleRevenue.php';
 $_SALEREVENUE = new SaleRevenue();
 
 /** Kiểm tra xem người dùng có phải người kiểm duyệt, Admin hay không, nếu không thì chuyển hướng về trang chủ */
-if (!isset($_SESSION['role']) || $_SESSION['role'] < 2) {
+if (!isset($_SESSION['role']) && $_SESSION['role'] < 2) {
 	echo '<script>
 					alert("Bạn không phải là người kiểm duyệt hoặc quản trị viên !");
 					window.location = "home.php";
@@ -104,7 +104,7 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 							</div>
 							<div class="date-label">
 								<span class="salerevenue-label label-warning">Năm</span>
-								<input class="salerevenue-date" name="year" type="number" min="2022" max="2099" step="1" value="' . date('Y', time()) . '">
+								<input class="salerevenue-date" name="year" type="number" min="2000" max="2050" step="1" value="' . date('Y', time()) . '">
 							</div>
 						</div>
 						<div class="salerevenue-button-group">
@@ -213,7 +213,7 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 							</div>
 							<div class="date-label">
 								<span class="salerevenue-label label-warning">Năm</span>
-								<input class="salerevenue-date" name="year" type="number" min="2022" max="2099" step="1" value="' .  $year . '">
+								<input class="salerevenue-date" name="year" type="number" min="2000" max="2050" step="1" value="' .  $year . '">
 							</div>
 						</div>
 						<div class="salerevenue-button-group">
