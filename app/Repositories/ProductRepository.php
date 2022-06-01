@@ -33,7 +33,7 @@
                 $start = ($page_current - 1) * 12;
 
                 $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
-                $query .= " FROM products P, categories C WHERE C.id = P.category_id ";
+                $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1 ";
                 $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
 
                 return $this->get_data($query);
@@ -44,7 +44,7 @@
                 $start = ($page_current - 1) * 12;
 
                 $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
-                $query .= " FROM products P, categories C WHERE C.id = P.category_id ";
+                $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1 ";
                 $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
 
                 return $this->get_data($query);
@@ -56,7 +56,7 @@
                 $start = ($page_current - 1) * 12;
 
                 $query = " SELECT P.id product_id , P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
-                $query .= " FROM products P, categories C WHERE C.id = P.category_id ";
+                $query .= " FROM products P, categories C WHERE C.id = P.category_id  AND P.status = 1  ";
                 $query .= " ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
 
                 return $this->get_data($query);

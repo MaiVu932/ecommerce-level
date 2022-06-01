@@ -111,6 +111,7 @@ if(!isset($_SESSION)) {
                                 <?php endif; ?>
 
                                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 2): ?>
+								    <li><a href="ProductCensorship.php"><i class="fa fa-star"></i> Approves</a></li>
 								    <li><a href="category_list.php"><i class="fa fa-star"></i> Categories</a></li>
 								    <li><a href="user_list.php"><i class="fa fa-user"></i> Users</a></li>
                                 <?php endif; ?>
