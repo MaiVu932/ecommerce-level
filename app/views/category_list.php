@@ -40,11 +40,7 @@
         .subC{
             margin-left: 46%;
             width: 5%;
-<<<<<<< HEAD
             height: 30px;
-=======
-            height: 25px;
->>>>>>> 6456240f735af99f72d5edb74233ef61ed1a69bc
             margin-top: 1%;
         }
         .subC:hover{
