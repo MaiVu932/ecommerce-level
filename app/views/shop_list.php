@@ -1,14 +1,24 @@
+
 <?php
+
     include 'header.php';
     include '../Repositories/ShopRepository.php';
+
+    if(! isset($_SESSION['role'])) {
+        echo '<script>alert("Bạn cần đăng nhập trước !!!"); window.location = "./user_login.php"; </script>';
+    }
+
+    
     $shop = new ShopRepository();
-    $shop->validate();
+    
     $shops = $shop->getShopsByUserId();
 
     if(isset($_POST['btn-search'])) {
+        // echo '<script>window.location = "./shop_list.php"</script>';
         $shops = $shop->getShopsByUserId(null,$_POST['txt-search-name'], $_POST['date-search'] );
+
     }
-    
+    $shop->validate();
 
     echo '<link href="' . CSS . 'shop_list.css" rel="stylesheet">';
     echo '<script src="' . JS . 'processDate.js" defer></script>';
@@ -30,11 +40,13 @@
                         type="text" 
                         style="width: 20%; "
                         placeholder="  Tìm kiếm"
+                        value="<?php echo isset($_POST['txt-search-name']) ? $_POST['txt-search-name'] : ''  ?>"
                         name="txt-search-name" />
                     <input 
                         type="text" 
                         name="date-search"
                         id="dateSearch"
+                        value="<?php echo isset($_POST['date-search']) ? $_POST['date-search'] : ''  ?>"
                         style="width: 20%; outline: none;" 
                         placeholder="Thời gian tạo shop" >
 
