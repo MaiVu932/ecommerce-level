@@ -2,23 +2,26 @@
 
 <?php 
 
-    if(!isset($_SESSION['permission']) ){
-	    echo "Bạn chưa đăng nhập  <br>" ;
-	    echo "<a href='user_login.php' > Dăng nhập</a>;  ";
-	    die();
-    }
-    // else if(isset($_SESSION['permission']) !=3 ){
-    if(isset($_SESSION['permission']) && ($_SESSION['permission'] !=3)){
-        echo "Bạn ko có quyền đăng nhập đăng nhập  <br>";
-        echo "<a href='category_list.php' > Quay lại</a>;  ";
-	    die();
-    }
-    else{
+    if(!isset($_SESSION['role']) ){
         echo "<script>
-               window.location = ('category_update.php');
+                alert('Ban chua dang nhap');
+                window.location = ('user_login.php');
             </script>";
             die();
     }
+    else if(isset($_SESSION['role']) && ($_SESSION['role'] !=3) && ($_SESSION['role'] !=2)){
+        echo "<script>
+                alert('Ban khong duoc cap quyen dang nhap');
+                window.location = ('home.php');
+            </script>";
+            die();
+    }
+    // else{
+    //     echo "<script>
+    //            window.location = ('category_create.php');
+    //         </script>";
+    //         die();
+    // }
 ?>
 <?php
     echo '<link rel="stylesheet" href="' . CSS . 'category_create.css" />';

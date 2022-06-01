@@ -19,28 +19,16 @@ class CategoryRepository extends BaseRepository
         $category = $this->get_data("SELECT * FROM categories ");
         return $category;
     }
-    //select user
-    // public function select_user()
-    // {
-    //     $user = $this->get_data("SELECT * FROM users ");
-    //     return $user;
-    // }
     public function select_userById($id)
     {
         $sql = "SELECT permission FROM `users` WHERE id = '$id'";
         $category = $this->get_data($sql);
         return $category;
     }
-    // public function selectByCode_category($code)
-    // {
-    //     $category = $this->get_data("SELECT * FROM categories WHERE code = '$code'");
-    //     return $category;
-    // }
     public function selectByID_category($id)
     {
         $category = $this->get_data(" SELECT * FROM `categories` WHERE id = '$id' ");
         return $category;
-        // var_dump($category);
     }
 
     public function validateCode($code)
@@ -120,22 +108,24 @@ class CategoryRepository extends BaseRepository
     }
             
 
-    public function delete_category($id)
-    {
-        $delete = $this->delete('categories','id ="'.$id.'"');
-        return $delete;
+    // public function delete_category($id, $code)
+    // {
+        
+    //     $delete = $this->delete('categories','id ="'.$id.'"');
+    //     return $delete;
 
-        if($delete
-        ){
-            echo '
-                <script>
-                    alert("Xóa danh muc thanh cong");
-                    window.location = ("category_list.php");
-                </script>';
-            // rmdir("../../public/images/$code", 0777);
-            // return $code;
-        }
+    //     if($delete
+    //     ){
+    //         $status = unlink($code, "../../public/image/");
+    //         echo '
+    //             <script>
+    //                 alert("Xóa danh muc thanh cong");
+    //                 window.location = ("category_list.php");
+    //             </script>';
+    //         // rmdir("../../public/images/" . $code , 0777);
+    //         // return $code;
+    //     }
 
-    }
+    // }
 
 } 

@@ -38,9 +38,9 @@
             margin-left: 40%;
         }
         .subC{
-            margin-left: 48%;
+            margin-left: 46%;
             width: 5%;
-            height: 25%;
+            height: 30px;
             margin-top: 1%;
         }
         .subC:hover{
@@ -71,9 +71,8 @@
             <th>code</th>
             <th>name</th>
             <th>description</th>
-            <!-- <th>create</th> -->
             <th>update</th>
-            <th>delete</th>
+            <!-- <th>delete</th> -->
         </tr>
         <?php
             $i=1;
@@ -89,7 +88,7 @@
                 <th><?php echo $select['description'] ?></th>
             <?php endif; ?>
             <th><a href="category_update.php?updateid=<?php echo $select['id'] ?>"><input class="but" type="submit" value="Update"></a></th>
-            <th><a href="category_delete.php?deleteid=<?php echo $select['id'] ?>" onclick="return confirm ('Bạn có chắc chắn muốn xóa không??')"><input class="but" type="submit" name="sub_Del" value="Delete"></a></th>
+            <!-- <th><a href="category_delete.php?deleteid=<?php //echo $select['id'] ?>" onclick="return confirm ('Bạn có chắc chắn muốn xóa không??')"><input class="but" type="submit" name="sub_Del" value="Delete"></a></th> -->
         </tr>
         <?php  } ?>
     </table>
