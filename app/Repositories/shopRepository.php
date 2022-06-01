@@ -140,6 +140,7 @@ class ShopRepository extends BaseRepository
         }
 
         $_SESSION['role'] = 1;
+        echo 'ok';
         echo '<script>alert("Tạo shop thành công !!"); window.location="./shop_list.php"</script>';
         return [];
     }
