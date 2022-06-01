@@ -7,8 +7,12 @@ if(!isset($_SESSION)) {
  include '../Repositories/BaseRepository.php';
  include '../Repositories/NotificationRepository.php';
 
- $notification = new NotificationRepository();
- $notification_count = count($notification->getNotificationsByUserId());
+ if(isset($_SESSION['role'])) {
+    $notification = new NotificationRepository();
+    $notification_count = count($notification->getNotificationsByUserId());
+ }
+
+ 
 
 
  echo '<link href="' . CSS . 'bootstrap.min.css" rel="stylesheet">
@@ -112,7 +116,7 @@ if(!isset($_SESSION)) {
 
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php if(isset($_SESSION['username'])): ?>
-                                    <li><a href="notification.php"><i class="fa-solid fa-bell"></i>Notification(<b color="red"><?php echo $notification_count; ?></b>)</a></li>
+                                    <li><a href="notification.php"><i class="fa-solid fa-bell"></i>Notification<?php echo isset($_SESSION['role']) ? "(" . $notification_count . ")" : ''; ?></a></li>
                                     <li><a href="user_update.php"><i class="fa fa-user"></i><?php echo $_SESSION['username'] ?></a></li>
 								    <li><a href="user_logout.php"><i class="fa fa-crosshairs"></i> Logout</a></li>
                                     <?php else: ?>
