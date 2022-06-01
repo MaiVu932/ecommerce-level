@@ -428,25 +428,6 @@
             }
         }
 
-<<<<<<< HEAD
-=======
-        public function updateStatus($id)
-        {
-            $product = [
-                'status' => 1,
-            ];
-            $update = $this->update('products', $product, 'id = '. $id  );
-        }
-        
-        public function updateReason($id)
-        {
-            $product = [
-                'status' => 2,
-                'reason_réual' => 'Sẩn phẩm của bạn không đạt yêu cầu.',
-            ];
-            $update = $this->update('products', $product, 'id = '. $id  );
-        }
-
         public function postProduct()
         {
             $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $_GET['id']);
@@ -473,6 +454,5 @@
             
         }
         
->>>>>>> 1585736b27b74e07338b6394fdc8770e071dc6ed
     }
 ?>
