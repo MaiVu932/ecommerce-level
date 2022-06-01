@@ -29,14 +29,14 @@ foreach ($shops as $shop) {
 	$productNew[$index] = array();
 	$productNew[$index]['id'] = $shop['id'];
 	$productNew[$index]['name'] = $shop['name'];
-	$productNew[$index]['sale'] = 0;
+	$productNew[$index]['sold'] = 0;
 	$productNew[$index]['revenue'] = 0;
 	foreach ($products as $product) {
 		/** Nếu chọn thống kê theo ngày, tháng, năm lấy tổng số lượng sản phẩm đã bán được trong ngày đó */
 		$quantity = $_SALEREVENUE->getQuantityByProduct($product, $date, $month, $year); // Lấy tổng số lượng đã bán được theo ngày, tháng, năm nhập vào
 		if ($quantity != null) {
 			$productOld = $_SALEREVENUE->getSaleRevenueByQuantityAndProductId2($quantity, $product['id']); // Lấy doanh số, doanh thu của sản phẩm
-			$productNew[$index]['sale'] += $productOld['sale'];
+			$productNew[$index]['sold'] += $productOld['sold'];
 			$productNew[$index]['revenue'] += $productOld['revenue'];
 		}
 	}
@@ -126,7 +126,7 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 				echo 'null';
 			}
 
-			if (isset($_GET['sale'])) {
+			if (isset($_GET['sold'])) {
 				echo ' | Sắp xếp theo doanh số';
 			} else if (isset($_GET['revenue'])) {
 				echo ' | Sắp xếp theo doanh thu';
@@ -155,15 +155,15 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 				$totalSale = 0;
 				$totalRevenue = 0;
 				foreach ($productNew as $product) {
-					if ($product['sale'] != 0 && $product['revenue'] != 0) {
-						$totalSale += $product['sale'];
+					if ($product['sold'] != 0 && $product['revenue'] != 0) {
+						$totalSale += $product['sold'];
 						$totalRevenue += $product['revenue'];
 						$getShop = $_SALEREVENUE->getShopById($product['id']);
 						if ($totalSale != 0 && $totalRevenue != 0) {
 							echo "<tr onclick=\"location.href='sale-revenue-shop_detail.php?id=$getShop[id]&date=$date&month=$month&year=$year'\">
 									<td>$getShop[id]</td>
 									<td>$getShop[name]</td>
-									<td>$product[sale]</td>
+									<td>$product[sold]</td>
 									<td>$product[revenue]</td>
 								</tr>";
 						}
