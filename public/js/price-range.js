@@ -342,7 +342,6 @@ var a = !function( $ ) {
 
 		setValue: function(val) {
 			this.value = val;
-             console.log(this.value);
 
 			if (this.range) {
 				this.value[0] = Math.max(this.min, Math.min(this.max, this.value[0]));

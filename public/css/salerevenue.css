@@ -1,0 +1,98 @@
+#salerevenue {
+  margin-bottom: 80px;
+}
+
+.salerevenue-list {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.salerevenue-title {
+  color: #FE980F!important;
+}
+
+.salerevenue-button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.salerevenue-date {
+  background: #F0F0E9;
+  border: medium none;
+  color: #696763;
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  height: 40px;
+  margin-bottom: 10px;
+  outline: medium none;
+  padding: 10px;
+}
+
+.salerevenue-table {
+  border: 1px solid #e6e4df;
+  margin-bottom: 10px;
+}
+
+.salerevenue-table thead tr {
+  height: 71px;
+}
+
+.salerevenue-table tr {
+  border-bottom: 1px solid#F7F7F0;
+}
+
+.salerevenue-table tr th {
+  padding: 0 30px!important;
+  border-bottom: 0!important;
+}
+
+.salerevenue-table tr td, .salerevenue-table tr th {
+  font-weight: 400;
+  vertical-align: inherit!important;
+  border-top: 0!important;
+  margin-right: 5px;
+  text-align: center;
+}
+
+.salerevenue-tr {
+  background: #fe980f;
+  color: #fff;
+  font-size: 16px;
+  font-family: roboto,sans-serif;
+  font-weight: 400;
+}
+
+.salerevenue-label {
+  display: inline;
+  padding: 0.2em 0.6em 0.3em;
+  font-size: 90%;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.salerevenue-bold {
+  font-weight: bold!important;
+}
+
+.date-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-label {
+  margin: 0 10px;
+}
+
+.date-label span {
+  padding: 10px;
+  padding-bottom: 11px;
+  font-size:16px;
+  margin-right: -5px;
+}

@@ -216,4 +216,3 @@ class UserRepository extends BaseRepository
 
     
 }
-

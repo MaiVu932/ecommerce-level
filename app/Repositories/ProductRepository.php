@@ -216,7 +216,7 @@
                     return ;
             }
 
-            $UpImage = $this->UpLoadImage($code, $categoriesName);
+            $UpImage = $this->UpLoadImage($code, $categoryName);
                 if (strlen($UpImage) > 0) {
                     echo "<script>alert('" . $UpImage . "')</script>";
                     return;
