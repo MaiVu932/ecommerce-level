@@ -222,8 +222,7 @@
             $status = null
         )
         {
-            
-            
+                    
             if($name && $category && $status) {
                 if($status == 6) {
                     $status = 0;
@@ -318,6 +317,16 @@
             }
 
             
+        }
+        public function getInfoProductByStatus()
+        {
+            $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                    s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                    p.unit, p.image, p.description, p.status, p.reason_refusal
+                    FROM `products` p, `categories` c, `shops` s
+                    WHERE p.category_id = c.id AND p.shop_id = s.id AND p.status = 0";
+            $data = $this->get_data($sql);
+            return($data);
         }
 
         public function getInfoProduct()
