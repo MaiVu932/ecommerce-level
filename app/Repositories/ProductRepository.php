@@ -16,8 +16,7 @@
             return $data[0];
         }
 
-        public function getShops()
-        
+        public function getShops(){
             $sql = "SELECT * FROM shops";
             $data = $this->get_data($sql);
             return $data;
@@ -462,8 +461,6 @@
             }
         }
 
-<<<<<<< HEAD
-=======
         public function updateStatus($id)
         {
             $product = [
@@ -481,7 +478,6 @@
             $update = $this->update('products', $product, 'id = '. $id  );
         }
 
->>>>>>> 30742fd0477cad390911f024d43c2d53bca069af
         public function postProduct()
         {
             $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $_GET['id']);
