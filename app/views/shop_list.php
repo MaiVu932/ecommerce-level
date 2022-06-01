@@ -34,6 +34,7 @@
     <div class="content">
            
             <div><a href="./shop_create.php">Thêm mới shop</a></div>
+            <div><a href="./sale-revenue-shop_detail.php">Xem doanh số/ doanh thu</a></div>
             <div class="search" style="margin-top: 20px;">
                 <form method="POST">
                     <input 

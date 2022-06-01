@@ -24,7 +24,7 @@ else
 /** Kiểm tra xem shop có tồn tại hay không */
 if (!isset($shop)) {
 	echo '<script>
-					alert("Shop không tồn tại !");
+					alert("doanh số doanh thu !");
 					window.location = "sale-revenue-shop_list.php";
 				</script>';
 	exit;
