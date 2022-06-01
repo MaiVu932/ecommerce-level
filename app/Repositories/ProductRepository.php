@@ -1,5 +1,5 @@
 <?php
-    include('BaseRepository.php');
+    // include('BaseRepository.php');
     class ProductRepository extends BaseRepository{
         public function getCategories()
         {
@@ -183,6 +183,7 @@
             return($data);
         }
 
+<<<<<<< HEAD
         public function getInfoProductById($productId)
         {
             $sql = "SELECT p.id, c.id 'category-id',c.code 'category-code', c.name 'category-name', s.id 'shop-id',
@@ -299,6 +300,12 @@
             else{
                 echo "<script>alert('Bạn đã sửa thông tin sản phẩm THẤT BẠI!!!')</script>";
                 return;
+=======
+        public function validate()
+        {
+            if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
+                echo '<script>alert("Logout success !")</script>';
+>>>>>>> af8797c8364776efbd8b5c1123ab40073b4641a4
             }
         }
 
