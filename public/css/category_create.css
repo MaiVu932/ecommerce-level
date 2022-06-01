@@ -33,10 +33,10 @@ h3 {
     margin-left: 40%;
     margin-top: 25px;
     margin-bottom: 40px;
-    background-color: rgb(102, 250, 96);
+    background-color: #FE980F;
 }
 .sub:hover{
-    background-color: rgb(98, 165, 96);
+    background-color: rgb(196, 101, 7);
 }
 .mta{
     width: 100%;
