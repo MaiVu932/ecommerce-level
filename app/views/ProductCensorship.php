@@ -1,8 +1,8 @@
-<?php include('header.php');
+<?php include('./header.php');
 
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
-    $products = $get_data->getInfoProduct();
+    $products = $get_data->getInfoProductByStatus();
     // var_dump($products);
 
     echo '<link href="' . CSS . 'listP.css" rel="stylesheet">';
@@ -21,18 +21,19 @@
         </ul>
       </div>
     <div class="content">
-    <h1>Danh sách kiểm duyệt</h1>
+    <h1>Danh sách sản phẩm cần duyệt</h1>
             <table id="post">
 
                 <tr>
                     <th>STT</th>
                     <th>Tên sản phẩm</th>
                     <th>Ảnh sản phẩm</th>
-                    <th>Mô tả chi tiết sản phẩm</th>
+                    <th>Mô tả</th>
                     <th>Tên shop</th>
                     <th>Tên danh mục</th>
-                    <th>Đồng ý</th>
-                    <th>Từ chối</th>
+                    <th>Duyệt</th>
+                    <th>Không duyệt</th>
+                    
                 </tr>
 
                 <?php 
@@ -49,8 +50,9 @@
                     <td><?php echo $product['description'] ?></td>
                     <td><?php echo $product['name-shop'] ?></td>
                     <td><?php echo $product['name-category'] ?></td>
-                    <td>Đồng ý</td> 
-                    <td>Từ chối</td> 
+                    <!-- <td><a onclick="UpdateStatus()">Duyệt</a></td>  -->
+                    <td><a onclick="delete_confirm(<?php echo $product['id'] ?>)" >Duyệt</a></td>
+                    <td><a onclick="not_agree(<?php echo $product['id'] ?>)">Không duyệt</a></td> 
                     
                 <?php } ?>
             </table>
@@ -84,6 +86,21 @@
     </div> 
 </div>
 
+<script>
+    function delete_confirm(e) {
+        if (confirm("Bạn có chắc muốn duyệt không?") == true) {
+            window.location = './UpdateStatus.php?id=' + e;
+        } else {
+            console.log('không duyệt');
+        }
+    }
+    function not_agree(e) {
+        if (confirm("Bạn có chắc muốn từ chối duyệt không?") == true) {
+            window.location = './UpdateReason.php?id=' + e;
+        } else {
+            console.log('không duyệt');
+        }
+    }
+</script>
 
-
-<?php include('footer.php')?>
+<?php include('./footer.php') ?>

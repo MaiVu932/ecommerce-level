@@ -1,4 +1,27 @@
 <?php include ('header.php');?>
+<?php 
+
+    if(!isset($_SESSION['role']) ){
+        echo "<script>
+                alert('Bạn chưa đăng nhập');
+                window.location = ('user_login.php');
+            </script>";
+            die();
+    }
+    else if(isset($_SESSION['role']) && ($_SESSION['role'] !=3) && ($_SESSION['role'] !=2)){
+        echo "<script>
+                alert('Bạn không có quyền truy cập trang này');
+                window.location = ('home.php');
+            </script>";
+            die();
+    }
+    // else{
+    //     echo "<script>
+    //            window.location = ('category_create.php');
+    //         </script>";
+    //         die();
+    // }
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
