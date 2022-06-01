@@ -10,7 +10,7 @@
     if(isset($_POST['sub-update'])) {
     var_dump($_POST);
 
-        $get_data->updateProduct($_POST, $_GET['updateId']);
+        $get_data->updateProductImage($_POST, $_GET['updateId']);
     }
 
     echo '<link href="' . CSS . 'createP.css" rel="stylesheet">';
@@ -37,7 +37,7 @@
                 
             <label>Mã sản phẩm</label>
                 <input type="text" name="product-code" class="form-control" style ="display:none"
-                    value="<?php echo $product['category-id'] ?>" />
+                    value="<?php echo $product['code'] ?>" />
 
                 <input type="text" class="form-control" disabled 
                         value="<?php echo $product['code'] ?>" />

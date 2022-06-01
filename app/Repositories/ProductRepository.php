@@ -99,7 +99,7 @@
         {
             
                 $shopName = trim($data['shop-name']);
-                $categoriesName = trim($data['category-name']);
+                $categoryName = trim($data['category-name']);
                 $code = trim($data['product-code']);
                 $name = trim($data['product-name']);
                 $price = (double)trim($data['product-price']);
@@ -144,7 +144,7 @@
                 
                     $product = [
                         'shop_id'            => $shopName,
-                        'category_id'        => $categoriesName,
+                        'category_id'        => $categoryName,
                         'status'             => 3,
                         'code'               => $code,
                         'name'               => $name,
@@ -194,8 +194,9 @@
             return $data;
         }
 
-        public function updateProduct($data, $id)
+        public function updateProductNoImage($data, $id)
         {
+
             $shopName = trim($data['shop-name']);
             $categoryName = trim($data['category-name']);
             $code = trim($data['product-code']);
@@ -205,20 +206,12 @@
             $quantity = (double)trim($data['product-quantity']);
             $unit = trim($data['product-unit']);
             $describe = trim($data['product-describe']);
-            $image = $data['image'];
-
-            var_dump($data);
-            return;
             
 
             if(empty($name) || empty($price) || empty($priceMarket) || empty($unit) || empty($quantity) || empty($describe) ){
                     
-                        echo "<script>alert('Các trường có * không được bỏ trống!!!')</script>";
-                        return ;
-            }
-
-            if(empty($image)){
-
+                    echo "<script>alert('Các trường có * không được bỏ trống!!!')</script>";
+                    return ;
             }
 
             $UpImage = $this->UpLoadImage($code, $categoriesName);
@@ -227,12 +220,12 @@
                     return;
                 }
 
-            $type = explode('/', $_FILES['image']['type']);
-            $image = $code . '.' . end($type);
+                $type = explode('/', $_FILES['image']['type']);
+                $image = $code . '.' . end($type);
 
             $product = [
                 'shop_id'            => $shopName,
-                'category_id'        => $categoriesName,
+                'category_id'        => $categoryName,
                 'code'               => $code,
                 'name'               => $name,
                 'price_market'       => $priceMarket,
@@ -243,20 +236,70 @@
                 'description'        => $describe,     
             ];
 
-            $update = $this->insert('products', $product, 'id = "'. $id . '"');
-                if($update){
-                    echo 
-                        "<script>
-                            alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
-                            window.location = ('ProductList.php');
-                            </script>";
-                    return;
-                }
-                else{
-                    echo "<script>alert('Bạn đã sửa thông tin sản phẩm THẤT BẠI!!!')</script>";
-                    return;
-                }
+            $update = $this->update('products', $product, 'id = "'. $id . '"');
+            if($update){
+                echo 
+                    "<script>
+                        alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
+                        window.location = ('ProductList.php');
+                        </script>";
+                return;
+            }
+            else{
+                echo "<script>alert('Bạn đã sửa thông tin sản phẩm THẤT BẠI!!!')</script>";
+                return;
+            }
 
+        }
+        public function updateProductImage($data, $id)
+        {
+            $shopName = trim($data['shop-name']);
+            $categoryName = trim($data['category-name']);
+            $code = trim($data['product-code']);
+            $name = trim($data['product-name']);
+            $price = (double)trim($data['product-price']);
+            $priceMarket = (double)trim($data['product-priceMarket']);
+            $quantity = (double)trim($data['product-quantity']);
+            $unit = trim($data['product-unit']);
+            $describe = trim($data['product-describe']);
+            
+
+            if(empty($name) || empty($price) || empty($priceMarket) || empty($unit) || empty($quantity) || empty($describe) ){
+                    
+                    echo "<script>alert('Các trường có * không được bỏ trống!!!')</script>";
+                    return ;
+            }
+
+            $product = [
+                'shop_id'            => $shopName,
+                'category_id'        => $categoryName,
+                'code'               => $code,
+                'name'               => $name,
+                'price_market'       => $priceMarket,
+                'price_historical'   => $price,
+                'quantity'           => $quantity,
+                'unit'               => $unit,
+                'description'        => $describe,     
+            ];
+
+            echo "<pre>";
+            print_r($product);
+            echo "</pre>";
+            return;
+
+            $update = $this->update('products', $product, 'id = "'. $id . '"');
+            if($update){
+                echo 
+                    "<script>
+                        alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
+                        window.location = ('ProductList.php');
+                        </script>";
+                return;
+            }
+            else{
+                echo "<script>alert('Bạn đã sửa thông tin sản phẩm THẤT BẠI!!!')</script>";
+                return;
+            }
         }
 
     }

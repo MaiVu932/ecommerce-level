@@ -11,17 +11,19 @@
     <div class="d-flex justify-content-start py-3">
         <ul class="nav nav-pills">
           <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Quản lý</a></li>
-          <li class="nav-item"><a href="#" class="ProductList.php">Sản phẩm</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Người dùng</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Danh mục</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Sản phẩm</a></li>
           <li class="nav-item"><a href="#" class="nav-link">Bài viết</a></li>
           <li class="nav-item"><a href="#" class="nav-link">Hóa đơn</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Doanh số/thu</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Doanh số/ thu</a></li>
 
         </ul>
       </div>
     <div class="content">
     <h1>Danh sách sản phẩm</h1>
             <table id="post">
-            <a href="ProductCreate.php"><button type="button" class="btn btn-primary">Thêm mới sản phẩm</button></a>
+
                 <tr>
                     <th>STT</th>
                     <th>Ảnh sản phẩm</th>
@@ -35,10 +37,12 @@
                     <th>Đơn giá(Giá bán)</th>
                     <th>Mô tả chi tiết sản phẩm</th>
                     <th>Lý do từ chối</th>
-                    <th>Đăng bán</th>
+                    <th>Trạng thái</th>
                     <th>Sửa</th>
                     <th>Xóa</abbr></th>
+
                 </tr>
+
                 <?php 
                     $i=1;
                     foreach($products as $product) { ?>
@@ -59,16 +63,8 @@
                     <td><?php echo $product['price_market'] ?></td>
                     <td><?php echo $product['description'] ?></td>
                     <td><?php echo $product['reason_refusal'] ?></td>
-                    <?php if($product['status'] == 1): ?>
-                        <td><a onclick = "postProduct()">Đăng bán</a></td>
-                    <?php else: ?>
-                        <td><a href="ProductPost.php">Đăng bán</a></td>
-                    <?php endif; ?>
+                    <td><?php echo $product['status'] ?></a></td>
                     
-                    <th><a href="ProductUpdate.php?updateId=<?php echo $product['id'] ?>">Sửa</a></th>
-                    
-        
-
                     <?php if($product['status'] == 3): ?>
                         <th>
                             <a onclick="delete_confirm(<?php echo $product['id'] ?>)" >Xóa</a>
@@ -121,11 +117,6 @@
             console.log('k xoa');
         }
     }
-
-    function postProduct(e){
-        alert('Sản phẩm này đã đăng bán!!!');
-    }
-
 </script>
 
 <?php include('./footer.php') ?>
