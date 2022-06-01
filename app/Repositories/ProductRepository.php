@@ -473,19 +473,57 @@
 
         public function updateStatus($id)
         {
-            $product = [
-                'status' => 1,
-            ];
-            $update = $this->update('products', $product, 'id = '. $id  );
+            $info = $this->getInfoUserShop($id);
+         
+            $update = $this->update('products', ['status' => 1] , 'id = '.$id);
+
+            if($update){
+                $notifical =[
+                    'user_id' => $info['user_id'],
+                    'notifiable_id' =>$info['product_id'],
+                    'notifiable_type' => 3,
+                    'status' => 1,
+                ];
+                // var_dump($notifical);
+                // return;
+                $insert = $this->insert('notifications', $notifical);
+                if($insert){
+                    echo    "<script>
+                                alert('Kiểm duyệt thành công');
+                                window.location = './ProductCensorship.php';
+                            </script>";
+                    return;
+                }
+                else{
+                    echo    "<script>
+                                alert('Kiểm không duyệt thành công');
+                                window.location = './ProductCensorship.php';
+                            </script>";
+                    return;
+
+                }
+                
+            }
         }
         
         public function updateReason($id)
         {
+            $info = $this->getInfoUserShop($id);
             $product = [
                 'status' => 2,
-                'reason_réual' => 'Sẩn phẩm của bạn không đạt yêu cầu.',
+                'reason_refusal' => 'Sản phẩm của bạn không hợp lệ',
             ];
-            $update = $this->update('products', $product, 'id = '. $id  );
+            $update = $this->update('product', ['status' => 2, 'reason_refusal' => 'Sản phẩm của bạn không hợp lệ(hàng cấm, hàng giả,..)'], 'id = '.$id);
+            if($update){
+
+            }
+        }
+        public function getInfoUserShop($productId){
+            $sql = "SELECT p.id 'product_id', p.shop_id, s.name, u.name, u.id 'user_id'
+                    FROM products p, shops s, users u
+                    WHERE p.shop_id = s.id AND s.user_id = u.id AND p.id=" .$productId;
+            $data = $this->get_data($sql);
+            return $data[0];
         }
 
         public function postProduct()
@@ -509,7 +547,7 @@
                 return;
             } 
 
-            echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./ProductList.php"; </script>';
+            echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./shop_list.php"; </script>';
             return;
             
         }
