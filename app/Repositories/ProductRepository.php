@@ -1,5 +1,5 @@
 <?php
-    include('BaseRepository.php');
+    // include('BaseRepository.php');
     class ProductRepository extends BaseRepository{
         public function getCategories()
         {
@@ -185,6 +185,13 @@
                     WHERE p.category_id = c.id AND p.shop_id = s.id";
             $data = $this->get_data($sql);
             return($data);
+        }
+
+        public function validate()
+        {
+            if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
+                echo '<script>alert("Logout success !")</script>';
+            }
         }
 
     }

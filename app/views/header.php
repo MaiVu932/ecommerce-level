@@ -4,6 +4,7 @@ if(!isset($_SESSION)) {
 }
 
  include 'define.php';
+ include '../Repositories/BaseRepository.php';
 
  echo '<link href="' . CSS . 'bootstrap.min.css" rel="stylesheet">
  <link href="' . CSS . 'font-awesome.min.css" rel="stylesheet">
@@ -28,6 +29,7 @@ if(!isset($_SESSION)) {
     ?>
 
 
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
@@ -91,13 +93,18 @@ if(!isset($_SESSION)) {
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
                                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3): ?>
-								    <li><a href=""><i class="fa fa-star"></i> Users</a></li>
-								    <li><a href="category_list.php"><i class="fa fa-user"></i> Categories</a></li>
+								    <li><a href="category_list.php"><i class="fa fa-star"></i> Categories</a></li>
+								    <li><a href="admin/user_list.php"><i class="fa fa-user"></i> Users</a></li>
+                                <?php endif; ?>
+
+                                <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 2): ?>
+								    <li><a href="category_list.php"><i class="fa fa-star"></i> Categories</a></li>
+								    <li><a href="checker/user_list.php"><i class="fa fa-user"></i> Users</a></li>
                                 <?php endif; ?>
 
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php if(isset($_SESSION['username'])): ?>
-                                    <li><a href="user_update.php"><i class="fa fa-lock"></i><?php echo $_SESSION['username'] ?></a></li>
+                                    <li><a href="user_update.php"><i class="fa fa-user"></i><?php echo $_SESSION['username'] ?></a></li>
 								    <li><a href="user_logout.php"><i class="fa fa-crosshairs"></i> Logout</a></li>
                                     <?php else: ?>
                                     <li><a href="user_login.php"><i class="fa fa-lock"></i> Login</a></li>
@@ -127,11 +134,15 @@ if(!isset($_SESSION)) {
 								<li><a href="home.php" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
+                                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 0): ?>
+                                            <li><a href="shop_create.php">Create shop</a></li>
+                                        <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 1): ?>
+                                            <li><a href="shop_list.php">Shops</a></li>
+                                            <!-- <li><a href="product-details.html">Product Details</a></li>  -->
+                                            <!-- <li><a href="checkout.html">Checkout</a></li>  -->
+                                        <?php else: ?>
+                                        <?php endif; ?>
+                                         
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
