@@ -44,7 +44,7 @@
                 $start = ($page_current - 1) * 12;
 
                 $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
-                $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1 ";
+                $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1  ";
                 $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
 
                 return $this->get_data($query);
@@ -56,7 +56,7 @@
                 $start = ($page_current - 1) * 12;
 
                 $query = " SELECT P.id product_id , P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
-                $query .= " FROM products P, categories C WHERE C.id = P.category_id  AND P.status = 1  ";
+                $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1  ";
                 $query .= " ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
 
                 return $this->get_data($query);
@@ -462,74 +462,6 @@
             }
         }
 
-<<<<<<< HEAD
-        public function getInfoProductByStatus()
-        {
-            $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
-                    s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
-                    p.unit, p.image, p.description, p.status, p.reason_refusal
-                    FROM `products` p, `categories` c, `shops` s
-                    WHERE p.category_id = c.id AND p.shop_id = s.id AND p.status = 0";
-            $data = $this->get_data($sql);
-            return($data);
-        }
-
-        public function getInfoUserShop($productId){
-            $sql = "SELECT p.id 'product_id', p.shop_id, s.name, u.name, u.id 'user_id'
-                    FROM products p, shops s, users u
-                    WHERE p.shop_id = s.id AND s.user_id = u.id AND p.id=" .$productId;
-            $data = $this->get_data($sql);
-            return $data[0];
-        }
-        
-        public function UpdateStatus($id)
-        {
-            $info = $this->getInfoUserShop($id);
-         
-            $update = $this->update('products', ['status' => 1] , 'id = '.$id);
-
-            if($update){
-                $notifical =[
-                    'user_id' => $info['user_id'],
-                    'notifiable_id' =>$info['product_id'],
-                    'notifiable_type' => 3,
-                    'status' => 1,
-                ];
-                // var_dump($notifical);
-                // return;
-                $insert = $this->insert('notifications', $notifical);
-                if($insert){
-                    echo    "<script>
-                                alert('Kiểm duyệt thành công');
-                                window.location = './ProductCensorship.php';
-                            </script>";
-                    return;
-                }
-                else{
-                    echo    "<script>
-                                alert('Kiểm không duyệt thành công');
-                                window.location = './ProductCensorship.php';
-                            </script>";
-                    return;
-
-                }
-                
-            }
-
-        }
-        public function UpdateReason($id)
-        {
-            $info = $this->getInfoUserShop($id);
-            $product = [
-                'status' => 2,
-                'reason_refusal' => 'Sản phẩm của bạn không hợp lệ',
-            ];
-            $update = $this->update('product', ['status' => 2, 'reason_refusal' => 'Sản phẩm của bạn không hợp lệ(hàng cấm, hàng giả,..)'], 'id = '.$id);
-            if($update){
-
-            }
-        }
-=======
         public function updateStatus($id)
         {
             $product = [
@@ -573,7 +505,5 @@
             
         }
         
->>>>>>> 30742fd0477cad390911f024d43c2d53bca069af
     }
-
 ?>
