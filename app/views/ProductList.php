@@ -2,7 +2,7 @@
 
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
-    $products = $get_data->getInfoProduct();
+    $products = $get_data->getInfoProductByShopId();
     // var_dump($products);
 
     echo '<link href="' . CSS . 'listP.css" rel="stylesheet">';
@@ -21,7 +21,7 @@
     <div class="content">
     <h1>Danh sách sản phẩm</h1>
             <table id="post">
-            <a href="ProductCreate.php"><button type="button" class="btn btn-primary">Thêm mới sản phẩm</button></a>
+            <a href="ProductCreate.php?id=<?php echo $_GET['id'] ?>"><button type="button" class="btn btn-primary">Thêm mới sản phẩm</button></a>
                 <tr>
                     <th>STT</th>
                     <th>Ảnh sản phẩm</th>
@@ -34,7 +34,7 @@
                     <th>Đơn giá(Giá gốc)</th>
                     <th>Đơn giá(Giá bán)</th>
                     <th>Mô tả chi tiết sản phẩm</th>
-                    <th>Lý do từ chối</th>
+                    <th>Lý do từ chối đăng bán</th>
                     <th>Đăng bán</th>
                     <th>Sửa</th>
                     <th>Xóa</abbr></th>

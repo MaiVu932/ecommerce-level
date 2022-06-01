@@ -10,9 +10,9 @@
 
         public function getShops()
         {
-            $sql = "SELECT * FROM shops WHERE user_id = '1'";
+            $sql = "SELECT * FROM shops WHERE user_id = " . $_SESSION['id'] . " AND id = " . $_GET['id'];
             $data = $this->get_data($sql);
-            return $data;
+            return $data[0];
         }
 
         public function getProducts()
@@ -109,7 +109,7 @@
                 $describe = trim($data['product-describe']);
                 
 
-                if(empty($shopName) || empty($categoriesName) || empty($code) || empty($name) || empty($price) 
+                if(empty($shopName) || empty($categoryName) || empty($code) || empty($name) || empty($price) 
                     || empty($priceMarket) || empty($unit) || empty($quantity) || empty($describe) ){
                     
                         echo "<script>alert('Các trường thông tin không được bỏ trống!!!')</script>";
@@ -132,7 +132,7 @@
 
                 }
 
-                $UpImage = $this->UpLoadImage($code, $categoriesName);
+                $UpImage = $this->UpLoadImage($code, $categoryName);
                 if (strlen($UpImage) > 0) {
                     echo "<script>alert('" . $UpImage . "')</script>";
                     return;
@@ -155,13 +155,15 @@
                         'image'              => $image,
                         'description'        => $describe,     
                     ];
-
+                    echo "<pre>";
+                    print_r($product);
+                    echo "</pre>";
                     $insert = $this->insert('products', $product);
                     if($insert){
                         echo 
                             "<script>
-                                alert('Bạn đã thêm sản phẩm THÀNH CÔNG!!!');
-                                window.location = ('ProductList.php');
+                                alert('Bạn đã thêm sản phẩm THÀNH CÔNG!!!'); 
+                                window.location = 'ProductList.php?id=" . $_GET['id'] . "';
                             </script>";
                         return;
                     }
@@ -172,18 +174,17 @@
                 
         }
 
-        public function getInfoProduct()
+        public function getInfoProductByShopId()
         {
             $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                     p.unit, p.image, p.description, p.status, p.reason_refusal
                     FROM `products` p, `categories` c, `shops` s
-                    WHERE p.category_id = c.id AND p.shop_id = s.id";
+                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] ;
             $data = $this->get_data($sql);
             return($data);
         }
 
-<<<<<<< HEAD
         public function getInfoProductById($productId)
         {
             $sql = "SELECT p.id, c.id 'category-id',c.code 'category-code', c.name 'category-name', s.id 'shop-id',
@@ -300,14 +301,13 @@
             else{
                 echo "<script>alert('Bạn đã sửa thông tin sản phẩm THẤT BẠI!!!')</script>";
                 return;
-=======
+            }
+        }
         public function validate()
         {
             if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
                 echo '<script>alert("Logout success !")</script>';
->>>>>>> af8797c8364776efbd8b5c1123ab40073b4641a4
             }
         }
-
     }
 ?>

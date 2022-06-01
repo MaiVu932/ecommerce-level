@@ -1,9 +1,15 @@
 <?php 
     include('./header.php'); 
-
+    if(!(isset($_SESSION['role']) && $_SESSION['role'] == 1)) {
+        echo '<script>alert("Bạn cần đăng nhập trước");
+         window.location = "./user_login.php";  </script>';
+    }
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
-    $shops = $get_data->getShops();
+    $shop = $get_data->getShops();
+    // echo "<pre>";
+    // print_r($shop);
+    // echo "</pre>";
     $categories = $get_data->getCategories();
     $info = null;
     if(isset($_POST['sub-add'])) {
@@ -22,12 +28,9 @@
             <h1>Thêm mới sản phẩm</h1>
             <form method="POST" enctype="multipart/form-data" id="HDpro">
             <label>Tên shop</label>
-                <select class="form-select" class="form-control" name="shop-name" required>
-                    <option value="">-- Chọn shop --</option>
-                    <?php foreach($shops as $shop){ ?>
-                    <option value="<?php echo $shop['id'] ?>"><?php echo $shop['name'] ?></option>
-                    <?php } ?>
-                </select>
+                <input type="text" name="shop-name" class="form-control" style ="display:none"
+                    value="<?php echo $shop['id'] ?>" required />
+                <input type="text" class="form-control" value="<?php echo $shop['name'] ?>" disabled /> 
 
                 <label>Tên danh mục</label>
                 <select class="form-select" class="form-control" name="category-name" required>
