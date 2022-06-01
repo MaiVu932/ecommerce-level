@@ -98,6 +98,8 @@
 					
 						<div class="price-range"><!--price-range-->
 							<h2>Price Range</h2>
+                            <span id="min-price">min: 250</span>
+                            <span id="max-price">max: 450</span>
 							<div class="well text-center">
 								 <input 
                                     type="text" 
@@ -108,10 +110,11 @@
                                     data-slider-step="5" 
                                     data-slider-value="[250,450]" 
                                     id="sl2"
-                                    oninput="changePrice(e)" >
+                                    oninput="changePrice(this)" >
                                     <br />
 								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
 							</div>
+                            <button id="btn-search">Tìm kiếm</button>
 						</div><!--/price-range-->
 						
 						<div class="shipping text-center"><!--shipping-->

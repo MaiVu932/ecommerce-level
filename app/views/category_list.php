@@ -40,7 +40,7 @@
         .subC{
             margin-left: 48%;
             width: 5%;
-            height: 25%;
+            height: 25px;
             margin-top: 1%;
         }
         .subC:hover{

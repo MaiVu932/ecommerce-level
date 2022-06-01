@@ -1,16 +1,19 @@
 <?php include 'header.php';
+
+    if(! isset($_SESSION['role'])) {
+        echo '<script> alert("Bạn cần đăng nhập trước !"); window.location="./user_login.php";</script>';
+    }
+
     if (isset($_POST['btn-shop-create'])) {
         include '../Repositories/ShopRepository.php';
         $shop = new ShopRepository();
         $info = $shop->createShop($_POST);
-        var_dump($info);
         $shop->validate();
     }
 ?>
 
 <link rel="stylesheet" href="<?php echo CSS . 'shop_create.css' ?>">
 
-<?php if (isset($_SESSION['id'])):  ?>
 
 <form action="" method="POST" >
     <h1>CREATE SHOP</h1>
@@ -48,12 +51,6 @@
 
     <input type="submit" id="sb" name="btn-shop-create" value="Create" />
 </form>
-
-<?php
-    else:
-        echo '<script> alert("You need to login first !"); window.location="./user_login.php";</script>';
-    endif;
-?>
 
 
 <?php include 'footer.php' ?>
