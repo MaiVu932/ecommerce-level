@@ -105,6 +105,7 @@ if(!isset($_SESSION)) {
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
                                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3): ?>
+									<li><a href="sale-revenue-exchange.php"><i class="fa fa-star"></i> Sale-revenue</a></li>
 								    <li><a href="category_list.php"><i class="fa fa-star"></i> Categories</a></li>
 								    <li><a href="user_list.php"><i class="fa fa-user"></i> Users</a></li>
                                 <?php endif; ?>

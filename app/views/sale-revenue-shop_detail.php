@@ -1,7 +1,6 @@
 <?php
-include 'header.php';
-
 date_default_timezone_set('Asia/Ho_Chi_Minh');
+include 'header.php';
 include '../Repositories/SaleRevenue.php';
 
 
@@ -25,7 +24,7 @@ else
 /** Kiểm tra xem shop có tồn tại hay không */
 if (!isset($shop)) {
 	echo '<script>
-					alert("Shop không tồn tại !");
+					alert("Doanh số/ doanh thu!");
 					window.location = "sale-revenue-shop_list.php";
 				</script>';
 	exit;
@@ -36,18 +35,18 @@ $month = !empty($_GET['month']) ? sprintf("%02d", (int)$_GET['month']) : null; /
 $year = !empty($_GET['year']) ? (int)$_GET['year'] : null; // Kiểm tra xem có nhập vào năm hay không nếu có thì ép kiểu sang kiểu số nguyên.
 
 $products = $_SALEREVENUE->getProductByShopId($shop['id']); // Lấy thông tin của sản phẩm của shop
-var_dump($products);
+//var_dump($products);
 
 /** Xử lý sắp xếp theo điều kiện */
 $productNew = array();
-// foreach ($products as $product) {
-// 	/** Nếu chọn thống kê theo ngày, tháng, năm lấy tổng số lượng sản phẩm đã bán được trong ngày đó */
-// 	$quantity = $_SALEREVENUE->getQuantityByProduct($product, $date, $month, $year); // Lấy tổng số lượng đã bán được theo ngày, tháng, năm nhập vào
-// 	if ($quantity != null) {
-// 		$productOld = $_SALEREVENUE->getSaleRevenueByQuantityAndProductId($quantity, $product['id']); // Lấy doanh số, doanh thu của sản phẩm
-// 		array_push($productNew, $productOld); // Gộp thông tin doanh số, doanh thu đã tính toán được ở trên vào 1 mảng
-// 	}
-// }
+foreach ($products as $product) {
+	/** Nếu chọn thống kê theo ngày, tháng, năm lấy tổng số lượng sản phẩm đã bán được trong ngày đó */
+	$quantity = $_SALEREVENUE->getQuantityByProduct($product, $date, $month, $year); // Lấy tổng số lượng đã bán được theo ngày, tháng, năm nhập vào
+	if ($quantity != null) {
+		$productOld = $_SALEREVENUE->getSaleRevenueByQuantityAndProductId($quantity, $product['id']); // Lấy doanh số, doanh thu của sản phẩm
+		array_push($productNew, $productOld); // Gộp thông tin doanh số, doanh thu đã tính toán được ở trên vào 1 mảng
+	}
+}
 
 /** Thuật toán sắp xếp chọn giảm dần */
 function SelectionSortDescending($mang, $conditon)
@@ -73,8 +72,8 @@ function SelectionSortDescending($mang, $conditon)
 	return $mang;
 }
 
-if (isset($_GET['sale']))
-	$productNew = SelectionSortDescending($productNew, 'sale');
+if (isset($_GET['sold']))
+	$productNew = SelectionSortDescending($productNew, 'sold');
 if (isset($_GET['revenue']))
 	$productNew = SelectionSortDescending($productNew, 'revenue');
 
@@ -133,7 +132,7 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 				echo 'null';
 			}
 
-			if (isset($_GET['sale'])) {
+			if (isset($_GET['sold'])) {
 				echo ' | Sắp xếp theo doanh số';
 			} else if (isset($_GET['revenue'])) {
 				echo ' | Sắp xếp theo doanh thu';
@@ -148,9 +147,8 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 				<thead>
 					<tr class="salerevenue-tr">
 						<th>Tên sản phẩm</th>
-						<th>Số lượng sản phẩm đã bán</th>
+						<th>Doanh số sản phẩm</th>
 						<th>Số lượng sản phẩm tồn kho</th>
-						<th>Doanh số của sản phẩm</th>
 						<th>Doanh thu của sản phẩm</th>
 					</tr>
 				</thead>
@@ -163,14 +161,12 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 				foreach ($productNew as $product) {
 					$totalSold += $product['sold'];
 					$totalInventory += $product['inventory'];
-					$totalSale += $product['sale'];
 					$totalRevenue += $product['revenue'];
 					echo '
 							<tr>
 								<td>' . $product['name'] . '</td>
 								<td>' . $product['sold'] . '</td>
 								<td>' . $product['inventory'] . '</td>
-								<td>' . $product['sale'] . '</td>
 								<td>' . $product['revenue'] . '</td>
 							</tr>';
 				}
@@ -179,7 +175,6 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 							<td class="salerevenue-bold">Tổng cộng:</td>
 							<td class="salerevenue-bold">' . $totalSold . '</td>
 							<td class="salerevenue-bold">' . $totalInventory . '</td>
-							<td class="salerevenue-bold">' . $totalSale . '</td>
 							<td class="salerevenue-bold">' . $totalRevenue . '</td>
 						</tr>';
 			} else {
