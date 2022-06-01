@@ -4,19 +4,11 @@ include 'BaseRepository.php';
 
 class CategoryRepository extends BaseRepository
 {
-<<<<<<< HEAD
-=======
-    //ktra code da ton tai trong dl chua
->>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
     public function isExistCode(string $code)
     {
         $category = $this->get_data("SELECT * FROM categories WHERE code = '$code'");
         return count($category) ? true : false;
     }
-<<<<<<< HEAD
-=======
-    //ktra ten co bi trung k
->>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
     public function isExistName(string $name)
     {
         $category = $this->get_data("SELECT * FROM categories WHERE name = '$name'");
@@ -27,33 +19,61 @@ class CategoryRepository extends BaseRepository
         $category = $this->get_data("SELECT * FROM categories ");
         return $category;
     }
-    public function selectByCode_category($code)
+    //select user
+    // public function select_user()
+    // {
+    //     $user = $this->get_data("SELECT * FROM users ");
+    //     return $user;
+    // }
+    public function select_userById($id)
     {
-        $category = $this->get_data("SELECT * FROM categories WHERE code = '$code'");
+        $sql = "SELECT permission FROM `users` WHERE id = '$id'";
+        $category = $this->get_data($sql);
         return $category;
     }
-<<<<<<< HEAD
-    //
-    public function SetCode(string $code)
+    // public function selectByCode_category($code)
+    // {
+    //     $category = $this->get_data("SELECT * FROM categories WHERE code = '$code'");
+    //     return $category;
+    // }
+    public function selectByID_category($id)
     {
-        // $category = $this->get_data("SELECT * FROM categories WHERE code = '$code'");
-        // return count($category) ? true : false;
+        $category = $this->get_data(" SELECT * FROM `categories` WHERE id = '$id' ");
+        return $category;
+        // var_dump($category);
     }
-=======
-    //creat category
->>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
+
+    public function validateCode($code)
+    {
+            $errors = [];
+            $notAllow = ['&', '=', '_', "'", '-', '+', ',', '>', '<', '..'];
+
+            if (stripos($code, ' ')) {
+                $errors['code'] = 'Mã danh mục không được chứa dấu cách';
+            }
+
+            for($i=0; $i<strlen($code); $i++) {
+            if(in_array($code[$i], $notAllow)) {
+                $errors['code'] = "Mã danh mục không chứa các ký tự đặc biệt:'&', '=', '_', '-', '+', ',', '>', '<', '..' ";
+                break;
+                }
+            }
+
+            return $errors;
+    }
     public function Insert_category(array $data)
     {
             $code=trim($data['tcode']);
             $name=trim($data['tname']);
             $description=trim($data['tmota']);
 
-<<<<<<< HEAD
+            $validateCode = $this->validateCode($code);
+            if(count($validateCode) > 0){
+                echo "<script>alert('Ma Danh mục khong hop le')</script>";
+                return $validateCode;
+            }
 
-=======
-            
->>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
-            if($this->isExistCode($data['tcode']) or $this->isExistName($data['tname']))
+            if($this->isExistCode($code) or $this->isExistName($name))
             {
                 echo '<script>alert("Danh mục đã tồn tại!")</script>';
             }
@@ -64,84 +84,58 @@ class CategoryRepository extends BaseRepository
                     'name'        => $name,
                     'description' => $description
                 ];
-                $a = $this->insert('categories', $category);
-                echo '<script>alert("Them danh muc thanh cong")</script>';
-<<<<<<< HEAD
-                // header('location:category_list.php');    
-                // return $category;
-=======
-                // return $category;
-                
->>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
-                if($a){
+                $insert = $this->insert('categories', $category);
+                if($insert){
+                    echo '
+                        <script>
+                            alert("Them danh muc thanh cong");
+                            window.location = ("category_list.php");
+                        </script>';
                     mkdir("../../public/images/$code", 0777);
                     return $code;
 
                 }
             }
     }
-<<<<<<< HEAD
 
+    
+    public function getCategoryById($id)
+    {
+        $sql = "SELECT * FROM `categories` WHERE id = '$id'";
+        $category = $this->get_data($sql);
+        return $category;
+    }
     public function Update_category(array $data)
     {
-
-            $code=trim($data['tcode']);
-            $name=trim($data['tname']);
-            $description=trim($data['tmota']);
-            var_dump($this->isExistCode($data['tcode'] == $_GET['updateCode']));
-
-            if($this->isExistCode($data['tcode'] == $_GET['updateCode']))
-            {
-                $category = [
-                    'code'        => $code,
-                    'name'        => $name,
-                    'description' => $description
-                ];
-                $category = $this->update('categories', $category, $_GET['updateCode']);
-                echo '<script>alert("Update successful category")</script>';
-            }
-            
-            else
-            {
-                echo '<script>alert("Update category failed")</script>';
-                
-            }
-            
-    }
-
-    public function delete_category($code)
-    {
-        $category = $this->delete('categories','code ="'.$code.'"');
+        $category = [
+            // 'code' => $data['code'],
+            'name' => $data['name'],
+            'description' => $data['description'],
+        ];
+        $where = "id = ". $data['id'];
+        $this->update('categories', $category, $where);
+        echo '<script>alert("Update successful"); window.location=("category_list.php")</script>';
         return $category;
+                
+    }
+            
+
+    public function delete_category($id)
+    {
+        $delete = $this->delete('categories','id ="'.$id.'"');
+        return $delete;
+
+        if($delete
+        ){
+            echo '
+                <script>
+                    alert("Xóa danh muc thanh cong");
+                    window.location = ("category_list.php");
+                </script>';
+            // rmdir("../../public/images/$code", 0777);
+            // return $code;
+        }
+
     }
 
 } 
-=======
-    
-    
-    // public function update_category('Categories', $data, $category)
-    public function Update_category(array $data)
-    {
-
-            // $code=trim($data['tcode']);
-            $name=trim($data['tname']);
-            $description=trim($data['tmota']);
-
-            if($this->isExistCode($data['tcode'] == $_GET['updateCode']))//????????
-            {
-                $category = [
-                    // 'code'        => $code,
-                    'name'        => $name,
-                    'description' => $description
-                ];
-                $update = $this->update('categories', $category, $_GET['updateCode']);
-                echo '<script>alert("Update successful category")</script>';
-            }
-            else
-            {
-                echo "Update category failed";
-            }
-    }
-
-}
->>>>>>> c1a0d5a03e8cf151577d005fdd20dc2048414a82
