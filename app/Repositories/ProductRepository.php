@@ -16,11 +16,45 @@
             return $data[0];
         }
 
-        public function getProducts()
+        public function getProducts(
+            $category = null,
+            $page = null
+        )
         {
-            $sql = "SELECT * FROM products";
-            $data = $this->get_data($sql);
-            return $data;
+            if($page && $category) {
+                $page_current = (int)$_GET['page'];
+                $start = ($page_current - 1) * 12;
+
+                $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
+                $query .= " FROM products P, categories C WHERE C.id = P.category_id ";
+                $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
+
+                return $this->get_data($query);
+            }
+
+            if(!$page && $category) {
+                $page_current = 1;
+                $start = ($page_current - 1) * 12;
+
+                $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
+                $query .= " FROM products P, categories C WHERE C.id = P.category_id ";
+                $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
+
+                return $this->get_data($query);
+            }
+
+
+            if(!$category && !$page) {
+                $page_current = 1;
+                $start = ($page_current - 1) * 12;
+
+                $query = " SELECT P.id product_id , P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
+                $query .= " FROM products P, categories C WHERE C.id = P.category_id ";
+                $query .= " ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
+
+                return $this->get_data($query);
+            }
+
         }
 
         public function validateCodeProduct($code)
