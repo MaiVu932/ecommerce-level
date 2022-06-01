@@ -1,5 +1,9 @@
 <?php 
     include('./header.php'); 
+    if(!(isset($_SESSION['role']) && $_SESSION['role'] == 1)) {
+        echo '<script>alert("Bạn cần đăng nhập trước");
+         window.location = "./user_login.php";  </script>';
+    }
 
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
@@ -8,9 +12,8 @@
     $product = $get_data->getInfoProductById($_GET['updateId']);
     
     if(isset($_POST['sub-update'])) {
-    var_dump($_POST);
-
-        $get_data->updateProductImage($_POST, $_GET['updateId']);
+        var_dump($_POST);
+        $get_data->updateProduct($_POST, $_GET['updateId']);
     }
 
     echo '<link href="' . CSS . 'createP.css" rel="stylesheet">';

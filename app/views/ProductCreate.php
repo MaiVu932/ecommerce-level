@@ -6,7 +6,7 @@
     }
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
-    $shop = $get_data->getShops();
+    $shop = $get_data->getShopByUserId();
     // echo "<pre>";
     // print_r($shop);
     // echo "</pre>";
@@ -46,11 +46,22 @@
                 <label>Tên sản phẩm</label>
                 <input type="text" class="form-control" name="product-name" required />
 
+                <!-- <label>Đơn vị tính</label>
+                <input type="text" class="form-control" name="product-unit" required /> -->
+
                 <label>Đơn vị tính</label>
-                <input type="text" class="form-control" name="product-unit" required />
+                <select class="form-select" class="form-control" name="product-unit" required>
+                    <option value="">-- Chọn đơn vị tính --</option>
+                    <option value="Chiếc">Chiếc</option>
+                    <option value="Túi">Túi</option>
+                    <option value="Chai">Chai</option>
+                </select>
 
                 <label>Số lượng</label>
                 <input type="number" class="form-control" name="product-quantity" required />
+
+                <label>Ngày tạo</label>
+                <input type="date" class="form-control" name="create_at" required />
 
                 <label>Giá gốc</label>
                 <input type="number" class="form-control" name="product-price" required />

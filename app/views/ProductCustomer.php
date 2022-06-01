@@ -54,8 +54,8 @@
                     <td><?php echo $product['unit'] ?></td>
                     <td><?php echo $product['price_market'] ?></td>
                     <td><?php echo $product['description'] ?></td>
-                    <td><a>Xem chi tiết</a></td> 
-                    
+                    <td><a>Xem chi tiết</a></td>    
+                    <td><a>Xem chi tiết</a></td>
                 <?php } ?>
             </table>
         <div style="margin: 20px 0px 0 20px;">

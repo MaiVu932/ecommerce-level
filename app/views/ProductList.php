@@ -1,8 +1,24 @@
 <?php include('./header.php');
+    if(!(isset($_SESSION['role']) && $_SESSION['role'] == 1)) {
+        echo '<script>alert("Bạn cần đăng nhập trước");
+         window.location = "./user_login.php";  </script>';
+    }
 
     include('../Repositories/ProductRepository.php');
+    include '../Repositories/CategoryRepository.php';
+    
+    $category = new CategoryRepository();
+    $categories = $category->select_category();
+
+
     $get_data = new ProductRepository();
+    
     $products = $get_data->getInfoProductByShopId();
+
+    if(isset($_POST['btn-search'])) {
+        $products = $get_data->getInfoProductByShopId($_POST['txt-search-name'], $_POST['category'], $_POST['status']);
+    }
+
     // var_dump($products);
 
     echo '<link href="' . CSS . 'listP.css" rel="stylesheet">';
@@ -20,6 +36,40 @@
       </div>
     <div class="content">
     <h1>Danh sách sản phẩm</h1>
+    <div class="search" style="margin-top: 20px;">
+                <form method="POST">
+                
+                    <input 
+                        type="text" 
+                        style="width: 20%; "
+                        placeholder="  Tìm kiếm theo tên"
+                        value="<?php echo isset($_POST['txt-search-name']) ? $_POST['txt-search-name'] : ''  ?>"
+                        name="txt-search-name" />
+                    
+                    <select name="category" style="width: 20%; background-color: #fff; border: 1px solid black">
+                        <option value="">Danh mục</option>
+                        <?php foreach($categories as $value): ?>
+                            <option <?php echo isset($_POST['category']) && $_POST['category'] == $value['id']  ? 'selected' : '' ?> value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
+                        <?php endforeach; ?>
+                        
+                    </select>
+
+                    <select name="status" style="width: 20%; background-color: #fff; border: 1px solid black">
+                        <option value="">Trạng thái</option>
+                        <option <?php echo isset($_POST['status']) && $_POST['status'] == 6  ? 'selected' : '' ?> value="6">Đợi xét duyệt</option>
+                        <option <?php echo isset($_POST['status']) && $_POST['status'] == 1  ? 'selected' : '' ?> value="1">Xét duyệt thành công</option>
+                        <option <?php echo isset($_POST['status']) && $_POST['status'] == 2  ? 'selected' : '' ?> value="2">Xét duyệt thất bại</option>
+                        <option <?php echo isset($_POST['status']) && $_POST['status'] == 3  ? 'selected' : '' ?> value="3">Trong kho</option>
+                    </select>
+
+                    <input
+                        style="margin-top: 5px;"
+                        type="submit" 
+                        name="btn-search"
+                        value="Tìm kiếm" />
+                </form>
+                
+            </div>
             <table id="post">
             <a href="ProductCreate.php?id=<?php echo $_GET['id'] ?>"><button type="button" class="btn btn-primary">Thêm mới sản phẩm</button></a>
                 <tr>
@@ -35,7 +85,10 @@
                     <th>Đơn giá(Giá bán)</th>
                     <th>Mô tả chi tiết sản phẩm</th>
                     <th>Lý do từ chối đăng bán</th>
-                    <th>Đăng bán</th>
+                    <?php if(isset($_POST['status']) && $_POST['status'] == 3): ?>
+                        <th>Đăng bán</th>
+                    <?php endif; ?>
+                    
                     <th>Sửa</th>
                     <th>Xóa</abbr></th>
                 </tr>
@@ -59,10 +112,9 @@
                     <td><?php echo $product['price_market'] ?></td>
                     <td><?php echo $product['description'] ?></td>
                     <td><?php echo $product['reason_refusal'] ?></td>
-                    <?php if($product['status'] == 1): ?>
-                        <td><a onclick = "postProduct()">Đăng bán</a></td>
-                    <?php else: ?>
-                        <td><a href="ProductPost.php">Đăng bán</a></td>
+                    
+                    <?php if(isset($_POST['status']) && $_POST['status'] == 3): ?>
+                        <th onclick="postProduct(<?php echo $product['id'] ?>)" >Đăng bán</th>
                     <?php endif; ?>
                     
                     <th><a href="ProductUpdate.php?updateId=<?php echo $product['id'] ?>">Sửa</a></th>
@@ -122,8 +174,8 @@
         }
     }
 
-    function postProduct(e){
-        alert('Sản phẩm này đã đăng bán!!!');
+    function postProduct(id){
+        window.location = "./ProductPost.php?id=" + id;
     }
 
 </script>

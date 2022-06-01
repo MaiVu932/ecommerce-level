@@ -1,4 +1,8 @@
 <?php include('./header.php');
+    if(!(isset($_SESSION['role']) && $_SESSION['role'] == 1)) {
+        echo '<script>alert("Bạn cần đăng nhập trước");
+         window.location = "./user_login.php";  </script>';
+    }
 
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
@@ -36,7 +40,7 @@
                     <th>Đơn giá(Giá gốc)</th>
                     <th>Đơn giá(Giá bán)</th>
                     <th>Mô tả chi tiết sản phẩm</th>
-                    <th>Lý do từ chối</th>
+                    <th>Lý do từ chối đăng bán</th>
                     <th>Trạng thái</th>
                     <th>Xóa</abbr></th>
 
