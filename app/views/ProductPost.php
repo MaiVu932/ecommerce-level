@@ -1,2 +1,8 @@
-<?php include('./header.php') ?>
-<?php include('./footer.php') ?>
+<?php
+include './header.php';
+include '../Repositories/ProductRepository.php';
+
+$product = new ProductRepository();
+$product->postProduct();
+
+
