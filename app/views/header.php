@@ -5,6 +5,15 @@ if(!isset($_SESSION)) {
 
  include 'define.php';
  include '../Repositories/BaseRepository.php';
+ include '../Repositories/NotificationRepository.php';
+
+ if(isset($_SESSION['role'])) {
+    $notification = new NotificationRepository();
+    $notification_count = count($notification->getNotificationsByUserId());
+ }
+
+ 
+
 
  echo '<link href="' . CSS . 'bootstrap.min.css" rel="stylesheet">
  <link href="' . CSS . 'font-awesome.min.css" rel="stylesheet">
@@ -27,9 +36,11 @@ if(!isset($_SESSION)) {
  <script src="' . JS . 'jquery.prettyPhoto.js" defer></script>
  <script src="' . JS . 'main.js" defer></script>';
  echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>';
+    
+    
     ?>
 
-
+<script src="https://kit.fontawesome.com/b93925de5c.js" crossorigin="anonymous"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <header id="header"><!--header-->
@@ -105,6 +116,7 @@ if(!isset($_SESSION)) {
 
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php if(isset($_SESSION['username'])): ?>
+                                    <li><a href="notification.php"><i class="fa-solid fa-bell"></i>Notification<?php echo isset($_SESSION['role']) ? "(" . $notification_count . ")" : ''; ?></a></li>
                                     <li><a href="user_update.php"><i class="fa fa-user"></i><?php echo $_SESSION['username'] ?></a></li>
 								    <li><a href="user_logout.php"><i class="fa fa-crosshairs"></i> Logout</a></li>
                                     <?php else: ?>

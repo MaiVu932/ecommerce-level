@@ -184,7 +184,10 @@
             $data = $this->get_data($sql);
             return($data);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6f4c3f37624edf60dc3f4ad241dd3ebd19481758
         public function getInfoProduct()
         {
             $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
@@ -195,7 +198,10 @@
             $data = $this->get_data($sql);
             return($data);
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6f4c3f37624edf60dc3f4ad241dd3ebd19481758
         public function getInfoProductById($productId)
         {
             $sql = "SELECT p.id, c.id 'category-id',c.code 'category-code', c.name 'category-name', s.id 'shop-id',
@@ -227,7 +233,7 @@
                     return ;
             }
 
-            $UpImage = $this->UpLoadImage($code, $categoriesName);
+            $UpImage = $this->UpLoadImage($code, $categoryName);
                 if (strlen($UpImage) > 0) {
                     echo "<script>alert('" . $UpImage . "')</script>";
                     return;

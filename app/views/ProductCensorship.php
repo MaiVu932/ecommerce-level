@@ -1,4 +1,4 @@
-<?php include('./header.php');
+<?php include('header.php');
 
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
@@ -21,20 +21,18 @@
         </ul>
       </div>
     <div class="content">
-    <h1>Danh sách sản phẩm</h1>
+    <h1>Danh sách kiểm duyệt</h1>
             <table id="post">
 
                 <tr>
                     <th>STT</th>
+                    <th>Tên sản phẩm</th>
                     <th>Ảnh sản phẩm</th>
+                    <th>Mô tả chi tiết sản phẩm</th>
                     <th>Tên shop</th>
                     <th>Tên danh mục</th>
-                    <th>Mã sản phẩm</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Đơn vị tính</th>
-                    <th>Đơn giá(Giá bán)</th>
-                    <th>Mô tả chi tiết sản phẩm</th>
-                    <th>Xem chi tiết</th>
+                    <th>Đồng ý</th>
+                    <th>Từ chối</th>
                 </tr>
 
                 <?php 
@@ -42,24 +40,18 @@
                     foreach($products as $product) { ?>
                 <tr>
                     <th><?php echo $i++ ?></th>
+                    <td><?php echo $product['name'] ?></td>
                     <td>
                         <img src= 
                             "<?php echo IMAGES . $product['code-category'] . '/' . $product['image'] ?>"  
                             alt="ảnh" width="100px" height ="100px" />
                     </td>
+                    <td><?php echo $product['description'] ?></td>
                     <td><?php echo $product['name-shop'] ?></td>
                     <td><?php echo $product['name-category'] ?></td>
-                    <td><?php echo $product['code'] ?></td>
-                    <td><?php echo $product['name'] ?></td>
-                    <td><?php echo $product['unit'] ?></td>
-                    <td><?php echo $product['price_market'] ?></td>
-                    <td><?php echo $product['description'] ?></td>
-<<<<<<< HEAD
-                    <td><a>Xem chi tiết</a></td>     
-=======
-                    <td><a>Xem chi tiết</a></td> 
+                    <td>Đồng ý</td> 
+                    <td>Từ chối</td> 
                     
->>>>>>> 6f4c3f37624edf60dc3f4ad241dd3ebd19481758
                 <?php } ?>
             </table>
         <div style="margin: 20px 0px 0 20px;">
@@ -92,14 +84,6 @@
     </div> 
 </div>
 
-<script>
-    function delete_confirm(e) {
-        if (confirm("Bạn có đồng ý xóa không") == true) {
-            window.location = './ProductDelete.php?id=' + e;
-        } else {
-            console.log('k xoa');
-        }
-    }
-</script>
 
-<?php include('./footer.php') ?>
+
+<?php include('footer.php')?>
