@@ -23,7 +23,10 @@
             return $data;
         }
 
-        public function getProducts()
+        public function getProducts(
+            $category = null,
+            $page = null
+        )
         {
             if($page && $category) {
                 $page_current = (int)$_GET['page'];
