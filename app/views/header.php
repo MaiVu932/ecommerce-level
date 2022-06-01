@@ -4,6 +4,7 @@ if(!isset($_SESSION)) {
 }
 
  include 'define.php';
+ include '../Repositories/BaseRepository.php';
 
  echo '<link href="' . CSS . 'bootstrap.min.css" rel="stylesheet">
  <link href="' . CSS . 'font-awesome.min.css" rel="stylesheet">
@@ -25,6 +26,7 @@ if(!isset($_SESSION)) {
  <script src="' . JS . 'price-range.js" defer></script>
  <script src="' . JS . 'jquery.prettyPhoto.js" defer></script>
  <script src="' . JS . 'main.js" defer></script>';
+ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>';
     ?>
 
 
@@ -93,7 +95,12 @@ if(!isset($_SESSION)) {
 							<ul class="nav navbar-nav">
                                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3): ?>
 								    <li><a href="category_list.php"><i class="fa fa-star"></i> Categories</a></li>
-								    <li><a href="admin_user_list.php"><i class="fa fa-user"></i> Users</a></li>
+								    <li><a href="user_list.php"><i class="fa fa-user"></i> Users</a></li>
+                                <?php endif; ?>
+
+                                <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 2): ?>
+								    <li><a href="category_list.php"><i class="fa fa-star"></i> Categories</a></li>
+								    <li><a href="user_list.php"><i class="fa fa-user"></i> Users</a></li>
                                 <?php endif; ?>
 
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>

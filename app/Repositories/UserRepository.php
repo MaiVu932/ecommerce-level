@@ -1,6 +1,6 @@
 <?php
 
-include_once 'BaseRepository.php';
+// include 'BaseRepository.php';
 
 class UserRepository extends BaseRepository
 {
@@ -89,6 +89,7 @@ class UserRepository extends BaseRepository
         $_SESSION['role'] = $phone[0]['permission'];
         $_SESSION['id'] = $phone[0]['id'];
         // header('location: home.php?login=true');
+        // var_dump($_SESSION);
         return true;
     }
 
@@ -132,12 +133,90 @@ class UserRepository extends BaseRepository
         }
     }
 
-    public function shopsOfUserId()
+   
+
+    public function getUsers(
+        $page = null,
+        $nameS = null,
+        $dateS = null,
+        $role = null
+    )
     {
-        $query = "SELECT id, name FROM shops WHERE user_id = " + $_SESSION['id'];
-        return $this->get_data($query);
+       
+        if(!$nameS && !$dateS && !$role) {
+            $query = " SELECT * FROM users";
+
+            return $this->get_data($query);
+        }
+
+        if($nameS && $dateS && $role) {
+            if($role == 6) {
+                $role = 0;
+            }
+            $query = " SELECT * FROM users WHERE permission = " . $role . " AND create_at = '" . $dateS . "' AND ( name LIKE '%" . $nameS . "%' ";
+            $query .= " OR  address LIKE '%" . $nameS . "%' ";
+            $query .= " OR  num_phone LIKE '%" . $nameS . "%' ) ";
+
+            return $this->get_data($query);
+        }
+
+        if($nameS && $dateS) {
+            $query = " SELECT * FROM users WHERE create_at = '" . $dateS . "' AND ( name LIKE '%" . $nameS . "%' ";
+            $query .= " OR  address LIKE '%" . $nameS . "%' ";
+            $query .= " OR  num_phone LIKE '%" . $nameS . "%' ) ";
+
+            return $this->get_data($query);
+        }
+
+        if($nameS && $role) {
+            if($role == 6) {
+                $role = 0;
+            }
+            $query = " SELECT * FROM users WHERE permission = " . $role . " AND ( name LIKE '%" . $nameS . "%' ";
+            $query .= " OR  address LIKE '%" . $nameS . "%' ";
+            $query .= " OR  num_phone LIKE '%" . $nameS . "%' ) ";
+
+            return $this->get_data($query);
+        }
+
+        if($role && $dateS) {
+            if($role == 6) {
+                $role = 0;
+            }
+            $query = " SELECT * FROM users WHERE permission = " . $role . " AND create_at = '". $dateS ."'";
+
+            return $this->get_data($query);
+        }
+
+        if($nameS) {
+            $query = " SELECT * FROM users WHERE name LIKE '%" . $nameS . "%' ";
+            $query .= " OR  address LIKE '%" . $nameS . "%' ";
+            $query .= " OR  num_phone LIKE '%" . $nameS . "%' ";
+
+            return $this->get_data($query);
+        }
+
+        if($dateS) {
+            $query = " SELECT * FROM users WHERE create_at = '" . $dateS . "' ;";
+
+            return $this->get_data($query);
+        }
+
+        if($role) {
+            if($role == 6) {
+                $role = 0;
+            }
+            $query = " SELECT * FROM users WHERE permission = " . $role . " ;";
+
+            return $this->get_data($query);
+        }
+       
     }
 
 
     
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 601dce305199852735f747e10599c56e3bcec9ce

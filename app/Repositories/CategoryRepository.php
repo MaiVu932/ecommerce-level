@@ -1,6 +1,6 @@
 <?php 
 
-include_once 'BaseRepository.php';
+// include 'BaseRepository.php';
 
 class CategoryRepository extends BaseRepository
 {

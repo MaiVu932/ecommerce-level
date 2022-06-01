@@ -7,3 +7,10 @@ textarea{
     width: 100%;
     height: 150px;
 }
+input[type="submit"] {
+    margin:2rem 30rem 1rem 30rem ; 
+    width: 15rem; 
+    height: 5rem; 
+    background:#FE980F; 
+    border-radius: 5px;
+}
