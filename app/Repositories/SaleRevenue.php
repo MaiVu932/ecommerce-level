@@ -1,5 +1,5 @@
 <?php
-include_once 'BaseRepository.php';
+// include_once 'BaseRepository.php';
 
 class SaleRevenue extends BaseRepository
 {

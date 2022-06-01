@@ -1,6 +1,7 @@
 <?php
-date_default_timezone_set('Asia/Ho_Chi_Minh');
 include 'header.php';
+
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 include '../Repositories/SaleRevenue.php';
 
 
@@ -35,18 +36,18 @@ $month = !empty($_GET['month']) ? sprintf("%02d", (int)$_GET['month']) : null; /
 $year = !empty($_GET['year']) ? (int)$_GET['year'] : null; // Kiểm tra xem có nhập vào năm hay không nếu có thì ép kiểu sang kiểu số nguyên.
 
 $products = $_SALEREVENUE->getProductByShopId($shop['id']); // Lấy thông tin của sản phẩm của shop
-//var_dump($products);
+var_dump($products);
 
 /** Xử lý sắp xếp theo điều kiện */
 $productNew = array();
-foreach ($products as $product) {
-	/** Nếu chọn thống kê theo ngày, tháng, năm lấy tổng số lượng sản phẩm đã bán được trong ngày đó */
-	$quantity = $_SALEREVENUE->getQuantityByProduct($product, $date, $month, $year); // Lấy tổng số lượng đã bán được theo ngày, tháng, năm nhập vào
-	if ($quantity != null) {
-		$productOld = $_SALEREVENUE->getSaleRevenueByQuantityAndProductId($quantity, $product['id']); // Lấy doanh số, doanh thu của sản phẩm
-		array_push($productNew, $productOld); // Gộp thông tin doanh số, doanh thu đã tính toán được ở trên vào 1 mảng
-	}
-}
+// foreach ($products as $product) {
+// 	/** Nếu chọn thống kê theo ngày, tháng, năm lấy tổng số lượng sản phẩm đã bán được trong ngày đó */
+// 	$quantity = $_SALEREVENUE->getQuantityByProduct($product, $date, $month, $year); // Lấy tổng số lượng đã bán được theo ngày, tháng, năm nhập vào
+// 	if ($quantity != null) {
+// 		$productOld = $_SALEREVENUE->getSaleRevenueByQuantityAndProductId($quantity, $product['id']); // Lấy doanh số, doanh thu của sản phẩm
+// 		array_push($productNew, $productOld); // Gộp thông tin doanh số, doanh thu đã tính toán được ở trên vào 1 mảng
+// 	}
+// }
 
 /** Thuật toán sắp xếp chọn giảm dần */
 function SelectionSortDescending($mang, $conditon)
@@ -111,7 +112,7 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 						</div>
 						<div class="date-label">
 							<span class="salerevenue-label label-warning">Năm</span>
-							<input class="salerevenue-date" name="year" type="number" min="2022" max="2099" step="1" value="' . date('Y', time()) . '">
+							<input class="salerevenue-date" name="year" type="number" min="2000" max="2050" step="1" value="' . date('Y', time()) . '">
 						</div>
 					</div>
 					<div class="salerevenue-button-group">
@@ -212,7 +213,7 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 							</div>
 							<div class="date-label">
 								<span class="salerevenue-label label-warning">Năm</span>
-								<input class="salerevenue-date" name="year" type="number" min="2022" max="2099" step="1" value="' . $year . '">
+								<input class="salerevenue-date" name="year" type="number" min="2000" max="2050" step="1" value="' . $year . '">
 							</div>
 						</div>
 						<div class="salerevenue-button-group">
