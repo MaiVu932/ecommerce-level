@@ -1,5 +1,5 @@
 <?php
-    include('BaseRepository.php');
+    include_once 'BaseRepository.php';
     class ProductRepository extends BaseRepository{
         public function getCategories()
         {
