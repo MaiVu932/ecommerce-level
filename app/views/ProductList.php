@@ -1,4 +1,8 @@
 <?php include('./header.php');
+    if(!(isset($_SESSION['role']) && $_SESSION['role'] == 1)) {
+        echo '<script>alert("Bạn cần đăng nhập trước");
+         window.location = "./user_login.php";  </script>';
+    }
 
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
@@ -24,7 +28,7 @@
                 <form method="POST">
                 <select class="custom-select" id="inputGroupSelect01">
                     <option selected>Choose...</option>
-                    <a href="./ProductListAdmin.php"><option value="1">One</option></a>
+                    <a href=""><option value="1">One</option></a>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>

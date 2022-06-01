@@ -1,4 +1,7 @@
-<?php include ('./header.php') ?>
+<?php include ('./header.php');
+	include('../Repositories')
+
+?>
 <section>
 		<div class="container">
 			<div class="row">
@@ -151,7 +154,7 @@
 							</div>
 
 						</div>
-						<div class="col-sm-7">
+						<!-- <div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
 								<img src="../../public/images/product-details/new.jpg" class="newarrival" alt="" />
 								<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
@@ -171,7 +174,7 @@
 								<p><b>Brand:</b> E-SHOPPER</p>
 								<a href=""><img src="../../public/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
-						</div>
+						</div> -->
 					</div><!--/product-details-->
 					
 					<div class="category-tab shop-details-tab"><!--category-tab-->

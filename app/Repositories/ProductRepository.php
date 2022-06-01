@@ -8,11 +8,18 @@
             return $data;
         }
 
-        public function getShops()
+        public function getShopByUserId()
         {
             $sql = "SELECT * FROM shops WHERE user_id = " . $_SESSION['id'] . " AND id = " . $_GET['id'];
             $data = $this->get_data($sql);
             return $data[0];
+        }
+
+        public function getShops()
+        {
+            $sql = "SELECT * FROM shops";
+            $data = $this->get_data($sql);
+            return $data;
         }
 
         public function getProducts()
@@ -106,6 +113,7 @@
                 $priceMarket = (double)trim($data['product-priceMarket']);
                 $quantity = (double)trim($data['product-quantity']);
                 $unit = trim($data['product-unit']);
+                $date = trim($data['create_at']);
                 $describe = trim($data['product-describe']);
                 
 
@@ -152,12 +160,11 @@
                         'price_historical'   => $price,
                         'quantity'           => $quantity,
                         'unit'               => $unit,
+                        'create_at'          => $date,
                         'image'              => $image,
                         'description'        => $describe,     
                     ];
-                    echo "<pre>";
-                    print_r($product);
-                    echo "</pre>";
+
                     $insert = $this->insert('products', $product);
                     if($insert){
                         echo 
@@ -184,10 +191,7 @@
             $data = $this->get_data($sql);
             return($data);
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 6f4c3f37624edf60dc3f4ad241dd3ebd19481758
         public function getInfoProduct()
         {
             $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
@@ -198,10 +202,7 @@
             $data = $this->get_data($sql);
             return($data);
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> 6f4c3f37624edf60dc3f4ad241dd3ebd19481758
         public function getInfoProductById($productId)
         {
             $sql = "SELECT p.id, c.id 'category-id',c.code 'category-code', c.name 'category-name', s.id 'shop-id',
@@ -211,6 +212,16 @@
                     WHERE p.category_id = c.id AND p.shop_id = s.id AND p.id = '$productId'";
             $data = $this->get_data($sql)[0];
             return $data;
+        }
+
+        public function updateProduct($data, $id)
+        {
+            if(!isset($_FILES['image'])){
+                $this->updateProductNoImage($data, $id);
+            }
+            else{
+                $this->updateProductImage($data, $id);
+            }
         }
 
         public function updateProductNoImage($data, $id)
@@ -233,15 +244,6 @@
                     return ;
             }
 
-            $UpImage = $this->UpLoadImage($code, $categoryName);
-                if (strlen($UpImage) > 0) {
-                    echo "<script>alert('" . $UpImage . "')</script>";
-                    return;
-                }
-
-                $type = explode('/', $_FILES['image']['type']);
-                $image = $code . '.' . end($type);
-
             $product = [
                 'shop_id'            => $shopName,
                 'category_id'        => $categoryName,
@@ -251,16 +253,15 @@
                 'price_historical'   => $price,
                 'quantity'           => $quantity,
                 'unit'               => $unit,
-                'image'              => $image,
                 'description'        => $describe,     
             ];
 
-            $update = $this->update('products', $product, 'id = "'. $id . '"');
+            $update = $this->update('products', $product, 'id = '. $id);
             if($update){
                 echo 
                     "<script>
                         alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
-                        window.location = ('ProductList.php');
+                        window.location = 'ProductList.php?id=" . $_GET['id'] . "';
                         </script>";
                 return;
             }
@@ -288,6 +289,15 @@
                     echo "<script>alert('Các trường có * không được bỏ trống!!!')</script>";
                     return ;
             }
+            
+            $UpImage = $this->UpLoadImage($code, $categoryName);
+                if (strlen($UpImage) > 0) {
+                    echo "<script>alert('" . $UpImage . "')</script>";
+                    return;
+                }
+
+                $type = explode('/', $_FILES['image']['type']);
+                $image = $code . '.' . end($type);
 
             $product = [
                 'shop_id'            => $shopName,
@@ -297,21 +307,17 @@
                 'price_market'       => $priceMarket,
                 'price_historical'   => $price,
                 'quantity'           => $quantity,
+                'image'              => $image,
                 'unit'               => $unit,
                 'description'        => $describe,     
             ];
 
-            echo "<pre>";
-            print_r($product);
-            echo "</pre>";
-            return;
-
-            $update = $this->update('products', $product, 'id = "'. $id . '"');
+            $update = $this->update('products', $product, 'id = '. $id);
             if($update){
                 echo 
                     "<script>
                         alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
-                        window.location = ('ProductList.php');
+                        window.location = 'ProductList.php?id=" . $_GET['id'] . "';
                         </script>";
                 return;
             }
@@ -320,6 +326,7 @@
                 return;
             }
         }
+
         public function validate()
         {
             if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
@@ -327,22 +334,5 @@
             }
         }
 
-        public function updateStatus($id)
-        {
-            $product = [
-                'status' => 1,
-            ];
-            $update = $this->update('products', $product, 'id = '. $id  );
-        }
-        
-        public function updateReason($id)
-        {
-            $product = [
-                'status' => 2,
-                'reason_réual' => 'Sẩn phẩm của bạn không đạt yêu cầu.',
-            ];
-            $update = $this->update('products', $product, 'id = '. $id  );
-        }
-        
     }
 ?>
