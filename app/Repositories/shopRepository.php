@@ -40,6 +40,7 @@ class ShopRepository extends BaseRepository
             'address' => $data['txt-address']
         ];
 
+        echo 'okkkkk';
         if(!$this->update('shops', $shop, 'id = ' . $id)) {
             echo '<script>alert("Cập nhập thất bại !!!")</script>';
             return;
