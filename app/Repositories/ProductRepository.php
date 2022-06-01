@@ -1,6 +1,7 @@
 <?php
     // include('BaseRepository.php');
-    class ProductRepository extends BaseRepository{
+    class ProductRepository extends BaseRepository
+    {
         public function getCategories()
         {
             $sql = "SELECT * FROM categories";
@@ -174,16 +175,110 @@
                 
         }
 
-        public function getInfoProductByShopId()
+        public function getInfoProductByShopId(
+            $name = null,
+            $category = null,
+            $status = null
+        )
         {
-            $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+            
+            
+            if($name && $category && $status) {
+                if($status == 6) {
+                    $status = 0;
+                }
+                $query = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                p.unit, p.image, p.description, p.status, p.reason_refusal
+                FROM `products` p, `categories` c, `shops` s
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.name LIKE '%" . $name . "%' AND p.category_id = " . $category . " AND p.status = " . $status ;
+                $data = $this->get_data($query);
+                return($data);
+            }
+
+            if($name && $category) {
+                $query = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                p.unit, p.image, p.description, p.status, p.reason_refusal
+                FROM `products` p, `categories` c, `shops` s
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.name LIKE '%" . $name . "%' AND p.category_id = " . $category ;
+                $data = $this->get_data($query);
+                return($data);
+            }
+
+            if($category && $status) {
+                if($status == 6) {
+                    $status = 0;
+                }
+                $query = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                p.unit, p.image, p.description, p.status, p.reason_refusal
+                FROM `products` p, `categories` c, `shops` s
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.category_id = " . $category . " AND status = " . $status ;
+                $data = $this->get_data($query);
+                return($data);
+            }
+            if($name && $status) {
+                if($status == 6) {
+                    $status = 0;
+                }
+                $query = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                p.unit, p.image, p.description, p.status, p.reason_refusal
+                FROM `products` p, `categories` c, `shops` s
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.name LIKE '%" . $name . "%' AND status = " . $status ;
+                $data = $this->get_data($query);
+                return($data);
+            }
+
+            if($category) {
+                $query = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                p.unit, p.image, p.description, p.status, p.reason_refusal
+                FROM `products` p, `categories` c, `shops` s
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND c.id = " . $category ;
+                $data = $this->get_data($query);
+                return($data);
+            }
+
+            if($name) {
+                $query = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                    s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                    p.unit, p.image, p.description, p.status, p.reason_refusal
+                    FROM `products` p, `categories` c, `shops` s
+                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.name LIKE '%" . $name . "%' " ;
+                $data = $this->get_data($query);
+                return($data);
+
+            }
+
+            if($status) {
+                if($status == 6) {
+                    $status = 0;
+                }
+                $query = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
+                    s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
+                    p.unit, p.image, p.description, p.status, p.reason_refusal
+                    FROM `products` p, `categories` c, `shops` s
+                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.status = " . $status ;
+                $data = $this->get_data($query);
+                return($data);
+                
+            }
+
+            if(!$name && !$category && !$status) {
+                $query = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                     p.unit, p.image, p.description, p.status, p.reason_refusal
                     FROM `products` p, `categories` c, `shops` s
                     WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] ;
-            $data = $this->get_data($sql);
-            return($data);
+                $data = $this->get_data($query);
+                return($data);
+            }
+
+            
         }
+
         public function getInfoProduct()
         {
             $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
@@ -194,6 +289,7 @@
             $data = $this->get_data($sql);
             return($data);
         }
+
         public function getInfoProductById($productId)
         {
             $sql = "SELECT p.id, c.id 'category-id',c.code 'category-code', c.name 'category-name', s.id 'shop-id',
@@ -318,5 +414,49 @@
                 echo '<script>alert("Logout success !")</script>';
             }
         }
+
+        public function updateStatus($id)
+        {
+            $product = [
+                'status' => 1,
+            ];
+            $update = $this->update('products', $product, 'id = '. $id  );
+        }
+        
+        public function updateReason($id)
+        {
+            $product = [
+                'status' => 2,
+                'reason_réual' => 'Sẩn phẩm của bạn không đạt yêu cầu.',
+            ];
+            $update = $this->update('products', $product, 'id = '. $id  );
+        }
+
+        public function postProduct()
+        {
+            $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $_GET['id']);
+
+            if(!$isUpdate) {
+                echo '<script>alert("Đăng bán thất bại !!!")</script>';
+                return;
+            }
+            $product = [
+                'user_id' => 11,
+                'notifiable_id' => $_GET['id'],
+                'notifiable_type' => 2,
+                'status' => 1
+            ];
+
+            $isInsertNotification = $this->insert('notifications', $product);
+            if(!$isInsertNotification) {
+                echo '<script>alert("Đăng bán thất bại !!!")</script>';
+                return;
+            } 
+
+            echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./ProductList.php"; </script>';
+            return;
+            
+        }
+        
     }
 ?>

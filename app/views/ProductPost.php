@@ -1,1 +1,8 @@
-Bạn muốn đăng bán sản phẩm
+<?php
+include './header.php';
+include '../Repositories/ProductRepository.php';
+
+$product = new ProductRepository();
+$product->postProduct();
+
+

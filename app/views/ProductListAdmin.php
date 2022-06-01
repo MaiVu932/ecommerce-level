@@ -36,7 +36,7 @@
                     <th>Đơn giá(Giá gốc)</th>
                     <th>Đơn giá(Giá bán)</th>
                     <th>Mô tả chi tiết sản phẩm</th>
-                    <th>Lý do từ chối</th>
+                    <th>Lý do từ chối đăng bán</th>
                     <th>Trạng thái</th>
                     <th>Xóa</abbr></th>
 
