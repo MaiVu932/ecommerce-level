@@ -1,1 +1,1 @@
-<a href="">Xem doanh so/doanh thu</a>
+<a href="sale-revenue-shop_detail.php">Xem doanh so/doanh thu</a>

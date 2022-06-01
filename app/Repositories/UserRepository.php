@@ -1,6 +1,6 @@
 <?php
 
-include 'BaseRepository.php';
+include_once 'BaseRepository.php';
 
 class UserRepository extends BaseRepository
 {
@@ -141,5 +141,3 @@ class UserRepository extends BaseRepository
 
     
 }
-
-?>

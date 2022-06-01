@@ -1,6 +1,6 @@
 <?php
 
-include 'BaseRepository.php';
+include_once 'BaseRepository.php';
 
 class ShopRepository extends BaseRepository
 {
