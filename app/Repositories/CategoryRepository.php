@@ -1,10 +1,6 @@
 <?php 
 
-<<<<<<< HEAD
-include_once 'BaseRepository.php';
-=======
 // include 'BaseRepository.php';
->>>>>>> af8797c8364776efbd8b5c1123ab40073b4641a4
 
 class CategoryRepository extends BaseRepository
 {
