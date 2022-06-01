@@ -83,12 +83,8 @@ class BaseRepository
 		$this->connect();
 
 		$query = $this->_connection->query($sql);
-<<<<<<< HEAD
-
 		if (!$query)
-=======
 		if(!$query)
->>>>>>> 601dce305199852735f747e10599c56e3bcec9ce
 			die("Cau lenh truy van sai!");
 
 		// $result = $query->fetch_all();
