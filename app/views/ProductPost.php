@@ -6,3 +6,4 @@ $product = new ProductRepository();
 $product->postProduct();
 
 
+?>
