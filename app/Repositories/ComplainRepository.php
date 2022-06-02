@@ -126,15 +126,20 @@ class ComplainRepository extends BaseRepository
     }
     $where = trim($where, ' OR ');
 
-    $complain = $this->get_data("SELECT * FROM comments WHERE ($where) AND status = 0");
+    if(strlen($where) > 0) {
+        $complain = $this->get_data("SELECT * FROM comments WHERE ($where) AND status = 0");
+        return count($complain);
+    }
+
+    $complain = $this->get_data("SELECT * FROM comments WHERE  status = 0");
     return count($complain);
   }
 
   public function getHistoryByUserId($user_id)
   {
-    return $this->get_data("SELECT orders.id, products.name, products.id as product_id, orders.id as order_id, orders.quantity, orders.status, orders.address, orders.num_phone, products.image
-          FROM products, orders 
-          WHERE orders.product_id = products.id AND user_id = $user_id");
+    return $this->get_data("SELECT categories.code, orders.id, products.name, products.id as product_id, orders.id as order_id, orders.quantity, orders.status, orders.address, orders.num_phone, products.image
+          FROM products, orders , categories
+          WHERE orders.product_id = products.id AND products.category_id = categories.id  AND user_id = $user_id");
   }
 
   // get số lần người dùng tố báo sản phẩm theo product_id và user_id
@@ -146,15 +151,15 @@ class ComplainRepository extends BaseRepository
 
   public function getProductById($id)
   {
-    $product = $this->get_data("SELECT * FROM products WHERE id = $id");
+    $product = $this->get_data("SELECT C.code,P.quantity, P.shop_id,  P.id, P.name, P.image, P.price_market  FROM products P, categories C WHERE P.category_id = C.id AND P.id = $id");
     return isset($product[0]) ? $product[0] : null;
   }
 
   public function getProductByOrderId($order_id)
   {
-    $order = $this->get_data("SELECT products.id, products.name, orders.quantity, products.image
-          FROM products, orders 
-          WHERE orders.product_id = products.id AND orders.id = $order_id");
+    $order = $this->get_data("SELECT categories.code, products.id, products.name, orders.quantity, products.image
+          FROM products, orders, categories 
+          WHERE orders.product_id = products.id AND products.category_id = categories.id AND  orders.id = $order_id");
     return isset($order[0]) ? $order[0] : null;
   }
 
