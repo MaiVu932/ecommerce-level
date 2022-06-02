@@ -4,6 +4,7 @@ include ('./header.php');
 include '../Repositories/CategoryRepository.php';
 include '../Repositories/ProductRepository.php';
 include '../Repositories/CommentRepository.php';
+include '../Repositories/OrderRepository.php';
 // $user = new UserRepository();
 // $user->validate();
 $category = new CategoryRepository();
@@ -15,6 +16,8 @@ $infoDetail = $product->getInfoDetailProductById();
 $comment = new CommentRepository();
 $comments = $comment->getCommentsByProductId();
 
+$order = new OrderRepository();
+
 // var_dump($_SESSION['product_id']);
 
 if(isset($_POST['btn-comment'])) {
@@ -23,7 +26,7 @@ if(isset($_POST['btn-comment'])) {
 }
 
 if(isset($_POST['btn-add-to-cart'])) {
-    echo 'oj';
+    $order->addToCart($_POST['quantity']);
 }
 
 
@@ -91,7 +94,7 @@ if(isset($_POST['btn-add-to-cart'])) {
 									<span>Price: US $<?php echo $infoDetail['price_market'] ?></span>
 									<br>
                                     <label>Quantity:</label>
-									<input type="number" value="1" min="1" />
+									<input type="number" name="quantity" value="1" min="1" />
 									<p><?php echo $infoDetail['description'] ?></p>
 
                                     <button type="submit" name="btn-add-to-cart" class="btn btn-fefault cart">
