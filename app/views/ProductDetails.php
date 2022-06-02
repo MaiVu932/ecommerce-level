@@ -90,18 +90,17 @@ if(isset($_POST['btn-comment'])) {
 									<input type="number" value="1" min="1" />
 									<p><?php echo $infoDetail['description'] ?></p>
 
-                                    <button type="button" class="btn btn-fefault cart">
+                                    <button type="submit" name="btn-add-to-cart" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Thêm vào giỏ hàng
 									</button>
 
-                                    <button type="button" class="btn btn-fefault cart">
+                                    <button type="submit" name="btn-buy" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
 										Mua hàng
 									</button>
 								</span>
-							</div><!--/product-information-->
-						</div> 
+						
                         </form>
 					</div><!--/product-details-->
 					
