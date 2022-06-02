@@ -2,6 +2,24 @@
     // include('BaseRepository.php');
     class ProductRepository extends BaseRepository
     {
+
+        public function isExistProductById($id)
+        {
+            $query = " SELECT id FROM products WHERE id = " . $id;
+            return count($this->get_data($query)) ? true : false;
+        }
+
+        public function getInfoDetailProductById()
+        {
+            if(!$this->isExistProductById($_SESSION['product_id'])) {
+                echo "<script>alert('Sản phẩm không tồn tại !!!'); window.location='./home.php'; </script>";
+                return;
+            }
+            $query = "SELECT P.image, P.id, P.name, P.price_market, P.create_at, P.quantity, P.description, C.code ";
+            $query .= " FROM products P, categories C WHERE P.category_id = C.id AND P.id = " . $_SESSION['product_id'];
+            return $this->get_data($query)[0];
+        }
+
         public function getCategories()
         {
             $sql = "SELECT * FROM categories";

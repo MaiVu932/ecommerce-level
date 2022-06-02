@@ -22,6 +22,10 @@ if(isset($_POST['btn-comment'])) {
     $comment->createComment($_POST['txt-comment']);
 }
 
+if(isset($_POST['btn-add-to-cart'])) {
+    echo 'oj';
+}
+
 
 ?>
 <section>
