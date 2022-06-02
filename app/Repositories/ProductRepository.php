@@ -147,7 +147,6 @@
                 $priceMarket = (double)trim($data['product-priceMarket']);
                 $quantity = (double)trim($data['product-quantity']);
                 $unit = trim($data['product-unit']);
-                $date = trim($data['create_at']);
                 $describe = trim($data['product-describe']);
                 
 
@@ -194,7 +193,7 @@
                         'price_historical'   => $price,
                         'quantity'           => $quantity,
                         'unit'               => $unit,
-                        'create_at'          => $date,
+                        'create_at'          => date("Ymd"),
                         'image'              => $image,
                         'description'        => $describe,     
                     ];

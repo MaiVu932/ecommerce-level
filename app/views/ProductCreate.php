@@ -46,9 +46,6 @@
                 <label>Tên sản phẩm</label>
                 <input type="text" class="form-control" name="product-name" required />
 
-                <!-- <label>Đơn vị tính</label>
-                <input type="text" class="form-control" name="product-unit" required /> -->
-
                 <label>Đơn vị tính</label>
                 <select class="form-select" class="form-control" name="product-unit" required>
                     <option value="">-- Chọn đơn vị tính --</option>
@@ -59,9 +56,6 @@
 
                 <label>Số lượng</label>
                 <input type="number" class="form-control" name="product-quantity" required />
-
-                <label>Ngày tạo</label>
-                <input type="date" class="form-control" name="create_at" required />
 
                 <label>Giá gốc</label>
                 <input type="number" class="form-control" name="product-price" required />
