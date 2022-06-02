@@ -78,7 +78,11 @@
                 <tr>
                     <td><input style="margin:auto;" type="checkbox"></td>
                     <td><?php echo $i++ ?></td>
-                    <td><img src="<?php echo "ảnh" ?>" alt="anh"></td>
+                    <td>
+                        <img src="<?php echo IMAGES . $value['code'] . '/' . $value['image'] ?>" 
+                            width="100px" height="100px"
+                            alt="anh" />
+                    </td>
                     <td><?php echo $value['name'] ?></td>
                     <td><?php echo $value['price_market'] ?></td>
                     <td><?php echo $value['quantity'] ?></td>
