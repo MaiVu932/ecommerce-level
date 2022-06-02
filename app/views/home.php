@@ -10,6 +10,12 @@
         $categories = $category->select_category();
         $product = new ProductRepository();
         $products = $product->getProducts(isset($_GET['category']) ? $_GET['category'] : null, isset($_GET['page']) ? $_GET['page'] : null);
+
+        if(isset($_POST['btn-add-cart'])) {
+            $_SESSION['product_id'] = $_POST['product-id'];
+            echo '<script> window.location="ProductDetails.php" </script>';
+        }
+
     ?>
 
 <script src="../../public/js/process_price_range.js" defer></script>
@@ -135,16 +141,27 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
+                                            
 											<img style="height: 250px" src="<?php echo IMAGES . $value['code'] . '/' . $value['product_code'] . '.jpeg' ?>" alt="" />
 											<h2><?php echo $value['product_price'] ?></h2>
 											<p><?php echo $value['product_name'] ?></p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											
+                                                <form method="POST" class="btn btn-default add-to-cart">
+                                                    <input type="text" name="product-id" value="<?php echo $value['product_id'] ?>" style="display: none;" >
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    <input type="submit" name="btn-add-cart" value="Add to cart">
+                                                </form>
+                                            
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
                                             <h2><?php echo $value['product_price'] ?></h2>
 											<p><?php echo $value['product_name'] ?></p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <form method="POST" class="btn btn-default add-to-cart">
+                                                    <input type="text" name="product-id" value="<?php echo $value['product_id'] ?>" style="display: none;" >
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    <input type="submit" name="btn-add-cart" value="Add to cart">
+                                                </form>
 											</div>
 										</div>
 								</div>
