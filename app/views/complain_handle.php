@@ -15,6 +15,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] < 2) {
 
 $id = (int)$_GET['id'];
 $complain = $_COMPLAIN->getComplainById($id); // Lấy thông tin của đơn khiếu nại
+
 /** Kiểm tra xem đơn khiếu nại có tồn tại hay không */
 if (empty($complain)) {
 	echo '<script>
@@ -108,10 +109,10 @@ echo '<script src="' . JS . 'complain.js" defer></script>';
 						<span>Số lượng: <?= $product['quantity'] ?></span>
 						<span>Bán bởi: <?= $shop['name'] ?></span>
 						<span>Số lần vi phạm: <?=
-																	$_COMPLAIN->getNumberOfViolations($shop['user_id']) ?></span>
+							$_COMPLAIN->getNumberOfViolations($shop['user_id']) ?></span>
 					</div>
 					<div class="image">
-						<img src="<?php echo IMAGES . $product['image'] ?>" alt="">
+						<img src="<?php echo IMAGES . $product['code'] . '/' . $product['image'] ?>" alt="">
 					</div>
 				</div>
 				<br>

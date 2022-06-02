@@ -22,7 +22,7 @@
 
     echo '<link href="' . CSS . 'shop_list.css" rel="stylesheet">';
     echo '<script src="' . JS . 'processDate.js" defer></script>';
-    echo '<script src="' . JS . 'process_table.js" defer></script>';
+    // echo '<script src="' . JS . 'process_table.js" defer></script>';
 
 ?>
 
@@ -94,6 +94,15 @@
            
     </div>
 </div>
+
+<script>
+    function myFunction(id) {
+    // console.log(id);
+    window.location = "./ProductList.php?id=" + id;
+    
+
+}
+</script>
 
 
 

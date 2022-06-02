@@ -27,6 +27,7 @@ if (!isset($product)) {
 /** Nếu bấm vào nút Tạo đơn */
 if (isset($_POST['create'])) {
 	$_COMPLAIN->createComplain($_POST, $_SESSION['id'], $product['id']); // Tạo đơn khiếu nại
+    echo '<script>window.location="order_history.php"</script>';
 }
 
 
