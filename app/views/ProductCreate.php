@@ -50,7 +50,12 @@
                 <select class="form-select" class="form-control" name="product-unit" required>
                     <option value="">-- Chọn đơn vị tính --</option>
                     <option value="Chiếc">Chiếc</option>
+                    <option value="Quyển">Quyển</option>
+                    <option value="Hộp">Hộp</option>
+                    <option value="Bộ">Bộ</option>
+                    <option value="Cái">Cái</option>
                     <option value="Túi">Túi</option>
+                    <option value="lọ">lọ</option>
                     <option value="Chai">Chai</option>
                 </select>
 
@@ -75,7 +80,7 @@
                     onchange="loadFile(event)" 
                     style="display: none;">
                 <label for="file" style="cursor: pointer;">Hình ảnh sản phẩm</label>
-                <img style="margin-top: 10px" id="output" width="200" height="200px" />
+                <img style="margin-top: 10px" id="output" width="250" height="250px" />
 
                 
                 <input style="margin:2rem 30rem 1rem 30rem ; width: 15rem; height: 5rem; background:#FE980F; border-radius:5px;" type="submit"name="sub-add" value="Thêm mới sản phẩm">
