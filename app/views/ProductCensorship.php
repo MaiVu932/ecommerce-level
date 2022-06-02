@@ -51,7 +51,7 @@
                     <td><?php echo $product['name-shop'] ?></td>
                     <td><?php echo $product['name-category'] ?></td>
                     <!-- <td><a onclick="UpdateStatus()">Duyệt</a></td>  -->
-                    <td><a onclick="delete_confirm(<?php echo $product['id'] ?>)" >Duyệt</a></td>
+                    <td><a onclick="agree(<?php echo $product['id'] ?>)" >Duyệt</a></td>
                     <td><a onclick="not_agree(<?php echo $product['id'] ?>)">Không duyệt</a></td> 
                     
                 <?php } ?>
@@ -87,7 +87,7 @@
 </div>
 
 <script>
-    function delete_confirm(e) {
+    function agree(e) {
         if (confirm("Bạn có chắc muốn duyệt không?") == true) {
             window.location = './UpdateStatus.php?id=' + e;
         } else {

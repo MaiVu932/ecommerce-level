@@ -6,7 +6,7 @@
     }
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();
-    $shop = $get_data->getShopByUserId();
+    $shop = $get_data->getShopByUserId($_GET['id']);
     // echo "<pre>";
     // print_r($shop);
     // echo "</pre>";
