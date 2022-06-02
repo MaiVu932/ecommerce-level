@@ -6,11 +6,11 @@ if(!isset($_SESSION)) {
  include 'define.php';
  include '../Repositories/BaseRepository.php';
  include '../Repositories/NotificationRepository.php';
-
+ $notification = new NotificationRepository();
  if(isset($_SESSION['role'])) {
-    $notification = new NotificationRepository();
     $notification_count = count($notification->getNotificationsByUserId());
  }
+
 
  
 
@@ -170,9 +170,13 @@ if(!isset($_SESSION)) {
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Tìm Kiếm"/>
-						</div>
+						
+							<form method="POST">
+
+                                <input type="text" name="txt-search" placeholder="Tìm Kiếm"/>
+                                <input type="submit" name="btn-search" value="Tìm kiếm" >
+                            </form>
+						
 					</div>
 				</div>
 			</div>
