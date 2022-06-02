@@ -26,7 +26,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Zerotype Website Template</title>
+	<title>Danh sách danh mục</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css">
     <style>
         .Vicate {
@@ -85,15 +85,15 @@
 ?>
 <div class="cates">
 
-    <b style="font-size: 30px; color: #FE980F"> LIST CATEGORY </b><br>
+    <b style="font-size: 30px; color: #FE980F"> Danh Sách Danh Mục </b><br>
     <a href="category_create.php"><input class="subC" type="submit" value="Create"></a>
     <table class="Vicate">
         <tr class="lows1">
             <th>STT</th>
-            <th>code</th>
-            <th>name</th>
-            <th>description</th>
-            <th>update</th>
+            <th>Mã code</th>
+            <th>Tên Danh Mục</th>
+            <th>Mô Tả Danh Mục</th>
+            <th>Chỉnh sửa</th>
             <!-- <th>delete</th> -->
         </tr>
         <?php
@@ -109,7 +109,7 @@
             <?php else: ?>
                 <th><?php echo $select['description'] ?></th>
             <?php endif; ?>
-            <th><a href="category_update.php?updateid=<?php echo $select['id'] ?>"><input class="but" type="submit" value="Update"></a></th>
+            <th><a href="category_update.php?updateid=<?php echo $select['id'] ?>"><input class="but" type="submit" value="Sửa"></a></th>
             <!-- <th><a href="category_delete.php?deleteid=<?php //echo $select['id'] ?>" onclick="return confirm ('Bạn có chắc chắn muốn xóa không??')"><input class="but" type="submit" name="sub_Del" value="Delete"></a></th> -->
         </tr>
         <?php  } ?>

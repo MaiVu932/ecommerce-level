@@ -10,7 +10,6 @@
         $categories = $category->select_category();
         $product = new ProductRepository();
         $products = $product->getProducts(isset($_GET['category']) ? $_GET['category'] : null, isset($_GET['page']) ? $_GET['page'] : null);
-
         if(isset($_POST['btn-add-cart'])) {
             $_SESSION['product_id'] = $_POST['product-id'];
             echo '<script> window.location="ProductDetails.php" </script>';
@@ -37,7 +36,7 @@
 									<h1><span>E</span>-SHOPPER</h1>
 									<h2>Thuận tiện mua sắm</h2>
 									<p>Gió mưa không ngại đường xa, web đây có sẵn order liền tay </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<button type="button" class="btn btn-default get">Cùng Mua Nào!</button>
 								</div>
 								<div class="col-sm-6">
 									<img src="<?php echo IMAGES ?>home/girl1.jpg" class="girl img-responsive" alt="" />
@@ -49,7 +48,7 @@
 									<h1><span>E</span>-SHOPPER</h1>
 									<h2>Thuận tiện mua sắm</h2>
 									<p>Gió mưa không ngại đường xa, web đây có sẵn order liền tay </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<button type="button" class="btn btn-default get">Cùng Mua Nào!</button>
 								</div>
 								<div class="col-sm-6">
 									<img src="<?php echo IMAGES ?>home/girl2.jpg" class="girl img-responsive" alt="" />
@@ -62,7 +61,7 @@
 									<h1><span>E</span>-SHOPPER</h1>
 									<h2>Thuận tiện mua sắm</h2>
 									<p>Gió mưa không ngại đường xa, web đây có sẵn order liền tay </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
+									<button type="button" class="btn btn-default get">Cùng Mua Nào!</button>
 								</div>
 								<div class="col-sm-6">
 									<img src="<?php echo IMAGES ?>home/girl3.jpg" class="girl img-responsive" alt="" />
@@ -90,7 +89,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">
-						<h2>Category</h2>
+						<h2>Danh Mục</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
                             
                         <?php foreach($categories as $category): ?>
@@ -105,7 +104,7 @@
 						</div><!--/category-products-->
 					
 						<div class="price-range"><!--price-range-->
-							<h2>Price Range</h2>
+							<h2>Mức Giá</h2>
                             <span id="min-price">min: 250</span>
                             <span id="max-price">max: 450</span>
 							<div class="well text-center">
@@ -134,7 +133,7 @@
 				
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Features Items</h2>
+						<h2 class="title text-center">Sản Phẩm</h2>
 
                         <?php foreach($products as $value): ?>
                             <div class="col-sm-4">
@@ -149,7 +148,7 @@
                                                 <form method="POST" class="btn btn-default add-to-cart">
                                                     <input type="text" name="product-id" value="<?php echo $value['product_id'] ?>" style="display: none;" >
                                                     <i class="fa fa-shopping-cart"></i>
-                                                    <input type="submit" name="btn-add-cart" value="Add to cart">
+                                                    <input type="submit" name="btn-add-cart" value="Thêm vào giỏ hàng">
                                                 </form>
                                             
 										</div>
@@ -160,15 +159,15 @@
                                             <form method="POST" class="btn btn-default add-to-cart">
                                                     <input type="text" name="product-id" value="<?php echo $value['product_id'] ?>" style="display: none;" >
                                                     <i class="fa fa-shopping-cart"></i>
-                                                    <input type="submit" name="btn-add-cart" value="Add to cart">
+                                                    <input type="submit" name="btn-add-cart" value="Thêm vào giỏ hàng">
                                                 </form>
 											</div>
 										</div>
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
-										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>Yêu Thích</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>So Sánh</a></li>
 									</ul>
 								</div>
 							</div>

@@ -28,31 +28,31 @@
         name="txt-name" 
         value="<?php echo $shopInfo['name'] ?>"
         class="name"
-        placeholder="Name shop"
+        placeholder="Tên shop"
         required />
     
-    <p>Enter number phone</p>
+    <p>Nhập số điện thoại shop</p>
     <input 
         type="text" 
         name="txt-num-phone" 
         value="<?php echo $shopInfo['num_phone'] ?>"
         class="name"
-        placeholder="Number phone shop"
+        placeholder="Số điện thoại"
         required />
 
-    <p>Enter address shop</p>
+    <p>Nhập địa chỉ shop</p>
     <input 
         type="text" 
         name="txt-address" 
         value="<?php echo $shopInfo['address'] ?>"
         class="name"
-        placeholder="Address shop"
+        placeholder="Địa chỉ shop"
         required />
 
-    <p>Enter description</p>
+    <p>Nhập mô tả shop</p>
     <textarea 
         name="txt-description"
-        placeholder="Description shop" 
+        placeholder="Mô tả shop" 
         rows="6" 
         required >
         <?php echo $shopInfo['description'] ?>

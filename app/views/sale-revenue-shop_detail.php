@@ -212,7 +212,7 @@ echo '<script src="' . JS . 'salerevenue.js" defer></script>';
 							</div>
 						</div>
 						<div class="salerevenue-button-group">
-							<button type="submit" name="sale" value="1" class="btn btn-primary">Sắp xếp theo doanh số</button>&nbsp
+							<button type="submit" name="sold" value="1" class="btn btn-primary">Sắp xếp theo doanh số</button>&nbsp
 							<button type="submit" name="revenue" value="1" class="btn btn-primary">Sắp xếp theo doanh thu</button>
 						</div>
 					</form>';

@@ -1,0 +1,8 @@
+.content{
+    width: 50%;
+    min-height: 30%;
+    margin: auto;
+}
+.content ul li:hover{
+    background-color: #ddd;
+}

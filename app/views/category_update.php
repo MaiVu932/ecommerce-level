@@ -51,18 +51,18 @@
 ?>
 
     <div class="cates">
-        <h3 style="font-size: 30px; color:#FE980F">UPDATE CATEGORY</h3>
+        <h3 style="font-size: 30px; color:#FE980F">Chỉnh Sửa Thông Tin Danh Mục</h3>
 
         <div class="addcate">
             <form action="<?php echo 'category_update.php?updateid='.$_GET['updateid'] ?>" method="POST" >
             <?php  foreach($selects as $select){ ?>
                 <!-- <br><b>Code Category</b><br>
                 <input class="tex" type="text" name ="tcode" value="<?php //echo $select['code'] ?>" disabled/> -->
-                <br><b>Name Category</b><br>
+                <br><b>Tên Danh Mục</b><br>
                 <input class="tex" type="text" name ="tname" value="<?php echo $select['name'] ?>" required/>
-                <br><b>Description</b><br>
+                <br><b>Mô tả Danh Mục</b><br>
                 <textarea class="mta" name="tmota" required><?php echo $select['description'] ?></textarea><br>
-                <input style="font-size: 20px;" class="sub" type="submit" name="update_cat"  value="Update"/>
+                <input style="font-size: 20px;" class="sub" type="submit" name="update_cat"  value="Lưu"/>
             <?php  } ?>
 
             </form>

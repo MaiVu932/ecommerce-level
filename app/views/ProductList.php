@@ -29,16 +29,6 @@
     echo '<link href="' . CSS . 'listP.css" rel="stylesheet">';
 ?>
 <div class="container col-lg-12 mx-auto">
-    <div class="d-flex justify-content-start py-3">
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Quản lý</a></li>
-          <li class="nav-item"><a href="#" class="ProductList.php">Sản phẩm</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Bài viết</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Hóa đơn</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Doanh số/thu</a></li>
-
-        </ul>
-      </div>
     <div class="content">
     <h1>Danh sách sản phẩm</h1>
     <div class="search" style="margin-top: 20px;">
@@ -180,7 +170,7 @@
     }
 
     function postProduct(id){
-        window.location = "./ProductPost.php?id=" + id;
+        window.location = "./ProductPost.php?idP=" + id;
     }
 
 </script>

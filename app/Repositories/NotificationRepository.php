@@ -2,6 +2,40 @@
 
 class NotificationRepository extends BaseRepository 
 {
+    public function getAllByUserId() {
+        $query = "SELECT * FROM notifications WHERE  user_id = " . $_SESSION['id'];
+        return $this->get_data($query);
+    }
+    // public function getInfoNotis()
+    // {
+    //     $notifications = $this->getAllByUserId() ?? [];
+    //     if(!$notifications) {
+    //         echo '<script>alert("Bạn không có thông báo")</script>';
+    //         return;
+    //     }
+    //     $data = [];
+    //     foreach($notifications as $notification) {
+    //         if($notification['notifiable_type'] == 0) {
+    //             $query = " SELECT C.id, U.name user_name, P.name product_name, C.status, C.content FROM notifications N, comments C, users U, products P WHERE N.notifiable_id = C.id AND C.user_id = U.id AND C.product_id = P.id ";
+    //             array_push($data, $this->get_data($query));
+    //         }
+    //         if($notification['notifiable_type'] == 1) {
+    //             $query = " SELECT C.id, U.name user_name, P.name product_name, C.status, C.content FROM notifications N, comments C, users U, products P WHERE N.notifiable_id = C.id AND C.user_id = U.id AND C.product_id = P.id ";
+    //             array_push($data, $this->get_data($query));
+    //         }
+    //     }
+    // }
+
+    public function getInfoNameUser($userId)
+    {
+        $query = " SELECT name FROM users WHERE id = $userId ";
+        return $this->get_data($query)[0]['name'];
+    }
+    public function getInfoNameProduct($productId)
+    {
+        $query = " SELECT name FROM products WHERE id = $productId ";
+        return $this->get_data($query)[0]['name'];
+    }
 
     public function getNotificationsByUserId()
     {

@@ -1,5 +1,5 @@
 <?php
-// include_once 'BaseRepository.php';
+include_once 'BaseRepository.php';
 
 class ComplainRepository extends BaseRepository
 {
@@ -31,7 +31,6 @@ class ComplainRepository extends BaseRepository
     echo '<script>
             alert("Đăng tải đơn khiếu nại thành công, vui lòng chờ duyệt !");
           </script>';
-
     return $complain;
   }
 
@@ -127,25 +126,27 @@ class ComplainRepository extends BaseRepository
     }
     $where = trim($where, ' OR ');
 
-    if(count($product)) {
-        $complain = $this->get_data("SELECT * FROM comments WHERE $where AND status = 0");
-    }
-
-    $complain = $this->get_data("SELECT * FROM comments WHERE status = 0");
-
+    $complain = $this->get_data("SELECT * FROM comments WHERE ($where) AND status = 0");
     return count($complain);
   }
 
   public function getHistoryByUserId($user_id)
   {
-    return $this->get_data("SELECT categories.code, orders.id, products.name, orders.id as order_id, orders.quantity, orders.status, orders.address, orders.num_phone, products.image
-          FROM products, orders, categories
-          WHERE orders.product_id = products.id AND categories.id = products.category_id AND user_id = $user_id AND orders.status = 1");
+    return $this->get_data("SELECT orders.id, products.name, products.id as product_id, orders.id as order_id, orders.quantity, orders.status, orders.address, orders.num_phone, products.image
+          FROM products, orders 
+          WHERE orders.product_id = products.id AND user_id = $user_id");
+  }
+
+  // get số lần người dùng tố báo sản phẩm theo product_id và user_id
+  public function getCountComplainByProductIdAndUserId($product_id, $user_id)
+  {
+    $product = $this->get_data("SELECT * FROM `comments` WHERE product_id = $product_id AND user_id = $user_id");
+    return count($product);
   }
 
   public function getProductById($id)
   {
-    $product = $this->get_data("SELECT products.id, products.name, products.quantity, products.image, products.shop_id, categories.code FROM products, categories WHERE products.id = $id AND products.category_id = categories.id ");
+    $product = $this->get_data("SELECT * FROM products WHERE id = $id");
     return isset($product[0]) ? $product[0] : null;
   }
 

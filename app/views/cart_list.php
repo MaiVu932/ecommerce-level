@@ -1,10 +1,14 @@
 <?php include './header.php';
     include '../Repositories/OrderRepository.php';
 
+if(!isset($_SESSION['id'])) {
+    echo '<script>alert("Bạn cần đăng nhập trước"); window.location="./home.php"</script>';
+}
+
     $get_data = new OrderRepository();
     $info = $get_data->getProductsInCart();
 
-    global $state;
+    global $state, $data;
     $state = false;
     
     if(isset($_POST['btn-selected-all'])) {
@@ -12,7 +16,11 @@
     }
 
     if(isset($_POST['btn-buy'])) {
-        $get_data->orderBuyListProducts($_POST);
+        if(!isset($_POST['select'])) echo '<script>alert("Bạn cần chọn sản phẩm trước khi đắt hàng")</script>';
+        else {
+            $_SESSION['selects'] = $_POST['select'];
+            $get_data->orderBuyListProducts($_POST['select']);
+        }
     }
 
 
@@ -21,16 +29,7 @@
     echo '<link href="' . CSS . 'listP.css" rel="stylesheet">';
 ?>
 <div class="container col-lg-12 mx-auto">
-    <div class="d-flex justify-content-start py-3">
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Quản lý</a></li>
-          <li class="nav-item"><a href="#" class="ProductList.php">Sản phẩm</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Bài viết</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Hóa đơn</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Doanh số/thu</a></li>
 
-        </ul>
-      </div>
     <div class="content">
         <form method="POST">
         <h1>Danh sách sản phẩm trong giỏ hàng</h1>
@@ -52,7 +51,8 @@
             foreach($info as $value){ 
             ?>
         <tr onclick="mySelect(this)">
-            <td><input <?php echo $state ? 'checked' : ''; ?> style="margin:auto;" type="checkbox" value="<?php echo $value['id'] ?>" name="select[]"></td>
+            <td><input <?php 
+             echo $state ? 'checked' : ''; ?> style="margin:auto;" type="checkbox" value="<?php echo $value['id'] ?>" name="select[]"></td>
             <td><?php echo $i++ ?></td>
             <td>
                 <img src="<?php echo IMAGES . $value['code'] . '/' . $value['image'] ?>" 
@@ -61,7 +61,7 @@
             </td>
             <td><?php echo $value['name'] ?></td>
             <td><?php echo $value['price_market'] ?></td>
-            <td><input name="num-quantity[]" type="number" value="<?php echo $value['quantity'] ?>" ></td>
+            <td><?php echo $value['quantity'] ?></td>
             <td><?php echo $total = ($value['price_market']) * ($value['quantity']) ?></td>
             <td><a href="">Xóa</a></td>
         </tr>
@@ -86,6 +86,10 @@
 
     function mySelect(e) {
         console.log(e);
+    }
+
+    function changeQuantity(e) {
+        e.setAttribute('value', e.value)
     }
 </script>
     

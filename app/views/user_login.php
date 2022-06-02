@@ -13,7 +13,7 @@
     if(isset($_POST['sbm-login'])) {
         $login = $user->signIn($_POST);
         if ($login) {
-            echo '<script> alert("Login success !"); window.location="./home.php?login=true";</script>';
+            echo '<script> alert("Đăng nhập thành công !"); window.location="./home.php?login=true";</script>';
         }
     }
     
@@ -28,7 +28,7 @@
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
-						<h2>Login to your account</h2>
+						<h2>Đăng nhập tài khoản của bạn</h2>
 						<form method="POST">
 							<input 
                                 type="text" 
@@ -38,14 +38,14 @@
                                         echo $info['num_phone'];
                                     }
                                 ?>" 
-                                placeholder="Phone number/username/email"
+                                placeholder="Số điện thoại/Địa chỉ email"
                                 class="sign-in"
                                  />
 
                             <div
                                 id="sign-in" 
                                  class="error hidden">
-                                 Phone number does not contain characters
+                                 Số điện thoại không chứa dấu cách
                             </div>
 
 
@@ -54,39 +54,39 @@
                                 if(isset($info['password_current'])) {
                                     echo $info['password_current'];
                                 }
-                            ?>" placeholder="Password" id="my_pw_login" />
-                            <label onclick="hideShowPW(this)" id="pwSignIn" >Show Password</label>
+                            ?>" placeholder="Mật khẩu" id="my_pw_login" />
+                            <label onclick="hideShowPW(this)" id="pwSignIn" >Hiển thị mật khẩu</label>
                                 <br>
 							<span>
 							<button 
                                 type="submit" 
                                 id="sb-login"
                                 name="sbm-login">
-                                Login
+                                Đăng nhập
                             </button>
                             
 						</form>
 					</div><!--/login form-->
 				</div>
 				<div class="col-sm-1">
-					<h2 class="or">OR</h2>
+					<h2 class="or">HOẶC</h2>
 				</div>
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
-						<h2>New User Signup!</h2>
+						<h2>Đăng ký tài khoản mới!</h2>
 						<form action="" method="POST" >
 							<input 
                                 type="text" 
                                 name="txt-name" 
-                                placeholder="Name" 
+                                placeholder="Tên tài khoản" 
                                 required
                                 oninput="check(this)" />
-                            <div id="name_error" class="error hidden">Name do not contain spaces</div>
+                            <div id="name_error" class="error hidden">Tên tài khoản không chứa dấu cách</div>
 
 							<input 
                                 type="text" 
                                 name="txt-num-phone" 
-                                placeholder="Phone number" 
+                                placeholder="Số điện thoại" 
                                 id="myform_phone"
                                 class="sign-up" 
                                 required
@@ -95,28 +95,28 @@
                             <div 
                                 id="sign-up" 
                                 class="error hidden">
-                                Phone number does not contain characters
+                                Số điên thoại không chứa dấu cách
                             </div>
-                            <div id="phone_error_signup_len" class="error hidden">Phone number must not exceed 13 digits</div>
+                            <div id="phone_error_signup_len" class="error hidden">Số điện thoại chỉ chứa 10 số</div>
 
 
-							<input type="text" name="txt-address" placeholder="Address" required/>
+							<input type="text" name="txt-address" placeholder="Địa Chỉ" required/>
 							
                             <input 
                                 type="password" 
                                 name="password" 
-                                placeholder="Password" 
+                                placeholder="Mật khẩu" 
                                 id="my_password" 
                                 oninput="check(this)" required/>
-                            <label onclick="hideShow(this)" id="pwSignUp">Show Password</label>
-                            <div id="password_error" class="error hidden">Password do not contain spaces</div>
+                            <label onclick="hideShow(this)" id="pwSignUp">Hiển thị mật khẩu</label>
+                            <div id="password_error" class="error hidden">Mật khẩu không chứa dấu cách</div>
 							
                             <button 
                                 type="submit" 
                                 id="sb-sign-up"
                                 c
                                 name="sb-sign-up" >
-                                Signup
+                                Đăng Ký
                             </button>
 						</form>
 					</div><!--/sign up form-->

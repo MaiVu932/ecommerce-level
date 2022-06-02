@@ -5,6 +5,12 @@
 class ShopRepository extends BaseRepository
 {
 
+    /**
+     * checkExist: kiểm tra shop đã tồn tại hay chưa
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function checkExist($id)
     {
         $query = "SELECT id FROM shops WHERE id = $id ";
@@ -13,10 +19,16 @@ class ShopRepository extends BaseRepository
         return count($this->get_data($query)) ? true : false;
     }
 
+    /**
+     * getInfoShopById: lấy thông tin của shop qua mã shop
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function getInfoShopById($id)
     {
         if(!$this->checkExist($id)) {
-            echo '<script>alert("Bạn không có quyền cập nhập !!!")</script>';
+            echo '<script>alert("Bạn không có quyền truy cập !!!")</script>';
             return;
         }
 
@@ -26,10 +38,17 @@ class ShopRepository extends BaseRepository
         return $this->get_data($query)[0];
     }
 
+    /**
+     * updateByIdShop: cập nhật thông tin shop qua mã shop
+     *
+     * @param [type] $data
+     * @param [type] $id
+     * @return void
+     */
     public function updateByIdShop($data, $id)
     {
         if(!$this->checkExist($id)) {
-            echo '<script>alert("Bạn không có quyền cập nhập !!!")</script>';
+            echo '<script>alert("Bạn không có quyền truy cập !!!")</script>';
             return;
         }
 
@@ -40,7 +59,7 @@ class ShopRepository extends BaseRepository
             'address' => $data['txt-address']
         ];
 
-        echo 'okkkkk';
+        
         if(!$this->update('shops', $shop, 'id = ' . $id)) {
             echo '<script>alert("Cập nhập thất bại !!!")</script>';
             return;
@@ -50,7 +69,14 @@ class ShopRepository extends BaseRepository
         return;
     }
 
-
+    /**
+     * getShops: lấy thông tin của shop
+     *
+     * @param [type] $page
+     * @param [type] $nameS
+     * @param [type] $dateS
+     * @return void
+     */
     public function getShops(
         $page = null,
         $nameS = null,
@@ -67,6 +93,14 @@ class ShopRepository extends BaseRepository
         }
     }
 
+    /**
+     * getShopsByUserId: lấy thông tin của shop qua mã người dùng
+     *
+     * @param [type] $page
+     * @param [type] $nameS
+     * @param [type] $dateS
+     * @return void
+     */
     public function getShopsByUserId(
         $page = null,
         $nameS = null,
@@ -120,7 +154,12 @@ class ShopRepository extends BaseRepository
        
     }
 
-
+    /**
+     * createShop: tạo shop mới
+     *
+     * @param [type] $data
+     * @return void
+     */
     public function createShop($data)
     {
         $shop = [
@@ -141,19 +180,23 @@ class ShopRepository extends BaseRepository
         }
 
         $_SESSION['role'] = 1;
-        echo 'ok';
         echo '<script>alert("Tạo shop thành công !!"); window.location="./shop_list.php"</script>';
         return [];
     }
 
+    /**
+     * validate: xác thực dữ liệu
+     *
+     * @return void
+     */
     public function validate()
     {
         if(isset($_GET['create']) && $_GET['create'] == 'fail') {
-            echo '<script>alert("Tạo shop thất bai !!!")</script>';
+            echo '<script>alert("Tạo shop thất bại !!!")</script>';
             return;
         }
         if(isset($_GET['create']) && $_GET['create'] == 'success') {
-            echo '<script>alert("Tạo shop thanh công !!!")</script>';
+            echo '<script>alert("Tạo shop thành công !!!")</script>';
             return;
         }
         if(isset($_GET['update']) && $_GET['update'] == 'false') {
