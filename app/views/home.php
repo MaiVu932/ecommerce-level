@@ -143,7 +143,7 @@
 										<div class="productinfo text-center">
                                             
 											<img style="height: 250px" src="<?php echo IMAGES . $value['code'] . '/' . $value['product_code'] . '.jpeg' ?>" alt="" />
-											<h2><?php echo $value['product_price'] ?></h2>
+											<h2>$<?php echo $value['product_price'] ?></h2>
 											<p><?php echo $value['product_name'] ?></p>
 											
                                                 <form method="POST" class="btn btn-default add-to-cart">
