@@ -3,6 +3,13 @@
 
 class OrderRepository extends BaseRepository
 {
+
+    public function getProductsInCart()
+    {
+        $query = " SELECT P.name, P.price_market, O.quantity, P.image  FROM orders O, products P WHERE O.product_id = P.id AND O.user_id = " . $_SESSION['id'];
+        return $this->get_data($query);
+    }
+
     public function getInfoUserById()
     {
         return $this->get_data("SELECT address, num_phone FROM users WHERE id = " . $_SESSION['id'])[0];
