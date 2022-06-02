@@ -11,10 +11,16 @@ class BaseRepository
 	protected $password 		= '';
 	protected $dbname 			= 'ecommerce_woala';
 
+	/**
+	 * __construct
+	 */
 	public function __construct()
 	{
 	}
 
+	/**
+	 * __destruct
+	 */
 	public function __destruct()
 	{
 		if ($this->_connection) {
@@ -22,12 +28,23 @@ class BaseRepository
 		}
 	}
 
+	/**
+	 * connect: kết nối với phpmysql
+	 *
+	 * @return void
+	 */
 	public function connect()
 	{
 		$this->_connection = new mysqli($this->host, $this->username, $this->password, $this->dbname);
 	}
 
-
+	/**
+	 * insert: thêm dữ liệu vào cơ sở dữ liệu
+	 *
+	 * @param [type] $table
+	 * @param [type] $data
+	 * @return void
+	 */
 	public function insert($table, $data, $insert_id = false)
 	{
 
@@ -53,6 +70,14 @@ class BaseRepository
 			return $this->_connection->query($sql);
 	}
 
+	/**
+	 * update: cập nhật dữ liệu vào cơ sở dữ liệu
+	 *
+	 * @param [type] $table
+	 * @param [type] $data
+	 * @param [type] $where
+	 * @return void
+	 */
 	public function update($table, $data, $where)
 	{
 		$this->connect();
@@ -68,6 +93,13 @@ class BaseRepository
 		return $this->_connection->query($sql);
 	}
 
+	/**
+	 * delete: xóa dữ liệu trong cơ sở dữ liệu
+	 *
+	 * @param [type] $table
+	 * @param [type] $where
+	 * @return void
+	 */
 	public function delete($table, $where = null)
 	{
 		$sql = '';
@@ -80,6 +112,12 @@ class BaseRepository
 		return $this->_connection->query($sql);
 	}
 
+	/**
+	 * get_data: lấy dữ liệu từ cơ sở dữ liệu
+	 *
+	 * @param [type] $sql
+	 * @return void
+	 */
 	public function get_data($sql)
 	{
 		$result = [];

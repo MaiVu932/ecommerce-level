@@ -41,13 +41,13 @@
         
         <div class="addcate">
             <form method="POST" >
-                <br><b>Code Category</b><br>
-                <input class="tex" type="text" name ="tcode" placeholder="Code" required/>
-                <br><b>Name Category</b><br>
-                <input class="tex" type="text" name ="tname" placeholder="Name" required/>
-                <br><b>Description</b><br>
+                <br><b>Tên Danh Mục</b><br>
+                <input class="tex" type="text" name ="tcode" placeholder="Mã code" required/>
+                <br><b>Tên Danh Mục</b><br>
+                <input class="tex" type="text" name ="tname" placeholder="Tên danh mục" required/>
+                <br><b>Mô tả Danh Mục</b><br>
                 <textarea class="mta" name="tmota" required></textarea><br>
-                <input style="font-size: 20px;" class="sub" type="submit" name="sub" value="Creat"/> 
+                <input style="font-size: 20px;" class="sub" type="submit" name="sub" value="Thêm mới"/> 
             </form>
             
         </div>

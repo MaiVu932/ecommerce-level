@@ -4,33 +4,72 @@
 
 class CategoryRepository extends BaseRepository
 {
+    /**
+     * isExitCode: kiểm tra code của danh mục đã tồn tại hay chưa
+     *
+     * @param string $code
+     * @return boolean
+     */
     public function isExistCode(string $code)
     {
         $category = $this->get_data("SELECT * FROM categories WHERE code = '$code'");
         return count($category) ? true : false;
     }
+
+    /**
+     * isExitName: kiểm tra xem tên danh mục đã tồn tại hay chưa
+     *
+     * @param string $name
+     * @return boolean
+     */
     public function isExistName(string $name)
     {
         $category = $this->get_data("SELECT * FROM categories WHERE name = '$name'");
         return count($category) ? true : false;
     }
+
+    /**
+     * select_category: Lấy ra thông tin danh mục
+     *
+     * @return void
+     */
     public function select_category()
     {
         $category = $this->get_data("SELECT * FROM categories ");
         return $category;
     }
+
+    /**
+     * select_userById: lấy thông tin người dùng
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function select_userById($id)
     {
         $sql = "SELECT permission FROM `users` WHERE id = '$id'";
         $category = $this->get_data($sql);
         return $category;
     }
+
+    /**
+     * selectById_category: lấy ra thông tin của danh mục
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function selectByID_category($id)
     {
         $category = $this->get_data(" SELECT * FROM `categories` WHERE id = '$id' ");
         return $category;
     }
 
+    /**
+     * validate: xác thực dữ liệu
+     *
+     * @param [type] $code
+     * @return void
+     */
     public function validateCode($code)
     {
             $errors = [];
@@ -49,6 +88,13 @@ class CategoryRepository extends BaseRepository
 
             return $errors;
     }
+
+    /**
+     * Insert_category: thêm mới danh mục
+     *
+     * @param array $data
+     * @return void
+     */
     public function Insert_category(array $data)
     {
             $code=trim($data['tcode']);
@@ -57,7 +103,7 @@ class CategoryRepository extends BaseRepository
 
             $validateCode = $this->validateCode($code);
             if(count($validateCode) > 0){
-                echo "<script>alert('Ma Danh mục khong hop le')</script>";
+                echo "<script>alert('Mã danh mục không hợp lệ')</script>";
                 return $validateCode;
             }
 
@@ -76,7 +122,7 @@ class CategoryRepository extends BaseRepository
                 if($insert){
                     echo '
                         <script>
-                            alert("Them danh muc thanh cong");
+                            alert("Thêm danh mục thành công");
                             window.location = ("category_list.php");
                         </script>';
                     mkdir("../../public/images/$code", 0777);
@@ -86,13 +132,25 @@ class CategoryRepository extends BaseRepository
             }
     }
 
-    
+    /**
+     * getCategoryById: lấy thông tin cảu một danh mục
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function getCategoryById($id)
     {
         $sql = "SELECT * FROM `categories` WHERE id = '$id'";
         $category = $this->get_data($sql);
         return $category;
     }
+    
+    /**
+     * Update_category: cập nhật thông tin danh mục
+     *
+     * @param array $data
+     * @return void
+     */
     public function Update_category(array $data)
     {
         $category = [
@@ -102,30 +160,9 @@ class CategoryRepository extends BaseRepository
         ];
         $where = "id = ". $data['id'];
         $this->update('categories', $category, $where);
-        echo '<script>alert("Update successful"); window.location=("category_list.php")</script>';
+        echo '<script>alert("Cập nhật danh mục thành công!!"); window.location=("category_list.php")</script>';
         return $category;
                 
     }
-            
-
-    // public function delete_category($id, $code)
-    // {
-        
-    //     $delete = $this->delete('categories','id ="'.$id.'"');
-    //     return $delete;
-
-    //     if($delete
-    //     ){
-    //         $status = unlink($code, "../../public/image/");
-    //         echo '
-    //             <script>
-    //                 alert("Xóa danh muc thanh cong");
-    //                 window.location = ("category_list.php");
-    //             </script>';
-    //         // rmdir("../../public/images/" . $code , 0777);
-    //         // return $code;
-    //     }
-
-    // }
 
 } 
