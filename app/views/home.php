@@ -15,6 +15,10 @@
             echo '<script> window.location="ProductDetails.php" </script>';
         }
 
+        if(isset($_POST['btn-search'])) {
+           $products = $notification->search($_POST['txt-search']);
+        }
+
     ?>
 
 <script src="../../public/js/process_price_range.js" defer></script>
@@ -95,7 +99,7 @@
                         <?php foreach($categories as $category): ?>
                             <div class="panel panel-default">
 								<div class="panel-heading">
-									<h4 class="panel-title"><a href="?catgory-id=<?php $category['id'] ?>"><?php echo $category['name'] ?></a></h4>
+									<h4 class="panel-title"><a href="?catgory-id=<?php echo $category['id'] ?>"><?php echo $category['name'] ?></a></h4>
 								</div>
 							</div>
                         <?php endforeach; ?>
