@@ -1,6 +1,10 @@
 <?php include './header.php';
     include '../Repositories/OrderRepository.php';
 
+if(!isset($_SESSION['id'])) {
+    echo '<script>alert("Bạn cần đăng nhập trước"); window.location="./home.php"</script>';
+}
+
     $get_data = new OrderRepository();
     $info = $get_data->getProductsInCart();
 

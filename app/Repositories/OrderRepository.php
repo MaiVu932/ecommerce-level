@@ -10,7 +10,7 @@ class OrderRepository extends BaseRepository
      * @param [type] $data
      * @return void
      */
-    public function orderBuyListProducts($data)
+    public function orderBuyListProducts($orders)
     {
         $data = [];
         foreach($orders as $order) {
@@ -19,15 +19,16 @@ class OrderRepository extends BaseRepository
             if($o) array_push($data, $o);
         }
         $_SESSION['orders'] = $data;
+        // var_dump($_SESSION['orders']);
         echo '<script>window.location="order_products.php"</script>';
         return;
     }
 
-    public function orderBuyListProducts1($orders)
+    public function orderBuyListProducts1($orders, $address, $numPhone)
     {
         $data = [];
         foreach($orders as $order) {
-            $o = $this->buyProductByCart($order);
+            $o = $this->buyProductByCart($order, $address, $numPhone);
             // $o = $this->getUserIdOfShoWhenOrderId($order)[0];
             if($o) array_push($data, $o);
         }
@@ -36,9 +37,13 @@ class OrderRepository extends BaseRepository
         return;
     }
 
-    public function buyProductByCart($order_id)
+    public function buyProductByCart($order_id, $address, $numPhone)
     {
-        $isUpdateOrder = $this->update('orders', ['status' => 4, 'create_at' => date("Ymd")], 'id = ' . $order_id);
+        $isUpdateOrder = $this->update('orders', [
+            'status' => 4, 
+            'address' => $address,
+            'num_phone' => $numPhone,
+            'create_at' => date("Ymd")], 'id = ' . $order_id);
         if(!$isUpdateOrder) {
             echo '<script>alert("Đặt hàng thất bại")</script>';
             return;

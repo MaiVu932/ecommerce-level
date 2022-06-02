@@ -18,7 +18,8 @@ global $total;
 $total = 0;
 
 if(isset($_POST['btnDatHang'])) {
-    $order->orderBuyListProducts1($_SESSION['selects']);
+    // var_dump($_POST);
+    $order->orderBuyListProducts1($_SESSION['selects'], $_POST['Diachi'], $_POST['SDT']);
 }
 
 
@@ -102,6 +103,6 @@ if(isset($_POST['btnDatHang'])) {
                     </div>
                 </div>
             </form>
-
+        </div>   
 
 <?php include './footer.php' ?>
