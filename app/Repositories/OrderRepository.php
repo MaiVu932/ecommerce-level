@@ -4,15 +4,86 @@
 class OrderRepository extends BaseRepository
 {
 
+    public function orderBuyListProducts($data)
+    {
+        var_dump($data['num-quantity']);
+        
+    }
+
+    public function infoOrderBy()
+    {
+        $info = [];
+        if(isset($_SESSION['product_id'])) {
+            $query = " SELECT name, price_market FROM products WHERE id = " . $_SESSION['product_id'];
+            $info = $this->get_data($query)[0];
+        }
+       
+        return [array_merge($info, ['quantity_order' => $_SESSION['quantity_order']])];
+    }
+
+    public function createOrder($quantity, $address, $num_phone)
+    {
+        if(!isset($_SESSION['id'])) {
+            echo '<script>alert("Bạn cần đăng nhâp trước khi đặt hàng")</script>';
+            return;
+        }
+        // $user = $this->getInfoUserById();
+        $order = [
+            'user_id' => $_SESSION['id'],
+            'product_id' => $_SESSION['product_id'],
+            'quantity' => $_SESSION['quantity_order'],
+            'status' => 4,
+            'address' => $address,
+            'num_phone' => $num_phone,
+            'create_at' => date('Ymd')
+        ];
+        $isInsertOrder = $this->insert('orders', $order);
+        if(!$isInsertOrder) {
+            echo '<script>alert("Đặt hàng thất bại !! ")</script>';
+            return;
+        }
+        $userIdShop = $this->getUserIdByProductId($_SESSION['product_id'])['id'];
+
+        $orderID = $this->getIdOrderByUserId();
+        $notification = [
+            'user_id' => $userIdShop,
+            'notifiable_type' => 1,
+            'notifiable_id' => $orderID,
+            'status' => 1
+        ];
+        $isInsertNotification = $this->insert('notifications', $notification);
+        if(!$isInsertNotification) {
+            echo '<script>alert("Đặt hàng thất bại !! ")</script>';
+            return;
+        }
+
+        echo '<script>alert("Đặt hàng thành công thành công")</script>';
+        echo '<script>window.location="./cart_list.php"</script>';
+        return;
+    }
+    public function getIdOrderByUserId()
+    {
+        $query = " SELECT O.id FROM orders O WHERE O.product_id = " . $_SESSION['product_id'] .  " AND O.user_id = " . $_SESSION['id'] . " ORDER BY create_at DESC LIMIT 1";
+        return $this->get_data($query)[0]['id'];
+    }
+
+    public function getUserIdByProductId($id)
+    {
+        $query = " SELECT U.id FROM users U, shops S, products P WHERE U.id = S.user_id AND S.id = P.shop_id AND P.id = " . $id;
+        return $this->get_data($query)[0];
+    }
+
     public function getProductsInCart()
     {
-        $query = " SELECT P.name, P.price_market, O.quantity, P.image  FROM orders O, products P WHERE O.product_id = P.id AND O.user_id = " . $_SESSION['id'];
+        $query = " SELECT O.id, P.name, P.price_market, O.quantity, P.image, C.code  ";
+        $query .= " FROM orders O, products P, categories C "; 
+        $query .= " WHERE P.category_id = C.id AND O.product_id = P.id AND O.user_id = " . $_SESSION['id'];
         return $this->get_data($query);
     }
 
     public function getInfoUserById()
     {
-        return $this->get_data("SELECT address, num_phone FROM users WHERE id = " . $_SESSION['id'])[0];
+        return $this->get_data("SELECT name, address, num_phone FROM users WHERE id = " . $_SESSION['id'])[0];
     }
 
     public function addToCart($quantity)

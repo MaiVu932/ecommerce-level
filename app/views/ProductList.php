@@ -1,8 +1,13 @@
 <?php include('./header.php');
     if(!(isset($_SESSION['role']) && $_SESSION['role'] == 1)) {
         echo '<script>alert("Bạn cần đăng nhập trước");
-         window.location = "./user_login.php";  </script>';
+         window.location = "./ProductList.php";  </script>';
     }
+
+    if(isset($_GET['id'])) {
+        $_SESSION['shop_id'] = $_GET['id'];
+    }
+    
 
     include('../Repositories/ProductRepository.php');
     include '../Repositories/CategoryRepository.php';
@@ -71,7 +76,7 @@
                 
             </div>
             <table id="post">
-            <a href="ProductCreate.php?id=<?php echo $_GET['id'] ?>"><button type="button" class="btn btn-primary">Thêm mới sản phẩm</button></a>
+            <a href="ProductCreate.php?id=<?php echo isset($_GET['id']) ? $_GET['id'] : $_SESSION['shop_id'] ?>"><button type="button" class="btn btn-primary">Thêm mới sản phẩm</button></a>
                 <tr>
                     <th>STT</th>
                     <th>Ảnh sản phẩm</th>
@@ -121,7 +126,7 @@
                     
         
 
-                    <?php if($product['status'] == 3): ?>
+                    <?php if($product['status'] == 3 || strlen($product['reason_refusal']) > 0): ?>
                         <th>
                             <a onclick="delete_confirm(<?php echo $product['id'] ?>)" >Xóa</a>
                         </th>
