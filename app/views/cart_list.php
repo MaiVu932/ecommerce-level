@@ -21,16 +21,7 @@
     echo '<link href="' . CSS . 'listP.css" rel="stylesheet">';
 ?>
 <div class="container col-lg-12 mx-auto">
-    <div class="d-flex justify-content-start py-3">
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Quản lý</a></li>
-          <li class="nav-item"><a href="#" class="ProductList.php">Sản phẩm</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Bài viết</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Hóa đơn</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Doanh số/thu</a></li>
 
-        </ul>
-      </div>
     <div class="content">
         <form method="POST">
         <h1>Danh sách sản phẩm trong giỏ hàng</h1>

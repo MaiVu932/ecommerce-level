@@ -42,7 +42,7 @@ if(isset($_POST['btn-buy']) ) {
 			<div class="row">
 				<div class="col-sm-3">
                 <div class="left-sidebar">
-						<h2>Category</h2>
+						<h2>Danh Mục</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
                             
                         <?php foreach($categories as $category): ?>
@@ -57,7 +57,7 @@ if(isset($_POST['btn-buy']) ) {
 						</div><!--/category-products-->
 					
 						<div class="price-range"><!--price-range-->
-							<h2>Price Range</h2>
+							<h2>Mức Giá</h2>
                             <span id="min-price">min: 250</span>
                             <span id="max-price">max: 450</span>
 							<div class="well text-center">
@@ -97,9 +97,9 @@ if(isset($_POST['btn-buy']) ) {
 								<img src="../../public/images/product-details/new.jpg" class="newarrival" alt="" />
 								<h2><?php echo $infoDetail['name'] ?></h2>
 								<span>
-									<span>Price: US $<?php echo $infoDetail['price_market'] ?></span>
+									<span>Giá: US $<?php echo $infoDetail['price_market'] ?></span>
 									<br>
-                                    <label>Quantity:</label>
+                                    <label>Số Lượng:</label>
 									<input type="number" name="quantity" value="1" min="1" />
 									<p><?php echo $infoDetail['description'] ?></p>
 
@@ -123,7 +123,7 @@ if(isset($_POST['btn-buy']) ) {
 								<!-- <li><a href="#details" data-toggle="tab">Details</a></li>
 								<li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li> -->
 								<!-- <li><a href="#tag" data-toggle="tab">Tag</a></li> -->
-								<li class="active"><a href="#reviews" data-toggle="tab">Reviews (<?php echo count($comments); ?>)</a></li>
+								<li class="active"><a href="#reviews" data-toggle="tab">Nhận xét (<?php echo count($comments); ?>)</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
