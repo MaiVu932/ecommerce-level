@@ -118,7 +118,7 @@ if(!isset($_SESSION)) {
 								    <li><a href="user_list.php"><i class="fa fa-user"></i> Users</a></li>
                                 <?php endif; ?>
 
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="cart_list.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <?php if(isset($_SESSION['username'])): ?>
                                     <li><a href="notification.php"><i class="fa-solid fa-bell"></i>Notification<?php echo isset($_SESSION['role']) ? "(" . $notification_count . ")" : ''; ?></a></li>
                                     <li><a href="user_update.php"><i class="fa fa-user"></i><?php echo $_SESSION['username'] ?></a></li>

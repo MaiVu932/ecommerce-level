@@ -3,16 +3,27 @@ include ('./header.php');
 // include '../Repositories/UserRepository.php';
 include '../Repositories/CategoryRepository.php';
 include '../Repositories/ProductRepository.php';
+include '../Repositories/CommentRepository.php';
 // $user = new UserRepository();
 // $user->validate();
 $category = new CategoryRepository();
 $categories = $category->select_category();
+
 $product = new ProductRepository();
 $infoDetail = $product->getInfoDetailProductById();
+
+$comment = new CommentRepository();
+$comments = $comment->getCommentsByProductId();
+
 // var_dump($_SESSION['product_id']);
 
 if(isset($_POST['btn-comment'])) {
-    echo $_POST['txt-comment'];
+    $comment = new CommentRepository();
+    $comment->createComment($_POST['txt-comment']);
+}
+
+if(isset($_POST['btn-add-to-cart'])) {
+    echo 'oj';
 }
 
 
@@ -83,13 +94,17 @@ if(isset($_POST['btn-comment'])) {
 									<input type="number" value="1" min="1" />
 									<p><?php echo $infoDetail['description'] ?></p>
 
-                                    <button type="button" class="btn btn-fefault cart">
+                                    <button type="submit" name="btn-add-to-cart" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i>
-										Add to cart
+										Thêm vào giỏ hàng
+									</button>
+
+                                    <button type="submit" name="btn-buy" class="btn btn-fefault cart">
+										<i class="fa fa-shopping-cart"></i>
+										Mua hàng
 									</button>
 								</span>
-							</div><!--/product-information-->
-						</div> 
+						
                         </form>
 					</div><!--/product-details-->
 					
@@ -99,7 +114,7 @@ if(isset($_POST['btn-comment'])) {
 								<!-- <li><a href="#details" data-toggle="tab">Details</a></li>
 								<li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li> -->
 								<!-- <li><a href="#tag" data-toggle="tab">Tag</a></li> -->
-								<li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+								<li class="active"><a href="#reviews" data-toggle="tab">Reviews (<?php echo count($comments); ?>)</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
@@ -117,13 +132,19 @@ if(isset($_POST['btn-comment'])) {
 										<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
 										<li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
 									</ul>
-									<p><?php echo $infoDetail['description'] ?></p>
-									<p><b>Write Your Review</b></p>
+									<p>Mô tả sản phẩm: <?php echo $infoDetail['description'] ?></p>
+                                    <p><b>Danh sách nhận xét</b></p>
+                                        <?php foreach($comments as $comment): ?>
+                                            <i class="fa fa-user"></i><span style="margin-left: 0.5% ;"><?php echo $comment['name'] . '   (' . $comment['create_at'] . ')' ?></span> <br>
+                                            <p style="margin-left: 3% ;"><?php echo $comment['content'] ?></p>
+                                        <?php endforeach; ?>
+                                        
+									<p><b>Viết nhận xét của bạn ....</b></p>
 									
 									<form method="POST">
 										<textarea name="txt-comment" placeholder="Nhập đánh giá" required></textarea>
 										<button type="submit" name="btn-comment" class="btn btn-default pull-right">
-											Submit
+											Nhận xét
 										</button>
 									</form>
 								</div>
@@ -145,7 +166,7 @@ if(isset($_POST['btn-comment'])) {
 													<img src="../../public/images/home/recommend1.jpg" alt="" />
 													<h2>$56</h2>
 													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
 												</div>
 											</div>
 										</div>
@@ -157,7 +178,7 @@ if(isset($_POST['btn-comment'])) {
 													<img src="../../public/images/home/recommend2.jpg" alt="" />
 													<h2>$56</h2>
 													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
 												</div>
 											</div>
 										</div>
@@ -169,7 +190,7 @@ if(isset($_POST['btn-comment'])) {
 													<img src="../../public/images/home/recommend3.jpg" alt="" />
 													<h2>$56</h2>
 													<p>Easy Polo Black Edition</p>
-													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+													<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
 												</div>
 											</div>
 										</div>
