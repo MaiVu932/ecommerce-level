@@ -1,4 +1,9 @@
 <?php include('./header.php');
+    if(!(isset($_SESSION['role']) && ($_SESSION['role'] == 2 || $_SESSION['role'] == 3))) {
+        echo '<script>alert("Bạn không có quyền truy cập trang này");
+        window.location = "./home.php";  </script>';
+    }
+
 
     include('../Repositories/ProductRepository.php');
     $get_data = new ProductRepository();

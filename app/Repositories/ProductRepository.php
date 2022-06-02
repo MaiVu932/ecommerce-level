@@ -591,6 +591,12 @@
             return;
             
         }
+
+        public function deleteProduct($id)
+        {
+            $delete = $this->delete('products','id ='.$id);
+            return $delete;
+        }
         
     }
 ?>
