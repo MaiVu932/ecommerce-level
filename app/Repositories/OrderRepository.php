@@ -3,6 +3,37 @@
 
 class OrderRepository extends BaseRepository
 {
+    public function getInfoUserById()
+    {
+        return $this->get_data("SELECT address, num_phone FROM users WHERE id = " . $_SESSION['id'])[0];
+    }
+
+    public function addToCart($quantity)
+    {
+        if(!isset($_SESSION['id'])) {
+            echo '<script>alert("Bạn cần đăng nhâp trước khi thêm vào giỏ hàng")</script>';
+            return;
+        }
+        $user = $this->getInfoUserById();
+        $order = [
+            'user_id' => $_SESSION['id'],
+            'product_id' => $_SESSION['product_id'],
+            'quantity' => $quantity,
+            'status' => 3,
+            'address' => $user['address'],
+            'num_phone' => $user['num_phone'],
+            'create_at' => date('Ymd')
+        ];
+        $isInsertOrder = $this->insert('orders', $order);
+        if(!$isInsertOrder) {
+            echo '<script>alert("Thêm sản phẩm thất bại !! ")</script>';
+            return;
+        }
+        echo '<script>alert("Thêm sản phẩm vào giỏ hàng thành công")</script>';
+        echo '<script>window.location="./cart_list.php"</script>';
+        return;
+    }
+
   public function getHistoryByUserId($user_id)
   {
     return $this->get_data("SELECT products.id, products.name, orders.quantity, orders.status, orders.address, orders.num_phone, products.image
