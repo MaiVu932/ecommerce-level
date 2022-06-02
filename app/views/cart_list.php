@@ -3,9 +3,7 @@
 
     $get_data = new OrderRepository();
     $info = $get_data->getProductsInCart();
-    echo "<pre>";
-    print_r($info);
-    echo "</pre>";
+    
 
 
 

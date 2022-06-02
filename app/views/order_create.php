@@ -9,7 +9,6 @@ if(!isset($_SESSION['id'])) {
     echo '<script>alert("Bạn cần đăng nhập trước"); window.location="./user_login.php";</script>';
 }
 
-var_dump($_SESSION);
 $order = new OrderRepository();
 $infoUser = $order->getInfoUserById();
 $infoOderB = $order->infoOrderBy();
