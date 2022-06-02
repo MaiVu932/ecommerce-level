@@ -40,8 +40,7 @@
             return $data[0];
         }
 
-        public function getShops()
-        {
+        public function getShops(){
             $sql = "SELECT * FROM shops";
             $data = $this->get_data($sql);
             return $data;
@@ -172,7 +171,6 @@
                 $priceMarket = (double)trim($data['product-priceMarket']);
                 $quantity = (double)trim($data['product-quantity']);
                 $unit = trim($data['product-unit']);
-                $date = trim($data['create_at']);
                 $describe = trim($data['product-describe']);
                 
 
@@ -219,7 +217,7 @@
                         'price_historical'   => $price,
                         'quantity'           => $quantity,
                         'unit'               => $unit,
-                        'create_at'          => $date,
+                        'create_at'          => date("Ymd"),
                         'image'              => $image,
                         'description'        => $describe,     
                     ];

@@ -13,7 +13,7 @@
     
     if(isset($_POST['sub-update'])) {
         var_dump($_POST);
-        $get_data->updateProduct($_POST, $_GET['updateId']);
+        $get_data->updateProduct($_POST,$_GET['updateId']);
     }
 
     echo '<link href="' . CSS . 'createP.css" rel="stylesheet">';
