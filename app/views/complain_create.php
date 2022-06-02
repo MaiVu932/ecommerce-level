@@ -53,7 +53,7 @@ echo '<script src="' . JS . 'complain.js" defer></script>';
 					<span>Số lượng: <?= $product['quantity'] ?></span>
 				</div>
 				<div class="image">
-					<img src="<?php echo IMAGES ?><?= $product['image'] ?>" alt="">
+					<img src="<?php echo IMAGES ?><?= $product['code'] . '/' . $product['image']  ?>" alt="">
 				</div>
 			</div>
 			<br>

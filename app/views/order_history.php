@@ -40,7 +40,7 @@ echo '<script src="' . JS . 'complain.js" defer></script>';
 					<div class="list">
 						<div class="info">
 							<div class="image">
-								<img src="' . IMAGES . '' . $history['image'] . '" alt="">
+								<img src="' . IMAGES . '' . $history['code'] . '/' . $history['image'] . '" alt="">
 							</div>
 							<div class="detail-list">
 								<span>' . $history['name'] . '</span>

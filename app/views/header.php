@@ -161,9 +161,16 @@ if(!isset($_SESSION)) {
                                          
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="./order_history.php">Giao dịch</i></a>
+                                <?php if (isset($_SESSION['role']) && ($_SESSION['role'] == 2 || $_SESSION['role'] == 3 )): ?>
+                                    <li class="dropdown"><a href="./complain_list.php">Danh sách khiếu nại</i></a>
+                                    </li> 
+                                       
+                                        <?php else: ?>
+                                            <li class="dropdown"><a href="./order_history.php">Giao dịch</i></a>
                                     
                                 </li> 
+                                        <?php endif; ?>
+								
 								<li><a href="404.html">404</a></li>
 								<li><a href="contact-us.html">Liên hệ</a></li>
 							</ul>
