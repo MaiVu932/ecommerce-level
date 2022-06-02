@@ -3,6 +3,12 @@
     class ProductRepository extends BaseRepository
     {
 
+        public function getProductsByCategoryID()
+        {
+            $categoryId = $this->get_data("SELECT category_id FROM products WHERE id = " . $_SESSION['product_id'])[0]['category_id'];
+            return $this->get_data(" SELECT P.name, P.price_market, P.image, C.code FROM products P, categories C WHERE P.category_id = C.id AND category_id =  " . $categoryId);
+        }
+
         public function isExistProductById($id)
         {
             $query = " SELECT id FROM products WHERE id = " . $id;

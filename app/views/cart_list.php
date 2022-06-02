@@ -1,5 +1,11 @@
 <?php include './header.php';
+    include '../Repositories/OrderRepository.php';
 
+    $get_data = new OrderRepository();
+    $info = $get_data->getProductsInCart();
+    echo "<pre>";
+    print_r($info);
+    echo "</pre>";
 
 
 
@@ -65,9 +71,21 @@
                     <th>Remove</th>
                     
                 </tr>
+                <?php 
+                    $i =1;
+                    foreach($info as $value){ 
+                    ?>
                 <tr>
                     <td><input style="margin:auto;" type="checkbox"></td>
+                    <td><?php echo $i++ ?></td>
+                    <td><img src="<?php echo "ảnh" ?>" alt="anh"></td>
+                    <td><?php echo $value['name'] ?></td>
+                    <td><?php echo $value['price_market'] ?></td>
+                    <td><?php echo $value['quantity'] ?></td>
+                    <td><?php echo $total = ($value['price_market']) * ($value['quantity']) ?></td>
+                    <td><a href="">Xóa</a></td>
                 </tr>
+                <?php } ?>
                 
             </table>
         <div style="margin: 20px 0px 0 20px;">
