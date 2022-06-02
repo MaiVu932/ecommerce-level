@@ -244,6 +244,7 @@
             $status = null
         )
         {
+            $id = isset($_GET['id']) ? $_GET['id'] : $_SESSION['shop_id'];
                     
             if($name && $category && $status) {
                 if($status == 6) {
@@ -253,7 +254,7 @@
                 s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                 p.unit, p.image, p.description, p.status, p.reason_refusal
                 FROM `products` p, `categories` c, `shops` s
-                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.name LIKE '%" . $name . "%' AND p.category_id = " . $category . " AND p.status = " . $status ;
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $id . " AND p.name LIKE '%" . $name . "%' AND p.category_id = " . $category . " AND p.status = " . $status ;
                 $data = $this->get_data($query);
                 return($data);
             }
@@ -263,7 +264,7 @@
                 s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                 p.unit, p.image, p.description, p.status, p.reason_refusal
                 FROM `products` p, `categories` c, `shops` s
-                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.name LIKE '%" . $name . "%' AND p.category_id = " . $category ;
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $id . " AND p.name LIKE '%" . $name . "%' AND p.category_id = " . $category ;
                 $data = $this->get_data($query);
                 return($data);
             }
@@ -276,7 +277,7 @@
                 s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                 p.unit, p.image, p.description, p.status, p.reason_refusal
                 FROM `products` p, `categories` c, `shops` s
-                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.category_id = " . $category . " AND status = " . $status ;
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $id . " AND p.category_id = " . $category . " AND status = " . $status ;
                 $data = $this->get_data($query);
                 return($data);
             }
@@ -288,7 +289,7 @@
                 s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                 p.unit, p.image, p.description, p.status, p.reason_refusal
                 FROM `products` p, `categories` c, `shops` s
-                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.name LIKE '%" . $name . "%' AND status = " . $status ;
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $id . " AND p.name LIKE '%" . $name . "%' AND status = " . $status ;
                 $data = $this->get_data($query);
                 return($data);
             }
@@ -298,7 +299,7 @@
                 s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                 p.unit, p.image, p.description, p.status, p.reason_refusal
                 FROM `products` p, `categories` c, `shops` s
-                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND c.id = " . $category ;
+                WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $id . " AND c.id = " . $category ;
                 $data = $this->get_data($query);
                 return($data);
             }
@@ -308,7 +309,7 @@
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                     p.unit, p.image, p.description, p.status, p.reason_refusal
                     FROM `products` p, `categories` c, `shops` s
-                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.name LIKE '%" . $name . "%' " ;
+                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $id . " AND p.name LIKE '%" . $name . "%' " ;
                 $data = $this->get_data($query);
                 return($data);
 
@@ -322,7 +323,7 @@
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                     p.unit, p.image, p.description, p.status, p.reason_refusal
                     FROM `products` p, `categories` c, `shops` s
-                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] . " AND p.status = " . $status ;
+                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $id . " AND p.status = " . $status ;
                 $data = $this->get_data($query);
                 return($data);
                 
@@ -333,7 +334,7 @@
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
                     p.unit, p.image, p.description, p.status, p.reason_refusal
                     FROM `products` p, `categories` c, `shops` s
-                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $_GET['id'] ;
+                    WHERE p.category_id = c.id AND p.shop_id = s.id AND s.id = " . $id ;
                 $data = $this->get_data($query);
                 return($data);
             }
@@ -375,10 +376,13 @@
 
         public function updateProduct($data, $id)
         {
-            if(!isset($_FILES['image'])){
+            if(!strlen($_FILES['image']['name'])){
+                // echo 'k ton tai';
                 $this->updateProductNoImage($data, $id);
             }
             else{
+                // echo 'ton tai';
+
                 $this->updateProductImage($data, $id);
             }
         }
@@ -417,11 +421,13 @@
 
             $update = $this->update('products', $product, 'id = '. $id);
             if($update){
-                echo 
-                    "<script>
-                        alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
-                        window.location = 'ProductList.php?id=" . $_GET['id'] . "';
-                        </script>";
+                echo "<script>alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');</script>";
+                echo "<script>window.location='ProductList.php';</script>";
+                // echo 
+                //     "<script>
+                //         alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
+                //         window.location = 'ProductList.php?id='" . $_SESSION['shop_id'] . "';
+                //         </script>";
                 return;
             }
             else{
@@ -473,11 +479,22 @@
 
             $update = $this->update('products', $product, 'id = '. $id);
             if($update){
+<<<<<<< HEAD
                 echo 
                     "<script>
                         alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
                         window.location = 'shop_list.php';
                         </script>";
+=======
+                echo "<script>alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');</script>";
+                echo "<script>window.location='ProductList.php';</script>";
+             
+                // echo 
+                //     "<script>
+                //         alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
+                //         window.location = 'ProductList.php?id='" . $_SESSION['shop_id'] . "';
+                //         </script>";
+>>>>>>> 93819462531c8633216ff05bf3cb72ae9217e4de
                 return;
             }
             else{
@@ -568,7 +585,9 @@
 
         public function postProduct()
         {
-            $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $_GET['id']);
+            $id = isset($_GET['id']) ?? $_SESSION['shop_id'];
+
+            $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $id);
 
             if(!$isUpdate) {
                 echo '<script>alert("Đăng bán thất bại !!!")</script>';
@@ -576,7 +595,7 @@
             }
             $product = [
                 'user_id' => 11,
-                'notifiable_id' => $_GET['id'],
+                'notifiable_id' => $id,
                 'notifiable_type' => 2,
                 'status' => 1
             ];
@@ -587,7 +606,7 @@
                 return;
             } 
 
-            echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./shop_list.php"; </script>';
+            echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./ProductList.php"; </script>';
             return;
             
         }

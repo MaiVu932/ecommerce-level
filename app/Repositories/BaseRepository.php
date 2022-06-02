@@ -81,7 +81,6 @@ class BaseRepository
 		$result = [];
 
 		$this->connect();
-
 		$query = $this->_connection->query($sql);
 		if (!$query)
 			die("Cau lenh truy van sai!");

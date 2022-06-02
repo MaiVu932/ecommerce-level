@@ -3,6 +3,13 @@
 
 class OrderRepository extends BaseRepository
 {
+
+    public function orderBuyListProducts($data)
+    {
+        var_dump($data['num-quantity']);
+        
+    }
+
     public function infoOrderBy()
     {
         $info = [];
@@ -68,7 +75,7 @@ class OrderRepository extends BaseRepository
 
     public function getProductsInCart()
     {
-        $query = " SELECT P.name, P.price_market, O.quantity, P.image, C.code  ";
+        $query = " SELECT O.id, P.name, P.price_market, O.quantity, P.image, C.code  ";
         $query .= " FROM orders O, products P, categories C "; 
         $query .= " WHERE P.category_id = C.id AND O.product_id = P.id AND O.user_id = " . $_SESSION['id'];
         return $this->get_data($query);
