@@ -476,7 +476,7 @@
                 echo 
                     "<script>
                         alert('Bạn đã sửa thông tin sản phẩm THÀNH CÔNG!!!');
-                        window.location = 'ProductList.php?id=" . $_GET['id'] . "';
+                        window.location = 'shop_list.php';
                         </script>";
                 return;
             }

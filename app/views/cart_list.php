@@ -11,52 +11,10 @@
     echo '<link href="' . CSS . 'listP.css" rel="stylesheet">';
 ?>
 <div class="container col-lg-12 mx-auto">
-    <div class="d-flex justify-content-start py-3">
-        <ul class="nav nav-pills">
-          <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Quản lý</a></li>
-          <li class="nav-item"><a href="#" class="ProductList.php">Sản phẩm</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Bài viết</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Hóa đơn</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Doanh số/thu</a></li>
 
-        </ul>
-      </div>
     <div class="content">
     <h1>Danh sách sản phẩm trong giỏ hàng</h1>
-    <div class="search" style="margin-top: 20px;">
-                <form method="POST">
-                
-                    <input 
-                        type="text" 
-                        style="width: 20%; "
-                        placeholder="  Tìm kiếm theo tên"
-                        value="<?php echo isset($_POST['txt-search-name']) ? $_POST['txt-search-name'] : ''  ?>"
-                        name="txt-search-name" />
-                    
-                    <select name="category" style="width: 20%; background-color: #fff; border: 1px solid black">
-                        <option value="">Danh mục</option>
-                        <?php foreach($categories as $value): ?>
-                            <option <?php echo isset($_POST['category']) && $_POST['category'] == $value['id']  ? 'selected' : '' ?> value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
-                        <?php endforeach; ?>
-                        
-                    </select>
-
-                    <select name="status" style="width: 20%; background-color: #fff; border: 1px solid black">
-                        <option value="">Trạng thái</option>
-                        <option <?php echo isset($_POST['status']) && $_POST['status'] == 6  ? 'selected' : '' ?> value="6">Đợi xét duyệt</option>
-                        <option <?php echo isset($_POST['status']) && $_POST['status'] == 1  ? 'selected' : '' ?> value="1">Xét duyệt thành công</option>
-                        <option <?php echo isset($_POST['status']) && $_POST['status'] == 2  ? 'selected' : '' ?> value="2">Xét duyệt thất bại</option>
-                        <option <?php echo isset($_POST['status']) && $_POST['status'] == 3  ? 'selected' : '' ?> value="3">Trong kho</option>
-                    </select>
-
-                    <input
-                        style="margin-top: 5px;"
-                        type="submit" 
-                        name="btn-search"
-                        value="Tìm kiếm" />
-                </form>
-                
-            </div>
+    
             <table id="post">
                 <tr>
                     <th>Chọn</th>
