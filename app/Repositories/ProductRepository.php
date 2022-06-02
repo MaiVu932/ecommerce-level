@@ -21,46 +21,7 @@
             $data = $this->get_data($sql);
             return $data;
         }
-        public function getProducts(
-            $category = null,
-            $page = null
-        )
-        {
-            if($page && $category) {
-                $page_current = (int)$_GET['page'];
-                $start = ($page_current - 1) * 12;
 
-                $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
-                $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1 ";
-                $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
-
-                return $this->get_data($query);
-            }
-
-            if(!$page && $category) {
-                $page_current = 1;
-                $start = ($page_current - 1) * 12;
-
-                $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
-                $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1  ";
-                $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
-
-                return $this->get_data($query);
-            }
-
-
-            if(!$category && !$page) {
-                $page_current = 1;
-                $start = ($page_current - 1) * 12;
-
-                $query = " SELECT P.id product_id , P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
-                $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1  ";
-                $query .= " ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
-
-                return $this->get_data($query);
-            }
-
-        }
         public function validateCodeProduct($code)
         {
             // var_dump($data);
@@ -356,7 +317,16 @@
             if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
                 echo '<script>alert("Logout success !")</script>';
             }
-        }public function getInfoProductByStatus()
+        }
+
+        public function getShopByUserId($id)
+        {
+            $sql = " SELECT * FROM products WHERE 'id = '.$id";
+            $data = $this->get_data($sql);
+            return $data;
+        }
+        
+        public function getInfoProductByStatus()
         {
             $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
@@ -440,33 +410,6 @@
                 }
             }
         }
-
-        
-
-        public function postProduct()
-        {
-            $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $_GET['id']);
-
-            if(!$isUpdate) {
-                echo '<script>alert("Đăng bán thất bại !!!")</script>';
-                return;
-            }
-            $product = [
-                'user_id' => 11,
-                'notifiable_id' => $_GET['id'],
-                'notifiable_type' => 2,
-                'status' => 1
-            ];
-
-            $isInsertNotification = $this->insert('notifications', $product);
-            if(!$isInsertNotification) {
-                echo '<script>alert("Đăng bán thất bại !!!")</script>';
-                return;
-            } 
-
-            echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./ProductList.php"; </script>';
-            return;
-            
-        }
     }
+
 ?>
