@@ -31,6 +31,7 @@ if(isset($_POST['btn-add-to-cart'])) {
 }
 
 if(isset($_POST['btn-buy']) ) {
+    $_SESSION['quantity_order'] = $_POST['quantity'];
     echo '<script>window.location="./order_create.php"</script>';
 }
 
