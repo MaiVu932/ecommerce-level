@@ -356,9 +356,7 @@
             if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
                 echo '<script>alert("Logout success !")</script>';
             }
-        }
-
-        public function getInfoProductByStatus()
+        }public function getInfoProductByStatus()
         {
             $sql = "SELECT p.id, c.id 'id-category',c.code 'code-category', c.name 'name-category', s.id 'id-shop',
                     s.name 'name-shop', p.code, p.name, p.price_market, p.price_historical, p.quantity, 
@@ -442,6 +440,8 @@
                 }
             }
         }
+
+        
 
         public function postProduct()
         {
