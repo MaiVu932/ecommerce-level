@@ -3,31 +3,67 @@
 
 class OrderRepository extends BaseRepository
 {
+    public function infoOrderBy()
+    {
+        $info = [];
+        if(isset($_SESSION['product_id'])) {
+            $query = " SELECT name, price_market FROM products WHERE id = " . $_SESSION['product_id'];
+            $info = $this->get_data($query)[0];
+        }
+       
+        return [array_merge($info, ['quantity_order' => $_SESSION['quantity_order']])];
+    }
 
-    public function createOrder($quantity)
+    public function createOrder($quantity, $address, $num_phone)
     {
         if(!isset($_SESSION['id'])) {
-            echo '<script>alert("Bạn cần đăng nhâp trước khi thêm vào giỏ hàng")</script>';
+            echo '<script>alert("Bạn cần đăng nhâp trước khi đặt hàng")</script>';
             return;
         }
-        $user = $this->getInfoUserById();
+        // $user = $this->getInfoUserById();
         $order = [
             'user_id' => $_SESSION['id'],
             'product_id' => $_SESSION['product_id'],
-            'quantity' => $quantity,
-            'status' => 3,
-            'address' => $user['address'],
-            'num_phone' => $user['num_phone'],
+            'quantity' => $_SESSION['quantity_order'],
+            'status' => 4,
+            'address' => $address,
+            'num_phone' => $num_phone,
             'create_at' => date('Ymd')
         ];
         $isInsertOrder = $this->insert('orders', $order);
         if(!$isInsertOrder) {
-            echo '<script>alert("Thêm sản phẩm thất bại !! ")</script>';
+            echo '<script>alert("Đặt hàng thất bại !! ")</script>';
             return;
         }
-        echo '<script>alert("Thêm sản phẩm vào giỏ hàng thành công")</script>';
+        $userIdShop = $this->getUserIdByProductId($_SESSION['product_id'])['id'];
+
+        $orderID = $this->getIdOrderByUserId();
+        $notification = [
+            'user_id' => $userIdShop,
+            'notifiable_type' => 1,
+            'notifiable_id' => $orderID,
+            'status' => 1
+        ];
+        $isInsertNotification = $this->insert('notifications', $notification);
+        if(!$isInsertNotification) {
+            echo '<script>alert("Đặt hàng thất bại !! ")</script>';
+            return;
+        }
+
+        echo '<script>alert("Đặt hàng thành công thành công")</script>';
         echo '<script>window.location="./cart_list.php"</script>';
         return;
+    }
+    public function getIdOrderByUserId()
+    {
+        $query = " SELECT O.id FROM orders O WHERE O.product_id = " . $_SESSION['product_id'] .  " AND O.user_id = " . $_SESSION['id'] . " ORDER BY create_at DESC LIMIT 1";
+        return $this->get_data($query)[0]['id'];
+    }
+
+    public function getUserIdByProductId($id)
+    {
+        $query = " SELECT U.id FROM users U, shops S, products P WHERE U.id = S.user_id AND S.id = P.shop_id AND P.id = " . $id;
+        return $this->get_data($query)[0];
     }
 
     public function getProductsInCart()
@@ -40,7 +76,7 @@ class OrderRepository extends BaseRepository
 
     public function getInfoUserById()
     {
-        return $this->get_data("SELECT address, num_phone FROM users WHERE id = " . $_SESSION['id'])[0];
+        return $this->get_data("SELECT name, address, num_phone FROM users WHERE id = " . $_SESSION['id'])[0];
     }
 
     public function addToCart($quantity)

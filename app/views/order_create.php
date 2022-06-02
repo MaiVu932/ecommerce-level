@@ -1,5 +1,23 @@
 <?php
 include './header.php';
+include '../Repositories/OrderRepository.php';
+
+
+
+
+if(!isset($_SESSION['id'])) {
+    echo '<script>alert("Bạn cần đăng nhập trước"); window.location="./user_login.php";</script>';
+}
+
+$order = new OrderRepository();
+$infoUser = $order->getInfoUserById();
+$infoOderB = $order->infoOrderBy();
+global $total;
+$total = 0;
+if(isset($_POST['btnDatHang'])) {
+    $order->createOrder($infoOderB[0]['quantity_order'], $_POST['Diachi'], $_POST['Diachi']);
+}
+
 
 ?>
 
@@ -24,31 +42,23 @@ include './header.php';
                             <span class="badge badge-secondary badge-pill">2</span>
                         </h4>
                         <ul class="list-group mb-3">
-                            <input type="hidden" name="sanphamgiohang[1][sp_ma]" value="2">
-                            <input type="hidden" name="sanphamgiohang[1][gia]" value="11800000.00">
-                            <input type="hidden" name="sanphamgiohang[1][soluong]" value="2">
+                            <?php foreach($infoOderB as $order):  ?>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div>
+                                        <h6 class="my-0"><?php echo $order['name'] ?></h6>
+                                        <small class="text-muted"><?php echo $order['price_market'] . ' x ' . $order['quantity_order']; ?></small>
+                                    </div>
+                                    <span class="text-muted">$<?php echo $order['price_market'] * $order['quantity_order']; ?></span>
+                                </li>
+                                <?php $total += $order['price_market'] * $order['quantity_order']; ?>
+                            <?php endforeach; ?>
+                            
+                            
 
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-0">Apple Ipad 4 Wifi 16GB</h6>
-                                    <small class="text-muted">11800000.00 x 2</small>
-                                </div>
-                                <span class="text-muted">23600000</span>
-                            </li>
-                            <input type="hidden" name="sanphamgiohang[2][sp_ma]" value="4">
-                            <input type="hidden" name="sanphamgiohang[2][gia]" value="14990000.00">
-                            <input type="hidden" name="sanphamgiohang[2][soluong]" value="8">
-
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-0">Apple iPhone 5 16GB White</h6>
-                                    <small class="text-muted">14990000.00 x 8</small>
-                                </div>
-                                <span class="text-muted">119920000</span>
-                            </li>
+                            
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Tổng thành tiền</span>
-                                <strong>143520000</strong>
+                                <strong><?php echo $total; ?></strong>
                             </li>
 </ul>
 
@@ -59,22 +69,17 @@ include './header.php';
                     <div class="col-md-12">
                          <label for="kh_ht">Họ tên</label>
                          <input type="text" name="userName" class="form-control" style ="display:none"
-                            value="" />
-                         <input type="text" class="form-control" id="ht" name="HoTen"> 
+                            value="<?php echo $infoUser['name']; ?>" />
+                         <input disabled type="text" class="form-control" id="ht" name="HoTen" value="<?php echo $infoUser['name']; ?>"> 
                          </div>
-                    <div class="col-md-12">
-                         <label for="tensp">Tên sản phẩm</label>
-                         <input type="text" name="product" class="form-control" style ="display:none"
-                            value="7" />
-                         <input type="text" class="form-control" id="tensp" name="Tensp" value="Nồi cơm nhật bản chất lượng cao" />
-                         </div>     
+                       
                     <div class="col-md-12">
                          <label for="diachi">Địa chỉ</label>
-                         <input type="text" class="form-control" id="diachi" name="Diachi">
+                         <input type="text" class="form-control" id="diachi" name="Diachi" value="<?php echo $infoUser['address']; ?>">
                          </div>
                     <div class="col-md-12">
                          <label for="sdt">SDT</label>
-                         <input type="text" class="form-control" id="sdt" name="SDT">
+                         <input type="text" class="form-control" id="sdt" name="SDT" value="<?php echo $infoUser['num_phone']; ?>">
                          </div>
                    
   </div>
@@ -86,15 +91,10 @@ include './header.php';
 
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
-                                <input id="httt-1" name="httt_ma" type="radio" class="custom-control-input" required=""
-                                    value="1">
-                                <label class="custom-control-label" for="httt-1">Tiền mặt</label>
+                            <label class="custom-control-label" for="httt-1">Tiền mặt</label>
+                                
                             </div>
-                            <div class="custom-control custom-radio">
-                                <input id="httt-2" name="httt_ma" type="radio" class="custom-control-input" required=""
-                                    value="2">
-                                <label class="custom-control-label" for="httt-2">Chuyển khoản</label>
-                            </div>
+                            
                         </div>
                         <hr class="mb-4">
                         <button class="btn btn-primary btn-lg btn-block" type="submit" name="btnDatHang">Đặt

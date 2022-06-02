@@ -1,7 +1,7 @@
 <?php include('./header.php');
     if(!(isset($_SESSION['role']) && $_SESSION['role'] == 1)) {
         echo '<script>alert("Bạn cần đăng nhập trước");
-         window.location = "./user_login.php";  </script>';
+         window.location = "./ProductList.php";  </script>';
     }
 
     include('../Repositories/ProductRepository.php');
@@ -121,7 +121,7 @@
                     
         
 
-                    <?php if($product['status'] == 3): ?>
+                    <?php if($product['status'] == 3 || strlen($product['reason_refusal']) > 0): ?>
                         <th>
                             <a onclick="delete_confirm(<?php echo $product['id'] ?>)" >Xóa</a>
                         </th>
