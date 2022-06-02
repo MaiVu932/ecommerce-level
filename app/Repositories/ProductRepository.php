@@ -579,7 +579,7 @@
         {
             $id = isset($_GET['id']) ?? $_SESSION['shop_id'];
 
-            $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $id);
+            $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $_GET['idP']);
 
             if(!$isUpdate) {
                 echo '<script>alert("Đăng bán thất bại !!!")</script>';
@@ -598,7 +598,7 @@
                 return;
             } 
 
-            echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./ProductList.php"; </script>';
+            // echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./ProductList.php"; </script>';
             return;
             
         }

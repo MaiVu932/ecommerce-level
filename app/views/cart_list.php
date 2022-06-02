@@ -4,7 +4,7 @@
     $get_data = new OrderRepository();
     $info = $get_data->getProductsInCart();
 
-    global $state;
+    global $state, $data;
     $state = false;
     
     if(isset($_POST['btn-selected-all'])) {
@@ -12,7 +12,11 @@
     }
 
     if(isset($_POST['btn-buy'])) {
-        $get_data->orderBuyListProducts($_POST);
+        if(!isset($_POST['select'])) echo '<script>alert("Bạn cần chọn sản phẩm trước khi đắt hàng")</script>';
+        else {
+            $_SESSION['selects'] = $_POST['select'];
+            $get_data->orderBuyListProducts($_POST['select']);
+        }
     }
 
 
@@ -52,7 +56,8 @@
             foreach($info as $value){ 
             ?>
         <tr onclick="mySelect(this)">
-            <td><input <?php echo $state ? 'checked' : ''; ?> style="margin:auto;" type="checkbox" value="<?php echo $value['id'] ?>" name="select[]"></td>
+            <td><input <?php 
+             echo $state ? 'checked' : ''; ?> style="margin:auto;" type="checkbox" value="<?php echo $value['id'] ?>" name="select[]"></td>
             <td><?php echo $i++ ?></td>
             <td>
                 <img src="<?php echo IMAGES . $value['code'] . '/' . $value['image'] ?>" 
@@ -61,7 +66,7 @@
             </td>
             <td><?php echo $value['name'] ?></td>
             <td><?php echo $value['price_market'] ?></td>
-            <td><input name="num-quantity[]" type="number" value="<?php echo $value['quantity'] ?>" ></td>
+            <td><?php echo $value['quantity'] ?></td>
             <td><?php echo $total = ($value['price_market']) * ($value['quantity']) ?></td>
             <td><a href="">Xóa</a></td>
         </tr>
@@ -86,6 +91,10 @@
 
     function mySelect(e) {
         console.log(e);
+    }
+
+    function changeQuantity(e) {
+        e.setAttribute('value', e.value)
     }
 </script>
     

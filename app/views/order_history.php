@@ -35,11 +35,12 @@ echo '<script src="' . JS . 'complain.js" defer></script>';
 			<?php
 			if (!empty($histories)) {
 				foreach ($histories as $history) {
+					$soLanKhieuNai = $_COMPLAIN->getCountComplainByProductIdAndUserId($history['product_id'], $_SESSION['id']);
 					echo '
 					<div class="list">
 						<div class="info">
 							<div class="image">
-								<img src="' . IMAGES . '' . $history['code'] . '/' . $history['image'] . '" alt="">
+								<img src="' . IMAGES . '' . $history['image'] . '" alt="">
 							</div>
 							<div class="detail-list">
 								<span>' . $history['name'] . '</span>
@@ -49,7 +50,11 @@ echo '<script src="' . JS . 'complain.js" defer></script>';
 								<span>Địa chỉ</span>
 								<p>' . $history['address'] . '</p>
 								<span>Số điện thoại</span>
-								<p>' . $history['num_phone'] . '</p>
+								<p>' . $history['num_phone'] . '</p>';
+					if ($soLanKhieuNai > 0) {
+						echo '<p style="color: red">Bạn đã khiếu nại sản phẩm này ' . $soLanKhieuNai . ' lần</p>';
+					}
+					echo '
 								<br>
 								<a href="complain_create.php?id=' . $history['order_id'] . '">
 									<button type="submit" class="btn btn-primary">Khiếu nại</button>

@@ -180,7 +180,7 @@
     }
 
     function postProduct(id){
-        window.location = "./ProductPost.php?id=" + id;
+        window.location = "./ProductPost.php?idP=" + id;
     }
 
 </script>

@@ -28,7 +28,7 @@ class BaseRepository
 	}
 
 
-	public function insert($table, $data)
+	public function insert($table, $data, $insert_id = false)
 	{
 
 		$this->connect();
@@ -46,7 +46,11 @@ class BaseRepository
 
 
 		$sql = "INSERT INTO $table($field_list) VALUES($value_list);";
-		return $this->_connection->query($sql);
+		if ($insert_id) {
+			$this->_connection->query($sql);
+			return $this->_connection->insert_id;
+		} else
+			return $this->_connection->query($sql);
 	}
 
 	public function update($table, $data, $where)
