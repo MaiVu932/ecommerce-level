@@ -31,7 +31,7 @@ class CategoryRepository extends BaseRepository
     /**
      * select_category: Lấy ra thông tin danh mục
      *
-     * @return void
+     * @return array
      */
     public function select_category()
     {
