@@ -128,7 +128,6 @@ class BaseRepository
 			die("Cau lenh truy van sai!");
 
 		// $result = $query->fetch_all();
-
 		while ($row = $query->fetch_assoc()) {
 			$result[] = $row;
 		}

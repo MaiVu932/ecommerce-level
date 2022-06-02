@@ -6,11 +6,11 @@ if(!isset($_SESSION)) {
  include 'define.php';
  include '../Repositories/BaseRepository.php';
  include '../Repositories/NotificationRepository.php';
-
+ $notification = new NotificationRepository();
  if(isset($_SESSION['role'])) {
-    $notification = new NotificationRepository();
     $notification_count = count($notification->getNotificationsByUserId());
  }
+
 
  
 
@@ -161,18 +161,29 @@ if(!isset($_SESSION)) {
                                          
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="./order_history.php">Giao dịch</i></a>
+                                <?php if (isset($_SESSION['role']) && ($_SESSION['role'] == 2 || $_SESSION['role'] == 3 )): ?>
+                                    <li class="dropdown"><a href="./complain_list.php">Danh sách khiếu nại</i></a>
+                                    </li> 
+                                       
+                                        <?php else: ?>
+                                            <li class="dropdown"><a href="./order_history.php">Giao dịch</i></a>
                                     
                                 </li> 
+                                        <?php endif; ?>
+								
 								<li><a href="404.html">404</a></li>
 								<li><a href="contact-us.html">Liên hệ</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Tìm Kiếm"/>
-						</div>
+						
+							<form method="POST">
+
+                                <input type="text" name="txt-search" placeholder="Tìm Kiếm"/>
+                                <input type="submit" name="btn-search" value="Tìm kiếm" >
+                            </form>
+						
 					</div>
 				</div>
 			</div>
