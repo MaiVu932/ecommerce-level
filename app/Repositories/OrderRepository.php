@@ -51,7 +51,7 @@ class OrderRepository extends BaseRepository
         }
 
         echo '<script>alert("Đặt hàng thành công thành công")</script>';
-        // echo '<script>window.location="./cart_list.php"</script>';
+        echo '<script>window.location="./cart_list.php"</script>';
         return;
     }
     public function getIdOrderByUserId()
