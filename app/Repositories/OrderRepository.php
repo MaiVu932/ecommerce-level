@@ -4,9 +4,37 @@
 class OrderRepository extends BaseRepository
 {
 
+    public function createOrder($quantity)
+    {
+        if(!isset($_SESSION['id'])) {
+            echo '<script>alert("Bạn cần đăng nhâp trước khi thêm vào giỏ hàng")</script>';
+            return;
+        }
+        $user = $this->getInfoUserById();
+        $order = [
+            'user_id' => $_SESSION['id'],
+            'product_id' => $_SESSION['product_id'],
+            'quantity' => $quantity,
+            'status' => 3,
+            'address' => $user['address'],
+            'num_phone' => $user['num_phone'],
+            'create_at' => date('Ymd')
+        ];
+        $isInsertOrder = $this->insert('orders', $order);
+        if(!$isInsertOrder) {
+            echo '<script>alert("Thêm sản phẩm thất bại !! ")</script>';
+            return;
+        }
+        echo '<script>alert("Thêm sản phẩm vào giỏ hàng thành công")</script>';
+        echo '<script>window.location="./cart_list.php"</script>';
+        return;
+    }
+
     public function getProductsInCart()
     {
-        $query = " SELECT P.name, P.price_market, O.quantity, P.image  FROM orders O, products P WHERE O.product_id = P.id AND O.user_id = " . $_SESSION['id'];
+        $query = " SELECT P.name, P.price_market, O.quantity, P.image, C.code  ";
+        $query .= " FROM orders O, products P, categories C "; 
+        $query .= " WHERE P.category_id = C.id AND O.product_id = P.id AND O.user_id = " . $_SESSION['id'];
         return $this->get_data($query);
     }
 

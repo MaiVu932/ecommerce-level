@@ -30,6 +30,10 @@ if(isset($_POST['btn-add-to-cart'])) {
     $order->addToCart($_POST['quantity']);
 }
 
+if(isset($_POST['btn-buy']) ) {
+    echo '<script>window.location="./order_create.php"</script>';
+}
+
 
 ?>
 <section>
