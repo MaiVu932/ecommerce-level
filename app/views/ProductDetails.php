@@ -100,7 +100,7 @@ if(isset($_POST['btn-buy']) ) {
 									<span>Giá: US $<?php echo $infoDetail['price_market'] ?></span>
 									<br>
                                     <label>Số Lượng:</label>
-									<input type="number" name="quantity" value="1" min="1" />
+									<input type="number" name="quantity" value="1" min="1" max="<?php echo $product->checkQuantity(); ?>" />
 									<p><?php echo $infoDetail['description'] ?></p>
 
                                     <button type="submit" name="btn-add-to-cart" class="btn btn-fefault cart">

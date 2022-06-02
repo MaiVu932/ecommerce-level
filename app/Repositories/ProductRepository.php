@@ -42,6 +42,16 @@
             return $this->get_data($query)[0];
         }
 
+        public function checkQuantity()
+        {
+            $query = "SELECT quantity FROM products WHERE id = " . $_SESSION['product_id'];
+            $quantityStart = $this->get_data($query)[0]['quantity'];
+            $query = "SELECT SUM(quantity) quantity FROM orders WHERE product_id = " . $_SESSION['product_id'] . " AND status IN (1, 2) ";
+            $quantityDel = $this->get_data($query)[0]['quantity'] ?? 0;
+
+            return $quantityStart - $quantityDel;
+        }
+
         /**
          * getCategories: lấy ra các doanh mục
          *
