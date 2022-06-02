@@ -10,10 +10,65 @@ class OrderRepository extends BaseRepository
      * @param [type] $data
      * @return void
      */
-    public function orderBuyListProducts($data)
+    public function orderBuyListProducts($orders)
     {
-        var_dump($data['num-quantity']);
-        
+        $data = [];
+        foreach($orders as $order) {
+            // $o = $this->buyProductByCart($order);
+            $o = $this->getUserIdOfShoWhenOrderId($order)[0];
+            if($o) array_push($data, $o);
+        }
+        $_SESSION['orders'] = $data;
+        // var_dump($_SESSION['orders']);
+        echo '<script>window.location="order_products.php"</script>';
+        return;
+    }
+
+    public function orderBuyListProducts1($orders, $address, $numPhone)
+    {
+        $data = [];
+        foreach($orders as $order) {
+            $o = $this->buyProductByCart($order, $address, $numPhone);
+            // $o = $this->getUserIdOfShoWhenOrderId($order)[0];
+            if($o) array_push($data, $o);
+        }
+        // $_SESSION['orders'] = $data;
+        echo '<script>alert("Đặt hàng thành công !!")window.location="home.php"</script>';
+        return;
+    }
+
+    public function buyProductByCart($order_id, $address, $numPhone)
+    {
+        $isUpdateOrder = $this->update('orders', [
+            'status' => 4, 
+            'address' => $address,
+            'num_phone' => $numPhone,
+            'create_at' => date("Ymd")], 'id = ' . $order_id);
+        if(!$isUpdateOrder) {
+            echo '<script>alert("Đặt hàng thất bại")</script>';
+            return;
+        }
+        $data = $this->getUserIdOfShoWhenOrderId($order_id)[0];
+        $notification = [
+            'user_id' => $data['user_id'],
+            'notifiable_type' => 1,
+            'notifiable_id' => $order_id,
+            'status' => 1
+        ];
+        $isInsertNotification = $this->insert('notifications', $notification);
+        if(!$isInsertNotification) {
+            echo '<script>alert("Đặt hàng thất bại")</script>';
+            return;
+        }
+        echo '<script>alert("Đặt hàng thanh cong")</script>';
+        return;
+
+    }
+
+    public function getUserIdOfShoWhenOrderId($order_id)
+    {
+        $query = " SELECT U.id user_id, P.id product_id, P.price_market price, P.name, O.quantity FROM users U, shops S, products P, orders O WHERE U.id = S.user_id AND S.id = P.shop_id AND O.product_id = P.id AND O.id = " . $order_id;
+        return $this->get_data($query);
     }
     
    /**
@@ -113,7 +168,7 @@ class OrderRepository extends BaseRepository
     {
         $query = " SELECT O.id, P.name, P.price_market, O.quantity, P.image, C.code  ";
         $query .= " FROM orders O, products P, categories C "; 
-        $query .= " WHERE P.category_id = C.id AND O.product_id = P.id AND O.user_id = " . $_SESSION['id'];
+        $query .= " WHERE P.category_id = C.id AND O.product_id = P.id AND O.user_id = " . $_SESSION['id'] . " AND O.status = 3 ";
         return $this->get_data($query);
     }
 

@@ -102,6 +102,6 @@ if(isset($_POST['btnDatHang'])) {
                     </div>
                 </div>
             </form>
-
+        </div>
 
 <?php include './footer.php'; ?>

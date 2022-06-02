@@ -101,24 +101,22 @@
             }
 
             if(!$page && $category) {
-                $page_current = 1;
-                $start = ($page_current - 1) * 12;
+               
 
                 $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
                 $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1  ";
-                $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
+                $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC " ;
 
                 return $this->get_data($query);
             }
 
 
             if(!$category && !$page) {
-                $page_current = 1;
-                $start = ($page_current - 1) * 12;
+               
 
                 $query = " SELECT P.id product_id , P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
                 $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1  ";
-                $query .= " ORDER BY P.create_at DESC LIMIT 12 OFFSET " . $start ;
+                $query .= " ORDER BY P.create_at DESC " ;
 
                 return $this->get_data($query);
             }
@@ -711,7 +709,7 @@
         {
             $id = isset($_GET['id']) ?? $_SESSION['shop_id'];
 
-            $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $id);
+            $isUpdate = $this->update('products', ['status' => 0], 'id = ' . $_GET['idP']);
 
             if(!$isUpdate) {
                 echo '<script>alert("Đăng bán thất bại !!!")</script>';
@@ -730,7 +728,7 @@
                 return;
             } 
 
-            echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./ProductList.php"; </script>';
+            // echo '<script>alert("Chúng tôi sẽ phê duyệt sản phẩm của bạn trong thời gian ngắn nhất !!!"); window.location="./ProductList.php"; </script>';
             return;
             
         }
