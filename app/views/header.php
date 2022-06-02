@@ -105,25 +105,25 @@ if(!isset($_SESSION)) {
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
                                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3): ?>
-								    <li><a href="ProductCensorship.php"><i class="fa fa-star"></i> Approves</a></li>
-									<li><a href="sale-revenue-exchange.php"><i class="fa fa-star"></i> Sale-revenue</a></li>
-								    <li><a href="category_list.php"><i class="fa fa-star"></i> Categories</a></li>
-								    <li><a href="user_list.php"><i class="fa fa-user"></i> Users</a></li>
+								    <li><a href="ProductCensorship.php"><i class="fa fa-star"></i>Xét Duyệt</a></li>
+									<li><a href="sale-revenue-exchange.php"><i class="fa fa-star"></i> Doanh Số/Thu</a></li>
+								    <li><a href="category_list.php"><i class="fa fa-star"></i>Danh Mục</a></li>
+								    <li><a href="user_list.php"><i class="fa fa-user"></i> Người Dùng</a></li>
                                 <?php endif; ?>
 
                                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 2): ?>
-								    <li><a href="ProductCensorship.php"><i class="fa fa-star"></i> Approves</a></li>
-									<li><a href="sale-revenue-exchange.php"><i class="fa fa-star"></i> Sale-revenue</a></li>
-								    <li><a href="category_list.php"><i class="fa fa-star"></i> Categories</a></li>
-								    <li><a href="user_list.php"><i class="fa fa-user"></i> Users</a></li>
+								    <li><a href="ProductCensorship.php"><i class="fa fa-star"></i>Xét Duyệt</a></li>
+									<li><a href="sale-revenue-exchange.php"><i class="fa fa-star"></i>Doanh Số/Thu</a></li>
+								    <li><a href="category_list.php"><i class="fa fa-star"></i>Danh Mục</a></li>
+								    <li><a href="user_list.php"><i class="fa fa-user"></i>Người Dùng</a></li>
                                 <?php endif; ?>
-								<li><a href="cart_list.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="cart_list.php"><i class="fa fa-shopping-cart"></i>Giỏ Hàng</a></li>
                                 <?php if(isset($_SESSION['username'])): ?>
-                                    <li><a href="notification.php"><i class="fa-solid fa-bell"></i>Notification<?php echo isset($_SESSION['role']) ? "(" . $notification_count . ")" : ''; ?></a></li>
+                                    <li><a href="notification.php"><i class="fa-solid fa-bell"></i>Thông Báo<?php echo isset($_SESSION['role']) ? "(" . $notification_count . ")" : ''; ?></a></li>
                                     <li><a href="user_update.php"><i class="fa fa-user"></i><?php echo $_SESSION['username'] ?></a></li>
-								    <li><a href="user_logout.php"><i class="fa fa-crosshairs"></i> Logout</a></li>
+								    <li><a href="user_logout.php"><i class="fa fa-crosshairs"></i>Đăng Xuất</a></li>
                                     <?php else: ?>
-                                    <li><a href="user_login.php"><i class="fa fa-lock"></i> Login</a></li>
+                                    <li><a href="user_login.php"><i class="fa fa-lock"></i>Đăng Nhập</a></li>
                                 <?php endif; ?>
 								
 							</ul>
@@ -139,7 +139,7 @@ if(!isset($_SESSION)) {
 					<div class="col-sm-9">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-								<span class="sr-only">Toggle navigation</span>
+								<span class="sr-only"></span>
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
@@ -147,11 +147,11 @@ if(!isset($_SESSION)) {
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="home.php" class="active">Home</a></li>
+								<li><a href="home.php" class="active">Trang Chủ</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 0): ?>
-                                            <li><a href="shop_create.php">Create shop</a></li>
+                                            <li><a href="shop_create.php">Tạo shop</a></li>
                                         <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 1): ?>
                                             <li><a href="shop_list.php">Shops</a></li>
                                             <!-- <li><a href="product-details.html">Product Details</a></li>  -->
@@ -161,17 +161,17 @@ if(!isset($_SESSION)) {
                                          
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="./order_history.php">History</i></a>
+								<li class="dropdown"><a href="./order_history.php">Giao dịch</i></a>
                                     
                                 </li> 
 								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li>
+								<li><a href="contact-us.html">Liên hệ</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<input type="text" placeholder="Tìm Kiếm"/>
 						</div>
 					</div>
 				</div>
