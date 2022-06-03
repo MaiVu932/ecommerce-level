@@ -116,7 +116,7 @@ class BaseRepository
 	 * get_data: lấy dữ liệu từ cơ sở dữ liệu
 	 *
 	 * @param [type] $sql
-	 * @return void
+	 * @return array
 	 */
 	public function get_data($sql)
 	{
@@ -128,7 +128,6 @@ class BaseRepository
 			die("Cau lenh truy van sai!");
 
 		// $result = $query->fetch_all();
-
 		while ($row = $query->fetch_assoc()) {
 			$result[] = $row;
 		}

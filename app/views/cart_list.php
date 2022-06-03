@@ -32,7 +32,8 @@ if(!isset($_SESSION['id'])) {
 
     <div class="content">
         <form method="POST">
-        <h1>Danh sách sản phẩm trong giỏ hàng</h1>
+        <span style="margin-left: 30px;"><a href="./order_history.php">Lịch sử giao dịch</a></span>
+        <h1>Danh sách sản phẩm trong giỏ hàng</h1> 
     
     <table id="post">
         <tr>

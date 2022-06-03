@@ -35,6 +35,13 @@ if(isset($_POST['btn-buy']) ) {
     echo '<script>window.location="./order_create.php"</script>';
 }
 
+if(isset($_POST['btn-seen'])) {
+    $_SESSION['product_id'] = $_POST['txt'];
+    $infoDetail = $product->getInfoDetailProductById();
+    $products = $product->getProductsByCategoryID();
+    // var_dump($_POST['txt']);
+}
+
 
 ?>
 <section>
@@ -100,7 +107,7 @@ if(isset($_POST['btn-buy']) ) {
 									<span>Giá: US $<?php echo $infoDetail['price_market'] ?></span>
 									<br>
                                     <label>Số Lượng:</label>
-									<input type="number" name="quantity" value="1" min="1" />
+									<input type="number" name="quantity" value="1" min="1" max="<?php echo $product->checkQuantity(); ?>" />
 									<p><?php echo $infoDetail['description'] ?></p>
 
                                     <button type="submit" name="btn-add-to-cart" class="btn btn-fefault cart">
@@ -175,7 +182,12 @@ if(isset($_POST['btn-buy']) ) {
                                                             <img style="height: 200px;" src="../../public/images/<?php echo $product['code'] . '/' . $product['image']  ?>" alt="" />
                                                             <h2>$<?php echo $product['price_market'] ?></h2>
                                                             <p><?php echo $product['name'] ?></p>
-                                                            <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+                                                            <form method="POST">
+                                                                
+                                                                <input style="display: none;" type="text" name="txt" value="<?php  echo $product['id'] ;?>">
+                                                            <button type="submit" name="btn-seen" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>

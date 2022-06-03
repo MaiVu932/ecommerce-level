@@ -33,7 +33,7 @@ class OrderRepository extends BaseRepository
             if($o) array_push($data, $o);
         }
         // $_SESSION['orders'] = $data;
-        echo '<script>alert("Đặt hàng thành công !!")window.location="home.php"</script>';
+        echo '<script>alert("Đặt hàng thành công !!");window.location="home.php"</script>';
         return;
     }
 

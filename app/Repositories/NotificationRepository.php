@@ -2,6 +2,26 @@
 
 class NotificationRepository extends BaseRepository 
 {
+
+    public function search($txtSearch)
+    {
+        if(!$txtSearch) {
+            $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
+            $query .= " FROM products P, shops S, categories C ";
+            $query .= " WHERE P.category_id = C.id AND P.shop_id = S.id ";
+    
+            return $this->get_data($query);
+        }
+        $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
+        $query .= " FROM products P, shops S, categories C ";
+        $query .= " WHERE P.category_id = C.id AND P.shop_id = S.id ";
+        $query .= " AND (P.name LIKE '%" . $txtSearch . "%' ";
+        $query .= " OR C.name LIKE '%" . $txtSearch . "%' ";
+        $query .= " OR S.name LIKE '%" . $txtSearch . "%' ) ";
+
+        return $this->get_data($query);
+    }
+
     public function getAllByUserId() {
         $query = "SELECT * FROM notifications WHERE  user_id = " . $_SESSION['id'];
         return $this->get_data($query);

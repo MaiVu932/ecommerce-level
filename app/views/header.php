@@ -6,11 +6,11 @@ if(!isset($_SESSION)) {
  include 'define.php';
  include '../Repositories/BaseRepository.php';
  include '../Repositories/NotificationRepository.php';
-
+ $notification = new NotificationRepository();
  if(isset($_SESSION['role'])) {
-    $notification = new NotificationRepository();
     $notification_count = count($notification->getNotificationsByUserId());
  }
+
 
  
 
@@ -104,19 +104,6 @@ if(!isset($_SESSION)) {
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
-                                <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 3): ?>
-								    <li><a href="ProductCensorship.php"><i class="fa fa-star"></i>Xét Duyệt</a></li>
-									<li><a href="sale-revenue-exchange.php"><i class="fa fa-star"></i> Doanh Số/Thu</a></li>
-								    <li><a href="category_list.php"><i class="fa fa-star"></i>Danh Mục</a></li>
-								    <li><a href="user_list.php"><i class="fa fa-user"></i> Người Dùng</a></li>
-                                <?php endif; ?>
-
-                                <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 2): ?>
-								    <li><a href="ProductCensorship.php"><i class="fa fa-star"></i>Xét Duyệt</a></li>
-									<li><a href="sale-revenue-exchange.php"><i class="fa fa-star"></i>Doanh Số/Thu</a></li>
-								    <li><a href="category_list.php"><i class="fa fa-star"></i>Danh Mục</a></li>
-								    <li><a href="user_list.php"><i class="fa fa-user"></i>Người Dùng</a></li>
-                                <?php endif; ?>
 								<li><a href="cart_list.php"><i class="fa fa-shopping-cart"></i>Giỏ Hàng</a></li>
                                 <?php if(isset($_SESSION['username'])): ?>
                                     <li><a href="notification.php"><i class="fa-solid fa-bell"></i>Thông Báo<?php echo isset($_SESSION['role']) ? "(" . $notification_count . ")" : ''; ?></a></li>
@@ -146,7 +133,8 @@ if(!isset($_SESSION)) {
 							</button>
 						</div>
 						<div class="mainmenu pull-left">
-							<ul class="nav navbar-nav collapse navbar-collapse">
+                            <?php if(isset($_SESSION['role']) && ($_SESSION['role'] == 2 || $_SESSION['role'] == 3 ) ):  ?>
+                                <ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="home.php" class="active">Trang Chủ</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
@@ -154,25 +142,57 @@ if(!isset($_SESSION)) {
                                             <li><a href="shop_create.php">Tạo shop</a></li>
                                         <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 1): ?>
                                             <li><a href="shop_list.php">Shops</a></li>
-                                            <!-- <li><a href="product-details.html">Product Details</a></li>  -->
-                                            <!-- <li><a href="checkout.html">Checkout</a></li>  -->
                                         <?php else: ?>
                                         <?php endif; ?>
                                          
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="./order_history.php">Giao dịch</i></a>
-                                    
+                                <li class="dropdown"><a href="#">Xét duyệt<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                            <li><a href="./ProductCensorship.php">Đăng bán sản phẩm</a></li>
+                                            <li><a href="./complain_list.php">Khiếu nại</a></li>
+                                    </ul>
                                 </li> 
-								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Liên hệ</a></li>
+                                <li class="dropdown"><a href="#">Thống kê<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                            <li><a href="./sale-revenue-exchange.php">Doanh số/doanh thu</a></li>
+                                            <li><a href="./category_list.php">Danh mục sản phẩm</a></li>
+                                            <li><a href="./user_list.php">Danh sách người dùng</a></li>
+
+                                    </ul>
+                                </li>
+                                
+								
 							</ul>
+                            <?php endif; ?>
+
+                            <?php if(isset($_SESSION['role']) && ($_SESSION['role'] == 0) ):  ?>
+                                <ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="home.php" class="active">Trang Chủ</a></li>
+								<li class="dropdown"><a href="./shop_create.php">Tạo shop<i class="fa fa-angle-down"></i></a></li>         
+								
+							</ul>
+                            <?php endif; ?>
+                            <?php if(isset($_SESSION['role']) && ($_SESSION['role'] == 1) ):  ?>
+                                <ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="home.php" class="active">Trang Chủ</a></li>
+								<li class="dropdown"><a href="./shop_list.php">Danh sách cửa hàng<i class="fa fa-angle-down"></i></a></li>         
+								
+							</ul>
+                            <?php endif; ?>
+
+
+							
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Tìm Kiếm"/>
-						</div>
+						
+							<form method="POST">
+
+                                <input type="text" name="txt-search" placeholder="Tìm Kiếm"/>
+                                <input type="submit" name="btn-search" value="Tìm kiếm" >
+                            </form>
+						
 					</div>
 				</div>
 			</div>

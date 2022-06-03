@@ -131,7 +131,7 @@
                 <?php } ?>
             </table>
         <div style="margin: 20px 0px 0 20px;">
-                <a href=""><button>Back to Manager</button></a>
+                <a href="./shop_list.php"><button>Quay lại shop</button></a>
         </div>
     </div>
 </div>

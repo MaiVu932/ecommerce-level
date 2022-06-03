@@ -9,10 +9,14 @@
         $category = new CategoryRepository();
         $categories = $category->select_category();
         $product = new ProductRepository();
-        $products = $product->getProducts(isset($_GET['category']) ? $_GET['category'] : null, isset($_GET['page']) ? $_GET['page'] : null);
+        $products = $product->getProducts($_GET['catgory-id'] ?? null, $_GET['page'] ?? null);
         if(isset($_POST['btn-add-cart'])) {
             $_SESSION['product_id'] = $_POST['product-id'];
             echo '<script> window.location="ProductDetails.php" </script>';
+        }
+
+        if(isset($_POST['btn-search'])) {
+           $products = $notification->search($_POST['txt-search']);
         }
 
     ?>
@@ -95,7 +99,7 @@
                         <?php foreach($categories as $category): ?>
                             <div class="panel panel-default">
 								<div class="panel-heading">
-									<h4 class="panel-title"><a href="?catgory-id=<?php $category['id'] ?>"><?php echo $category['name'] ?></a></h4>
+									<h4 class="panel-title"><a href="?catgory-id=<?php echo $category['id'] ?>"><?php echo $category['name'] ?></a></h4>
 								</div>
 							</div>
                         <?php endforeach; ?>
