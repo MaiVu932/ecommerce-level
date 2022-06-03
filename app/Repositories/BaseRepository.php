@@ -116,7 +116,7 @@ class BaseRepository
 	 * get_data: lấy dữ liệu từ cơ sở dữ liệu
 	 *
 	 * @param [type] $sql
-	 * @return void
+	 * @return array
 	 */
 	public function get_data($sql)
 	{
