@@ -264,4 +264,21 @@ class OrderRepository extends BaseRepository
         $order = $this->get_data($sql);
         return isset($order[0]['quantity']) ? $order[0]['quantity'] : null;
     }
+
+    public function getOrderAccept()
+    {
+        $sql = "SELECT P.id, S.name 'nameS', P.name 'nameP', P.image, 
+                C.code 'code-category', O.quantity, U.name 'nameU', 
+                U.num_phone 'numPhoneU', U.address
+                FROM orders O, products P, shops S, users U, categories C
+                WHERE P.id = O.product_id AND C.id = P.category_id
+                AND P.shop_id = S.id AND O.user_id = U.id AND O.status = 4";
+
+        return $this->get_data($sql);
+    }
+
+    public function updateOrderByStatus($status, $product_id)
+    {
+        return $this->update('orders', ['status' => $status], 'product_id = ' .$product_id);
+    }
 }
