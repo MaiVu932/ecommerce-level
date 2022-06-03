@@ -2,6 +2,17 @@
     // include('BaseRepository.php');
     class ProductRepository extends BaseRepository
     {
+        public function acceptListProduct(
+            $status = null,
+            $name = null
+        )
+        {
+            $query = " SELECT ";
+            $query .= " FROM orders O, shops S, users U, products P ";
+            $query .= " WHERE P.shop_id = S.id AND O.user_id = U.id AND O.product_id = P.id AND S.id = " . $_SESSION['shop_id'];
+            
+
+        }
 
         /**
          * getProductByCategoryId: lấy thông tin sản phẩm thông qua mã danh mục
@@ -11,7 +22,7 @@
         public function getProductsByCategoryID()
         {
             $categoryId = $this->get_data("SELECT category_id FROM products WHERE id = " . $_SESSION['product_id'])[0]['category_id'];
-            return $this->get_data(" SELECT P.name, P.price_market, P.image, C.code FROM products P, categories C WHERE P.category_id = C.id AND category_id =  " . $categoryId);
+            return $this->get_data(" SELECT P.id, P.name, P.price_market, P.image, C.code FROM products P, categories C WHERE P.category_id = C.id AND category_id =  " . $categoryId);
         }
 
         /**
@@ -112,7 +123,6 @@
 
             if(!$page && $category) {
                
-
                 $query = " SELECT P.id product_id, P.code product_code, P.name product_name, P.price_market product_price, P.image product_image, C.code ";
                 $query .= " FROM products P, categories C WHERE C.id = P.category_id AND P.status = 1  ";
                 $query .= " AND P.category_id = " . $category . "  ORDER BY P.create_at DESC " ;

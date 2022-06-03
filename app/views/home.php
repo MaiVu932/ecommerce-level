@@ -9,7 +9,7 @@
         $category = new CategoryRepository();
         $categories = $category->select_category();
         $product = new ProductRepository();
-        $products = $product->getProducts(isset($_GET['category']) ? $_GET['category'] : null, isset($_GET['page']) ? $_GET['page'] : null);
+        $products = $product->getProducts($_GET['catgory-id'] ?? null, $_GET['page'] ?? null);
         if(isset($_POST['btn-add-cart'])) {
             $_SESSION['product_id'] = $_POST['product-id'];
             echo '<script> window.location="ProductDetails.php" </script>';
