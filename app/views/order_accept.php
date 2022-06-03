@@ -1,6 +1,20 @@
 <?php 
 include './header.php';
+include '../Repositories/OrderRepository.php';
 
+
+if(!isset($_SESSION['id'])) {
+    echo '<script>alert("Bạn cần đăng nhập trước"); window.location="./user_login.php";</script>';
+}
+
+$order = new OrderRepository();
+$oAccept = $order->getOrderAccept();
+
+if(isset($_GET['status'])) {
+    $order->updateOrderByStatus($_GET['status'], $_GET['id']);
+    $str = ($_GET['status'] == 5) ? ' bị từ chối' : ' được duyệt';
+    echo '<script>alert("Đơn hàng đã '.$str.'!"); window.location="./order_accept.php";</script>';
+}
 ?>
 
 <div class="container">
@@ -22,6 +36,7 @@ include './header.php';
         <table id="post">
             <tr>
                 <th>STT</th>
+                <th>Tên shop</th>
                 <th>Sản phẩm</th>
                 <th>Tên sản phẩm</th>
                 <th>Số lượng</th>
@@ -33,20 +48,27 @@ include './header.php';
             </tr>
             <?php 
             $i = 0;
-            foreach($shops as $value): 
+            foreach($oAccept as $value): 
             ?>
                 <tr>
                     <td><?php echo $i + 1; $i++?></td>
                     <td><?php echo $value['nameS'] ?></td>
-                    <td><?php echo $value['addressS'] ?></td>
-                    <td><?php echo $value['numPhoneS'] ?></td>
+                    <td>
+                        <img src= 
+                            "<?php echo IMAGES . $value['code-category'] . '/' . $value['image'] ?>"  
+                            alt="ảnh" width="100px" height ="100px"/>
+                    </td>
+                    <td><?php echo $value['nameP'] ?></td>
+                    <td><?php echo $value['quantity'] ?></td>
                     <td><?php echo $value['nameU'] ?></td>
                     <td><?php echo $value['numPhoneU'] ?></td>
-                    <td><?php echo $value['createS'] ?></td>
+                    <td><?php echo $value['address'] ?></td>
                     <td>
-                        <a href="./shop_update.php?id=<?php echo $value['id'] ?>">Sửa</a>
+                        <a href="./order_accept.php?status=2&id=<?php echo $value['id'] ?>">Duyệt</a>
                     </td>
-                   
+                    <td>
+                        <a href="./order_accept.php?status=5&id=<?php echo $value['id'] ?>">Từ chối</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
 
