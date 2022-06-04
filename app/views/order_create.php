@@ -15,7 +15,7 @@ $infoOderB = $order->infoOrderBy();
 global $total;
 $total = 0;
 if(isset($_POST['btnDatHang'])) {
-    $order->createOrder($infoOderB[0]['quantity_order'], $_POST['Diachi'], $_POST['Diachi']);
+    $order->createOrder($infoOderB[0]['quantity_order'], $_POST['Diachi'], $_POST['SDT']);
 }
 
 
