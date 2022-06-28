@@ -170,7 +170,6 @@ if(!isset($_SESSION)) {
                                 <ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="home.php" class="active">Trang Chủ</a></li>
 								<li class="dropdown"><a href="./shop_create.php">Tạo shop<i class="fa fa-angle-down"></i></a></li>         
-								
 							</ul>
                             <?php endif; ?>
                             <?php if(isset($_SESSION['role']) && ($_SESSION['role'] == 1) ):  ?>

@@ -139,7 +139,20 @@ class ComplainRepository extends BaseRepository
   {
     return $this->get_data("SELECT categories.code, orders.id, products.name, products.id as product_id, orders.id as order_id, orders.quantity, orders.status, orders.address, orders.num_phone, products.image
           FROM products, orders , categories
-          WHERE orders.product_id = products.id AND products.category_id = categories.id  AND user_id = $user_id");
+          WHERE orders.status = 1 AND orders.product_id = products.id AND products.category_id = categories.id  AND user_id = $user_id");
+  }
+
+  public function getHistoryByUserIdDangGiao($user_id)
+  {
+    return $this->get_data("SELECT categories.code, orders.id, products.name, products.id as product_id, orders.id as order_id, orders.quantity, orders.status, orders.address, orders.num_phone, products.image
+          FROM products, orders , categories
+          WHERE orders.status = 2 AND orders.product_id = products.id AND products.category_id = categories.id  AND user_id = $user_id");
+  }
+  public function getHistoryByUserIdDangGiaoDangChoXetDuyet($user_id)
+  {
+    return $this->get_data("SELECT categories.code, orders.id, products.name, products.id as product_id, orders.id as order_id, orders.quantity, orders.status, orders.address, orders.num_phone, products.image
+          FROM products, orders , categories
+          WHERE orders.status = 4 AND orders.product_id = products.id AND products.category_id = categories.id  AND user_id = $user_id");
   }
 
   // get số lần người dùng tố báo sản phẩm theo product_id và user_id

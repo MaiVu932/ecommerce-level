@@ -14,6 +14,10 @@ if (!isset($_SESSION['id'])) {
 }
 
 $histories = $_COMPLAIN->getHistoryByUserId($_SESSION['id']);
+$historiesDangGiao = $_COMPLAIN->getHistoryByUserIdDangGiao($_SESSION['id']);
+$historiesDangChoXetDuyet = $_COMPLAIN->getHistoryByUserIdDangGiaoDangChoXetDuyet($_SESSION['id']);
+
+
 
 echo '<link rel="stylesheet" href="' . CSS . 'complain.css" />';
 echo '<script src="' . JS . 'complain.js" defer></script>';
@@ -39,7 +43,7 @@ echo '<script src="' . JS . 'complain.js" defer></script>';
 					echo '
 					<div class="list">
 						<div class="info">
-							<div class="image">
+							<div style="width: 150px; height: 150px" class="image">
 								<img src="' . IMAGES . '' . $history['code'] . '/' . $history['image'] . '" alt="">
 							</div>
 							<div class="detail-list">
@@ -63,9 +67,92 @@ echo '<script src="' . JS . 'complain.js" defer></script>';
 						</div>
 					</div>';
 				}
+                
 			} else {
 				echo '
 				<h1 style="text-align: center">Lịch sử mua hàng trống</h1>';
+			}
+			?>
+        </div>
+        <div class="complain-create">
+
+<?php
+			if (!empty($historiesDangGiao)) {
+				foreach ($historiesDangGiao as $history) {
+					$soLanKhieuNai = $_COMPLAIN->getCountComplainByProductIdAndUserId($history['product_id'], $_SESSION['id']);
+					echo '
+					<div class="list">
+						<div class="info">
+							<div style="width: 150px; height: 150px" class="image">
+								<img src="' . IMAGES . '' . $history['code'] . '/' . $history['image'] . '" alt="">
+							</div>
+							<div class="detail-list">
+								<span>' . $history['name'] . '</span>
+								<span>Số lượng: ' . $history['quantity'] . '</span>
+								<span>Tình trạng</span>
+								<p>Đang giao</p>
+								<span>Địa chỉ</span>
+								<p>' . $history['address'] . '</p>
+								<span>Số điện thoại</span>
+								<p>' . $history['num_phone'] . '</p>';
+					if ($soLanKhieuNai > 0) {
+						echo '<p style="color: red">Bạn đã khiếu nại sản phẩm này ' . $soLanKhieuNai . ' lần</p>';
+					}
+					echo '
+								<br>
+								<a href="complain_create.php?id=' . $history['order_id'] . '">
+									<button type="submit" class="btn btn-primary">Khiếu nại</button>
+								</a>
+							</div>
+						</div>
+					</div>';
+				} 
+                
+			} else {
+				echo '
+				<h1 style="text-align: center">Không có sản phẩm nào đang giao</h1>';
+			}
+			?>
+
+		</div>
+
+        <div class="complain-create">
+
+<?php
+			if (!empty($historiesDangChoXetDuyet)) {
+				foreach ($historiesDangChoXetDuyet as $history) {
+					$soLanKhieuNai = $_COMPLAIN->getCountComplainByProductIdAndUserId($history['product_id'], $_SESSION['id']);
+					echo '
+					<div class="list">
+						<div class="info">
+							<div style="width: 150px; height: 150px" class="image">
+								<img src="' . IMAGES . '' . $history['code'] . '/' . $history['image'] . '" alt="">
+							</div>
+							<div class="detail-list">
+								<span>' . $history['name'] . '</span>
+								<span>Số lượng: ' . $history['quantity'] . '</span>
+								<span>Tình trạng</span>
+								<p>Đang chờ xét duyệt</p>
+								<span>Địa chỉ</span>
+								<p>' . $history['address'] . '</p>
+								<span>Số điện thoại</span>
+								<p>' . $history['num_phone'] . '</p>';
+					if ($soLanKhieuNai > 0) {
+						echo '<p style="color: red">Bạn đã khiếu nại sản phẩm này ' . $soLanKhieuNai . ' lần</p>';
+					}
+					echo '
+								<br>
+								<a href="complain_create.php?id=' . $history['order_id'] . '">
+									<button type="submit" class="btn btn-primary">Khiếu nại</button>
+								</a>
+							</div>
+						</div>
+					</div>';
+				} 
+                
+			} else {
+				echo '
+				<h1 style="text-align: center">Không có sản phẩm nào đang chờ xét duyệt</h1>';
 			}
 			?>
 
